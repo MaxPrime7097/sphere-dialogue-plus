@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { CreateMarketplaceItemModal } from "@/components/modals/CreateMarketplaceItemModal";
 
 export function Marketplace() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -163,10 +164,12 @@ export function Marketplace() {
               Achetez, vendez et échangez entre étudiants
             </p>
           </div>
-          <Button className="campus-gradient text-white hover:opacity-90 gap-2">
-            <Plus className="h-4 w-4" />
-            Vendre un article
-          </Button>
+          <CreateMarketplaceItemModal>
+            <Button className="campus-gradient text-white hover:opacity-90 gap-2">
+              <Plus className="h-4 w-4" />
+              Vendre un article
+            </Button>
+          </CreateMarketplaceItemModal>
         </div>
 
         {/* Filters */}

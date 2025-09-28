@@ -4,6 +4,7 @@ import { AppSidebar } from "./AppSidebar";
 import { Button } from "@/components/ui/button";
 import { Moon, Sun, Search, Plus } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { CreatePostModal } from "@/components/modals/CreatePostModal";
 
 interface AppLayoutProps {
   children: ReactNode;
@@ -38,10 +39,12 @@ export function AppLayout({ children }: AppLayoutProps) {
               </div>
 
               <div className="flex items-center gap-2">
-                <Button variant="outline" size="sm" className="hidden md:flex">
-                  <Plus className="h-4 w-4 mr-2" />
-                  Nouveau post
-                </Button>
+                <CreatePostModal>
+                  <Button variant="outline" size="sm" className="hidden md:flex">
+                    <Plus className="h-4 w-4 mr-2" />
+                    Nouveau post
+                  </Button>
+                </CreatePostModal>
                 
                 <Button
                   variant="ghost"

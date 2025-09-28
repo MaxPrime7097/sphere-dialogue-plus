@@ -1,156 +1,166 @@
 import { useState } from "react";
-import { Search, Download, BookOpen, FileText, Video, Headphones, Filter, Star } from "lucide-react";
+import { Search, Filter, Download, BookOpen, FileText, Video, Headphones, Eye, Heart, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export function Library() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedSubject, setSelectedSubject] = useState("all");
   const [selectedType, setSelectedType] = useState("all");
 
+  const subjects = [
+    { value: "all", label: "Toutes matières" },
+    { value: "math", label: "Mathématiques" },
+    { value: "cs", label: "Informatique" },
+    { value: "physics", label: "Physique" },
+    { value: "economics", label: "Économie" },
+    { value: "literature", label: "Littérature" },
+    { value: "history", label: "Histoire" },
+    { value: "language", label: "Langues" }
+  ];
+
+  const documentTypes = [
+    { value: "all", label: "Tous types" },
+    { value: "course", label: "Cours" },
+    { value: "exercise", label: "Exercices" },
+    { value: "exam", label: "Examens" },
+    { value: "book", label: "Livres" },
+    { value: "video", label: "Vidéos" },
+    { value: "audio", label: "Audio" }
+  ];
+
   const resources = [
     {
       id: "1",
-      title: "Introduction à l'Intelligence Artificielle",
-      description: "Cours complet sur les fondamentaux de l'IA avec exercices pratiques",
-      type: "pdf",
-      subject: "informatique",
-      author: "Prof. Martin Dubois",
-      pages: 156,
-      size: "12.5 MB",
-      downloads: 2340,
+      title: "Algèbre Linéaire - Cours Complet",
+      description: "Cours magistral complet sur l'algèbre linéaire avec exercices corrigés",
+      type: "course",
+      subject: "math",
+      format: "pdf",
+      size: "15.2 MB",
+      pages: 342,
+      downloads: 1205,
+      likes: 89,
       rating: 4.8,
-      reviews: 67,
-      thumbnail: "/placeholder-pdf.jpg",
-      tags: ["IA", "Machine Learning", "Python"]
+      professor: "Prof. Martin Dubois",
+      university: "Université Paris-Saclay",
+      year: "2024",
+      uploadedBy: {
+        name: "Alice Martin",
+        avatar: "/placeholder-avatar.jpg"
+      },
+      tags: ["algèbre", "matrices", "vecteurs", "L2"],
+      lastUpdated: "il y a 2j"
     },
     {
       id: "2",
-      title: "Analyse Mathématique - Série d'exercices",
-      description: "Exercices corrigés d'analyse niveau L2 avec méthodes détaillées",
-      type: "pdf",
-      subject: "mathematiques",
-      author: "Prof. Sophie Chen",
-      pages: 89,
-      size: "8.2 MB",
-      downloads: 1876,
-      rating: 4.6,
-      reviews: 43,
-      thumbnail: "/placeholder-math.jpg",
-      tags: ["Analyse", "Exercices", "Corrections"]
+      title: "Introduction aux Algorithmes",
+      description: "Manuel de référence pour l'étude des algorithmes et structures de données",
+      type: "book",
+      subject: "cs",
+      format: "epub",
+      size: "8.7 MB",
+      pages: 1180,
+      downloads: 892,
+      likes: 156,
+      rating: 4.9,
+      professor: "Thomas H. Cormen",
+      university: "MIT Press",
+      year: "2023",
+      uploadedBy: {
+        name: "Thomas Chen",
+        avatar: "/placeholder-avatar.jpg"
+      },
+      tags: ["algorithmes", "structures", "complexité", "L3"],
+      lastUpdated: "il y a 1 semaine"
     },
     {
       id: "3",
-      title: "Conférence: Future of Web Development",
-      description: "Enregistrement de la conférence sur les nouvelles technologies web",
-      type: "video",
-      subject: "informatique",
-      author: "Dr. Alex Rodriguez",
-      duration: "1h 45min",
-      size: "2.1 GB",
-      downloads: 892,
-      rating: 4.9,
-      reviews: 28,
-      thumbnail: "/placeholder-video.jpg",
-      tags: ["React", "Next.js", "TypeScript"]
+      title: "Physique Quantique - TD Corrigés",
+      description: "Travaux dirigés avec corrections détaillées en physique quantique",
+      type: "exercise",
+      subject: "physics",
+      format: "pdf",
+      size: "12.4 MB",
+      pages: 89,
+      downloads: 654,
+      likes: 73,
+      rating: 4.6,
+      professor: "Dr. Sarah Johnson",
+      university: "École Polytechnique",
+      year: "2024",
+      uploadedBy: {
+        name: "Sophie Laurent",
+        avatar: "/placeholder-avatar.jpg"
+      },
+      tags: ["quantique", "TD", "correction", "M1"],
+      lastUpdated: "il y a 3j"
     },
     {
       id: "4",
-      title: "Podcast: Entrepreneuriat Étudiant",
-      description: "Série de podcasts sur la création d'entreprise pendant les études",
-      type: "audio",
-      subject: "business",
-      author: "Équipe Incubateur",
-      duration: "45min",
-      size: "65 MB",
-      downloads: 567,
+      title: "Macroéconomie - Cours Vidéo",
+      description: "Série de cours vidéo sur les principes de la macroéconomie moderne",
+      type: "video",
+      subject: "economics",
+      format: "mp4",
+      size: "2.1 GB",
+      duration: "8h 45min",
+      downloads: 423,
+      likes: 95,
       rating: 4.7,
-      reviews: 19,
-      thumbnail: "/placeholder-podcast.jpg",
-      tags: ["Startup", "Business", "Conseils"]
+      professor: "Prof. Jean Tirole",
+      university: "Toulouse School of Economics",
+      year: "2024",
+      uploadedBy: {
+        name: "Marc Durand",
+        avatar: "/placeholder-avatar.jpg"
+      },
+      tags: ["macroéconomie", "politique", "monétaire", "L3"],
+      lastUpdated: "il y a 5j"
     },
     {
       id: "5",
-      title: "Physique Quantique - Notes de cours",
-      description: "Notes détaillées du cours de physique quantique avec schémas",
-      type: "document",
-      subject: "physique",
-      author: "Prof. Marie Laurent",
-      pages: 134,
-      size: "15.8 MB",
-      downloads: 1205,
-      rating: 4.5,
-      reviews: 31,
-      thumbnail: "/placeholder-physics.jpg",
-      tags: ["Quantique", "Théorie", "Formules"]
+      title: "Annales Examen Analyse",
+      description: "Collection d'examens d'analyse mathématique des 5 dernières années",
+      type: "exam",
+      subject: "math",
+      format: "pdf",
+      size: "6.8 MB",
+      pages: 156,
+      downloads: 1867,
+      likes: 201,
+      rating: 4.9,
+      professor: "Multiple",
+      university: "Sorbonne Université",
+      year: "2019-2024",
+      uploadedBy: {
+        name: "Emma Leroy",
+        avatar: "/placeholder-avatar.jpg"
+      },
+      tags: ["analyse", "examen", "annales", "L2"],
+      lastUpdated: "il y a 1j"
+    }
+  ];
+
+  const recentlyViewed = [
+    {
+      id: "1",
+      title: "Algèbre Linéaire - Cours Complet",
+      viewedAt: "il y a 2h"
     },
     {
-      id: "6",
-      title: "Chimie Organique - Travaux Pratiques",
-      description: "Guide complet des TP de chimie organique avec protocoles",
-      type: "pdf",
-      subject: "chimie",
-      author: "Dr. Thomas Moreau",
-      pages: 78,
-      size: "6.4 MB",
-      downloads: 934,
-      rating: 4.4,
-      reviews: 22,
-      thumbnail: "/placeholder-chemistry.jpg",
-      tags: ["Organique", "TP", "Protocoles"]
+      id: "3",
+      title: "Physique Quantique - TD Corrigés",
+      viewedAt: "hier"
     }
   ];
 
-  const subjects = [
-    { id: "all", label: "Toutes matières" },
-    { id: "informatique", label: "Informatique" },
-    { id: "mathematiques", label: "Mathématiques" },
-    { id: "physique", label: "Physique" },
-    { id: "chimie", label: "Chimie" },
-    { id: "business", label: "Business" },
-    { id: "langues", label: "Langues" }
-  ];
-
-  const resourceTypes = [
-    { id: "all", label: "Tous types" },
-    { id: "pdf", label: "PDF" },
-    { id: "document", label: "Documents" },
-    { id: "video", label: "Vidéos" },
-    { id: "audio", label: "Audio" }
-  ];
-
-  const getTypeIcon = (type: string) => {
-    switch (type) {
-      case "pdf":
-      case "document":
-        return FileText;
-      case "video":
-        return Video;
-      case "audio":
-        return Headphones;
-      default:
-        return BookOpen;
-    }
-  };
-
-  const getTypeColor = (type: string) => {
-    switch (type) {
-      case "pdf":
-        return "bg-red-100 text-red-700 dark:bg-red-900/20 dark:text-red-400";
-      case "document":
-        return "bg-blue-100 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400";
-      case "video":
-        return "bg-purple-100 text-purple-700 dark:bg-purple-900/20 dark:text-purple-400";
-      case "audio":
-        return "bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400";
-      default:
-        return "bg-gray-100 text-gray-700 dark:bg-gray-900/20 dark:text-gray-400";
-    }
-  };
+  const favorites = resources.filter(r => [1, 2, 5].includes(parseInt(r.id)));
 
   const filteredResources = resources.filter(resource => {
     const matchesSearch = resource.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -162,207 +172,295 @@ export function Library() {
     return matchesSearch && matchesSubject && matchesType;
   });
 
+  const getFormatIcon = (format: string) => {
+    switch (format.toLowerCase()) {
+      case 'pdf':
+        return <FileText className="h-4 w-4" />;
+      case 'epub':
+        return <BookOpen className="h-4 w-4" />;
+      case 'mp4':
+        return <Video className="h-4 w-4" />;
+      case 'mp3':
+        return <Headphones className="h-4 w-4" />;
+      default:
+        return <FileText className="h-4 w-4" />;
+    }
+  };
+
+  const getTypeColor = (type: string) => {
+    switch (type) {
+      case 'course': return 'bg-blue-100 text-blue-800';
+      case 'exercise': return 'bg-green-100 text-green-800';
+      case 'exam': return 'bg-red-100 text-red-800';
+      case 'book': return 'bg-purple-100 text-purple-800';
+      case 'video': return 'bg-orange-100 text-orange-800';
+      case 'audio': return 'bg-pink-100 text-pink-800';
+      default: return 'bg-gray-100 text-gray-800';
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-accent/20">
       <div className="container max-w-7xl mx-auto py-6 px-4">
         {/* Header */}
-        <div className="text-center mb-8 campus-animate-fade-in">
+        <div className="mb-6 campus-animate-fade-in">
           <h1 className="text-3xl font-bold campus-gradient bg-clip-text text-transparent mb-2">
             Bibliothèque Numérique
           </h1>
           <p className="text-muted-foreground">
-            Accédez à toutes les ressources académiques de votre campus
+            Accédez à une vaste collection de ressources académiques partagées par la communauté
           </p>
         </div>
 
-        {/* Search and Filters */}
-        <Card className="campus-card mb-6">
-          <CardContent className="p-4">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div className="relative md:col-span-2">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input
-                  placeholder="Rechercher dans la bibliothèque..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10"
-                />
-              </div>
-              
-              <Select value={selectedSubject} onValueChange={setSelectedSubject}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Matière" />
-                </SelectTrigger>
-                <SelectContent>
-                  {subjects.map((subject) => (
-                    <SelectItem key={subject.id} value={subject.id}>
-                      {subject.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-
-              <Select value={selectedType} onValueChange={setSelectedType}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Type" />
-                </SelectTrigger>
-                <SelectContent>
-                  {resourceTypes.map((type) => (
-                    <SelectItem key={type.id} value={type.id}>
-                      {type.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Tabs defaultValue="grid" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-6">
-            <TabsTrigger value="grid">Vue grille</TabsTrigger>
-            <TabsTrigger value="list">Vue liste</TabsTrigger>
+        <Tabs defaultValue="browse" className="w-full">
+          <TabsList className="grid w-full grid-cols-3 mb-6">
+            <TabsTrigger value="browse" className="gap-2">
+              <Search className="h-4 w-4" />
+              Parcourir
+            </TabsTrigger>
+            <TabsTrigger value="recent" className="gap-2">
+              <Eye className="h-4 w-4" />
+              Récents
+            </TabsTrigger>
+            <TabsTrigger value="favorites" className="gap-2">
+              <Heart className="h-4 w-4" />
+              Favoris
+            </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="grid" className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredResources.map((resource, index) => {
-                const IconComponent = getTypeIcon(resource.type);
-                
-                return (
-                  <Card 
-                    key={resource.id} 
-                    className="campus-card hover:campus-glow transition-all duration-300 cursor-pointer campus-animate-fade-in"
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                  >
-                    <CardHeader className="pb-3">
-                      <div className="flex items-start justify-between">
-                        <div className="flex items-center gap-3">
-                          <div className={`p-2 rounded-lg ${getTypeColor(resource.type)}`}>
-                            <IconComponent className="h-5 w-5" />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <CardTitle className="text-sm line-clamp-2">
-                              {resource.title}
-                            </CardTitle>
-                            <p className="text-xs text-muted-foreground">
-                              {resource.author}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </CardHeader>
+          <TabsContent value="browse" className="space-y-6">
+            {/* Filters */}
+            <Card className="campus-card">
+              <CardContent className="p-4">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      placeholder="Rechercher des ressources..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="pl-10"
+                    />
+                  </div>
+                  
+                  <Select value={selectedSubject} onValueChange={setSelectedSubject}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Matière" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {subjects.map((subject) => (
+                        <SelectItem key={subject.value} value={subject.value}>
+                          {subject.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
 
-                    <CardContent className="pt-0 space-y-3">
-                      <p className="text-sm text-muted-foreground line-clamp-2">
-                        {resource.description}
-                      </p>
+                  <Select value={selectedType} onValueChange={setSelectedType}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {documentTypes.map((type) => (
+                        <SelectItem key={type.value} value={type.value}>
+                          {type.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
 
-                      <div className="flex flex-wrap gap-1">
-                        {resource.tags.slice(0, 3).map((tag) => (
-                          <Badge key={tag} variant="outline" className="text-xs">
-                            {tag}
-                          </Badge>
-                        ))}
-                      </div>
+                  <Button variant="outline" className="gap-2">
+                    <Filter className="h-4 w-4" />
+                    Plus de filtres
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
 
-                      <div className="grid grid-cols-2 gap-4 text-xs text-muted-foreground">
-                        <div>
-                          {resource.pages ? `${resource.pages} pages` : resource.duration}
-                        </div>
-                        <div>{resource.size}</div>
-                        <div className="flex items-center gap-1">
-                          <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-                          {resource.rating}
-                        </div>
-                        <div>{resource.downloads} téléchargements</div>
-                      </div>
-
-                      <Button size="sm" className="w-full campus-gradient text-white hover:opacity-90 gap-2">
-                        <Download className="h-4 w-4" />
-                        Télécharger
-                      </Button>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="list" className="space-y-4">
-            {filteredResources.map((resource, index) => {
-              const IconComponent = getTypeIcon(resource.type);
-              
-              return (
+            {/* Resources Grid */}
+            <div className="grid gap-6">
+              {filteredResources.map((resource, index) => (
                 <Card 
                   key={resource.id} 
-                  className="campus-card hover:campus-glow transition-all duration-300 cursor-pointer campus-animate-fade-in"
+                  className="campus-card hover:campus-glow transition-all duration-300 campus-animate-fade-in"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <CardContent className="p-4">
-                    <div className="grid md:grid-cols-6 gap-4 items-center">
-                      <div className="md:col-span-3 flex items-center gap-3">
-                        <div className={`p-2 rounded-lg ${getTypeColor(resource.type)}`}>
-                          <IconComponent className="h-5 w-5" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-sm line-clamp-1">
-                            {resource.title}
-                          </h3>
-                          <p className="text-xs text-muted-foreground line-clamp-1">
+                  <CardContent className="p-6">
+                    <div className="grid lg:grid-cols-4 gap-4">
+                      {/* Resource Info */}
+                      <div className="lg:col-span-3 space-y-3">
+                        <div>
+                          <div className="flex items-start justify-between mb-2">
+                            <div className="flex items-center gap-2 mb-1">
+                              {getFormatIcon(resource.format)}
+                              <h3 className="font-semibold text-lg">{resource.title}</h3>
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                              <span className="text-sm font-medium">{resource.rating}</span>
+                            </div>
+                          </div>
+                          <p className="text-sm text-muted-foreground line-clamp-2">
                             {resource.description}
                           </p>
-                          <p className="text-xs text-muted-foreground mt-1">
-                            Par {resource.author}
-                          </p>
                         </div>
-                      </div>
 
-                      <div className="flex flex-wrap gap-1">
-                        {resource.tags.slice(0, 2).map((tag) => (
-                          <Badge key={tag} variant="outline" className="text-xs">
-                            {tag}
+                        <div className="flex flex-wrap gap-2">
+                          <Badge className={getTypeColor(resource.type)}>
+                            {documentTypes.find(t => t.value === resource.type)?.label}
                           </Badge>
-                        ))}
-                      </div>
+                          <Badge variant="outline">
+                            {subjects.find(s => s.value === resource.subject)?.label}
+                          </Badge>
+                          {resource.tags.slice(0, 3).map((tag) => (
+                            <Badge key={tag} variant="secondary" className="text-xs">
+                              {tag}
+                            </Badge>
+                          ))}
+                        </div>
 
-                      <div className="text-sm text-muted-foreground">
-                        <div>{resource.pages ? `${resource.pages} pages` : resource.duration}</div>
-                        <div className="flex items-center gap-1 mt-1">
-                          <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-                          {resource.rating} ({resource.reviews})
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-muted-foreground">
+                          <div>
+                            <span className="font-medium">Taille:</span> {resource.size}
+                          </div>
+                          <div>
+                            <span className="font-medium">Pages:</span> {resource.pages || resource.duration}
+                          </div>
+                          <div>
+                            <span className="font-medium">Téléchargements:</span> {resource.downloads}
+                          </div>
+                          <div>
+                            <span className="font-medium">Mis à jour:</span> {resource.lastUpdated}
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-4 text-sm">
+                          <div className="flex items-center gap-2">
+                            <Avatar className="h-6 w-6">
+                              <AvatarImage src={resource.uploadedBy.avatar} />
+                              <AvatarFallback className="text-xs">
+                                {resource.uploadedBy.name.slice(0, 2).toUpperCase()}
+                              </AvatarFallback>
+                            </Avatar>
+                            <span>Partagé par {resource.uploadedBy.name}</span>
+                          </div>
+                          <div>
+                            <span className="font-medium">{resource.professor}</span> - {resource.university}
+                          </div>
                         </div>
                       </div>
 
-                      <div className="text-right">
-                        <Button size="sm" className="campus-gradient text-white hover:opacity-90 gap-2">
-                          <Download className="h-4 w-4" />
-                          Télécharger
-                        </Button>
-                        <p className="text-xs text-muted-foreground mt-1">
-                          {resource.downloads} téléchargements
-                        </p>
+                      {/* Actions */}
+                      <div className="lg:col-span-1 flex flex-col justify-between">
+                        <div className="text-right">
+                          <div className="flex items-center justify-end gap-2 mb-2">
+                            <Heart className="h-4 w-4 text-muted-foreground hover:text-red-500 cursor-pointer" />
+                            <span className="text-sm text-muted-foreground">{resource.likes}</span>
+                          </div>
+                          <Badge variant="outline" className="text-xs">
+                            {resource.year}
+                          </Badge>
+                        </div>
+
+                        <div className="space-y-2">
+                          <Button variant="outline" size="sm" className="w-full gap-2">
+                            <Eye className="h-4 w-4" />
+                            Aperçu
+                          </Button>
+                          <Button size="sm" className="w-full campus-gradient text-white hover:opacity-90 gap-2">
+                            <Download className="h-4 w-4" />
+                            Télécharger
+                          </Button>
+                        </div>
                       </div>
                     </div>
                   </CardContent>
                 </Card>
-              );
-            })}
+              ))}
+            </div>
+
+            {filteredResources.length === 0 && (
+              <div className="text-center py-12">
+                <BookOpen className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+                <h3 className="text-lg font-semibold mb-2">Aucune ressource trouvée</h3>
+                <p className="text-muted-foreground mb-6">
+                  Essayez de modifier vos critères de recherche
+                </p>
+              </div>
+            )}
+          </TabsContent>
+
+          <TabsContent value="recent" className="space-y-4">
+            {recentlyViewed.length === 0 ? (
+              <div className="text-center py-12">
+                <Eye className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+                <h3 className="text-lg font-semibold mb-2">Aucune ressource récente</h3>
+                <p className="text-muted-foreground">
+                  Les ressources que vous consultez apparaîtront ici
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {recentlyViewed.map((item) => {
+                  const resource = resources.find(r => r.id === item.id);
+                  return resource ? (
+                    <Card key={item.id} className="campus-card">
+                      <CardContent className="p-4">
+                        <div className="flex justify-between items-center">
+                          <div>
+                            <h4 className="font-semibold">{resource.title}</h4>
+                            <p className="text-sm text-muted-foreground">
+                              Consulté {item.viewedAt}
+                            </p>
+                          </div>
+                          <Button size="sm" variant="outline">
+                            Rouvrir
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ) : null;
+                })}
+              </div>
+            )}
+          </TabsContent>
+
+          <TabsContent value="favorites" className="space-y-4">
+            {favorites.length === 0 ? (
+              <div className="text-center py-12">
+                <Heart className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+                <h3 className="text-lg font-semibold mb-2">Aucun favori</h3>
+                <p className="text-muted-foreground">
+                  Ajoutez des ressources à vos favoris pour les retrouver facilement
+                </p>
+              </div>
+            ) : (
+              <div className="grid gap-4 md:grid-cols-2">
+                {favorites.map((resource) => (
+                  <Card key={resource.id} className="campus-card">
+                    <CardContent className="p-4">
+                      <div className="flex justify-between items-start mb-2">
+                        <h4 className="font-semibold line-clamp-2">{resource.title}</h4>
+                        <Heart className="h-4 w-4 fill-red-500 text-red-500" />
+                      </div>
+                      <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
+                        {resource.description}
+                      </p>
+                      <div className="flex justify-between items-center">
+                        <Badge className={getTypeColor(resource.type)}>
+                          {documentTypes.find(t => t.value === resource.type)?.label}
+                        </Badge>
+                        <Button size="sm" variant="outline">
+                          Ouvrir
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            )}
           </TabsContent>
         </Tabs>
-
-        {filteredResources.length === 0 && (
-          <div className="text-center py-12">
-            <BookOpen className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-            <h3 className="text-lg font-semibold mb-2">Aucune ressource trouvée</h3>
-            <p className="text-muted-foreground mb-6">
-              Essayez de modifier vos critères de recherche
-            </p>
-            <Button variant="outline">
-              Réinitialiser les filtres
-            </Button>
-          </div>
-        )}
       </div>
     </div>
   );

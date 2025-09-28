@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { CreateGroupModal } from "@/components/modals/CreateGroupModal";
 
 export function Groups() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -96,10 +97,12 @@ export function Groups() {
               Connectez-vous avec des étudiants partageant vos passions
             </p>
           </div>
-          <Button className="campus-gradient text-white hover:opacity-90 gap-2">
-            <Plus className="h-4 w-4" />
-            Créer un groupe
-          </Button>
+          <CreateGroupModal>
+            <Button className="campus-gradient text-white hover:opacity-90 gap-2">
+              <Plus className="h-4 w-4" />
+              Créer un groupe
+            </Button>
+          </CreateGroupModal>
         </div>
 
         <Tabs defaultValue="my-groups" className="w-full">

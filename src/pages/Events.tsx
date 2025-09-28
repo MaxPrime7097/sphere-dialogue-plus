@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Calendar as CalendarComponent } from "@/components/ui/calendar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { CreateEventModal } from "@/components/modals/CreateEventModal";
 
 export function Events() {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
@@ -114,10 +115,12 @@ export function Events() {
               Découvrez et participez aux événements de votre campus
             </p>
           </div>
-          <Button className="campus-gradient text-white hover:opacity-90 gap-2">
-            <Plus className="h-4 w-4" />
-            Créer un événement
-          </Button>
+          <CreateEventModal>
+            <Button className="campus-gradient text-white hover:opacity-90 gap-2">
+              <Plus className="h-4 w-4" />
+              Créer un événement
+            </Button>
+          </CreateEventModal>
         </div>
 
         <div className="grid lg:grid-cols-4 gap-6">
