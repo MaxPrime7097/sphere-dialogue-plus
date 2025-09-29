@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Moon, Sun, Search, Plus } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { CreatePostModal } from "@/components/modals/CreatePostModal";
+import { MobileNavigation } from "./MobileNavigation";
+import { MobileTopBar } from "./MobileTopBar";
 
 interface AppLayoutProps {
   children: ReactNode;
@@ -18,16 +20,22 @@ export function AppLayout({ children }: AppLayoutProps) {
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full bg-background">
-        <AppSidebar />
+        {/* Desktop Sidebar */}
+        <div className="hidden md:block">
+          <AppSidebar />
+        </div>
         
         <div className="flex-1 flex flex-col">
-          {/* Top Navigation */}
-          <header className="h-16 border-b bg-card/50 backdrop-blur-sm sticky top-0 z-40">
-            <div className="flex items-center justify-between px-4 h-full">
+          {/* Mobile Top Bar */}
+          <MobileTopBar />
+          
+          {/* Desktop Top Navigation */}
+          <header className="hidden md:flex h-16 border-b bg-card/50 backdrop-blur-sm sticky top-0 z-40">
+            <div className="flex items-center justify-between px-4 h-full w-full">
               <div className="flex items-center gap-4">
                 <SidebarTrigger className="hover:bg-accent" />
                 
-                <div className="hidden md:flex items-center gap-2 flex-1 max-w-md">
+                <div className="flex items-center gap-2 flex-1 max-w-md">
                   <div className="relative flex-1">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                     <Input 
@@ -40,7 +48,7 @@ export function AppLayout({ children }: AppLayoutProps) {
 
               <div className="flex items-center gap-2">
                 <CreatePostModal>
-                  <Button variant="outline" size="sm" className="hidden md:flex">
+                  <Button variant="outline" size="sm">
                     <Plus className="h-4 w-4 mr-2" />
                     Nouveau post
                   </Button>
@@ -60,9 +68,12 @@ export function AppLayout({ children }: AppLayoutProps) {
           </header>
 
           {/* Main Content */}
-          <main className="flex-1 overflow-auto">
+          <main className="flex-1 overflow-auto pb-16 md:pb-0">
             {children}
           </main>
+          
+          {/* Mobile Bottom Navigation */}
+          <MobileNavigation />
         </div>
       </div>
     </SidebarProvider>
