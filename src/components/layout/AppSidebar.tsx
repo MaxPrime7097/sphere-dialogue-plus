@@ -56,7 +56,7 @@ export function AppSidebar() {
       : "hover:bg-accent/50 text-foreground";
 
   return (
-    <Sidebar className={isCollapsed ? "w-16" : "w-60"} collapsible="icon">
+    <Sidebar className={isCollapsed ? "w-16" : "w-65"} collapsible="icon">
       <SidebarHeader className="p-6 border-b">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 campus-gradient rounded-lg flex items-center justify-center">
