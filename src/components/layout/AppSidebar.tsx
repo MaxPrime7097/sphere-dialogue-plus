@@ -29,7 +29,7 @@ import {
 const navigationItems = [
   { title: "Accueil", url: "/", icon: Home },
   { title: "Profil", url: "/profile", icon: User },
-  { title: "Groupes", url: "/groups", icon: Users },
+  { title: "Gro45upes", url: "/groups", icon: Users },
   { title: "Événements", url: "/events", icon: Calendar },
   { title: "Marketplace", url: "/marketplace", icon: ShoppingBag },
   { title: "Bibliothèque", url: "/library", icon: BookOpen },
@@ -56,7 +56,7 @@ export function AppSidebar() {
       : "hover:bg-accent/50 text-foreground";
 
   return (
-    <Sidebar className={isCollapsed ? "w-16" : "w-72"} collapsible="icon">
+    <Sidebar className={isCollapsed ? "w-16" : "w-60"} collapsible="icon">
       <SidebarHeader className="p-6 border-b">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 campus-gradient rounded-lg flex items-center justify-center">
