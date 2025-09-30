@@ -179,8 +179,9 @@ export function Events() {
               </TabsList>
 
               <TabsContent value="upcoming" className="space-y-4">
-                {filteredEvents.map((event, index) => (
-                  <Card 
+                <div className="grid gap-3 grid-cols-2 md:grid-cols-1 lg:grid-cols-1">
+                  {filteredEvents.map((event, index) => (
+                    <Card
                     key={event.id} 
                     className="campus-card hover:campus-glow transition-all duration-300 campus-animate-fade-in"
                     style={{ animationDelay: `${index * 0.1}s` }}
@@ -260,7 +261,8 @@ export function Events() {
                       </div>
                     </CardContent>
                   </Card>
-                ))}
+                  ))}
+                </div>
               </TabsContent>
 
               <TabsContent value="my-events" className="space-y-4">

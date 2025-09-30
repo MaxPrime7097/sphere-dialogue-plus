@@ -435,7 +435,7 @@ export function Library() {
                 </p>
               </div>
             ) : (
-              <div className="grid gap-4 md:grid-cols-2">
+              <div className="grid gap-3 grid-cols-2 md:grid-cols-2">
                 {favorites.map((resource) => (
                   <Card key={resource.id} className="campus-card">
                     <CardContent className="p-4">

@@ -118,7 +118,7 @@ export function Groups() {
           </TabsList>
 
           <TabsContent value="my-groups" className="space-y-4">
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-3 grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
               {myGroups.map((group) => (
                 <Card key={group.id} className="campus-card hover:campus-glow transition-all duration-300">
                   <CardHeader className="pb-3">
@@ -185,7 +185,7 @@ export function Groups() {
             </div>
 
             {/* Suggested Groups */}
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-3 grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
               {filteredDiscoverGroups.map((group) => (
                 <Card key={group.id} className="campus-card hover:campus-glow transition-all duration-300">
                   <CardHeader className="pb-3">

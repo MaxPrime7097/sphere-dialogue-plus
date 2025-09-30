@@ -221,7 +221,7 @@ export function Marketplace() {
         </Card>
 
         {/* Items Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4">
           {filteredItems.map((item, index) => (
             <Card 
               key={item.id} 

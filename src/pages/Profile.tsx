@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { MapPin, Calendar, Link, Users, BookOpen, Award } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { MapPin, Calendar, Link, Users, BookOpen, Award, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -7,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export function Profile() {
+  const navigate = useNavigate();
   const [isFollowing, setIsFollowing] = useState(false);
 
   // Mock user data
@@ -65,13 +67,24 @@ export function Profile() {
                     AD
                   </AvatarFallback>
                 </Avatar>
-                <Button 
-                  variant={isFollowing ? "outline" : "default"}
-                  onClick={() => setIsFollowing(!isFollowing)}
-                  className={!isFollowing ? "campus-gradient text-white hover:opacity-90" : ""}
-                >
-                  {isFollowing ? "Ne plus suivre" : "Suivre"}
-                </Button>
+                <div className="flex gap-2">
+                  <Button 
+                    variant={isFollowing ? "outline" : "default"}
+                    onClick={() => setIsFollowing(!isFollowing)}
+                    className={!isFollowing ? "campus-gradient text-white hover:opacity-90" : ""}
+                    size="sm"
+                  >
+                    {isFollowing ? "Ne plus suivre" : "Suivre"}
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => navigate("/profile/edit")}
+                  >
+                    <Settings className="h-4 w-4 mr-2" />
+                    Modifier
+                  </Button>
+                </div>
               </div>
 
               {/* Profile Info */}

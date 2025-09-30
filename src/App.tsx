@@ -17,6 +17,10 @@ import { Wellness } from "./pages/Wellness";
 import { Messages } from "./pages/Messages";
 import { Settings } from "./pages/Settings";
 import NotFound from "./pages/NotFound";
+import { Notifications } from "./pages/Notifications";
+import { SearchResults } from "./pages/SearchResults";
+import { EditProfile } from "./pages/EditProfile";
+import { SavedItems } from "./pages/SavedItems";
 
 const queryClient = new QueryClient();
 
@@ -76,6 +80,26 @@ const App = () => (
           <Route path="/settings" element={
             <AppLayout>
               <Settings />
+            </AppLayout>
+          } />
+          <Route path="/notifications" element={
+            <AppLayout>
+              <Notifications />
+            </AppLayout>
+          } />
+          <Route path="/search" element={
+            <AppLayout>
+              <SearchResults />
+            </AppLayout>
+          } />
+          <Route path="/profile/edit" element={
+            <AppLayout>
+              <EditProfile />
+            </AppLayout>
+          } />
+          <Route path="/saved" element={
+            <AppLayout>
+              <SavedItems />
             </AppLayout>
           } />
           
