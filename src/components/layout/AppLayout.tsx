@@ -42,7 +42,7 @@ export function AppLayout({ children }: AppLayoutProps) {
           <MobileTopBar />
           
           {/* Desktop Top Navigation */}
-          <header className="hidden md:flex h-16 border-b bg-card/50 backdrop-blur-sm sticky top-0 z-40">
+          <header className="hidden md:flex h-16 w-full border-b bg-card/50 backdrop-blur-sm sticky top-0 z-40">
             <div className="flex items-center justify-between px-4 h-full w-full">
               <div className="flex items-center gap-4">
                 <SidebarTrigger className="hover:bg-accent" />

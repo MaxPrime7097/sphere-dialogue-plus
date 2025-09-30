@@ -6,9 +6,9 @@ const mockPosts = [
   {
     id: "1",
     author: {
-      name: "Marie Dubois",
+      name: "Max Prime",
       avatar: "/placeholder-avatar.jpg",
-      username: "marie_d",
+      username: "cypher",
       isVerified: true
     },
     content: "Salut tout le monde ! Quelqu'un sait où je peux trouver le livre 'Algorithmes et structures de données' en version numérique ? Merci d'avance ! 📚",
@@ -20,9 +20,9 @@ const mockPosts = [
   {
     id: "2",
     author: {
-      name: "Thomas Martin",
+      name: "Hussein Boris",
       avatar: "/placeholder-avatar.jpg", 
-      username: "thomas_m",
+      username: "skxiller",
     },
     content: "Super soirée jeux hier au foyer ! Merci à tous ceux qui sont venus. On remet ça vendredi prochain ? 🎮",
     image: "/placeholder-gaming.jpg",
@@ -34,9 +34,9 @@ const mockPosts = [
   {
     id: "3",
     author: {
-      name: "Sophie Chen",
+      name: "Kana Tommi",
       avatar: "/placeholder-avatar.jpg",
-      username: "sophie_c",
+      username: "tommik07",
       isVerified: true
     },
     content: "Rappel : la conférence sur l'IA aura lieu demain à 14h en amphi A. N'oubliez pas de vous inscrire !",
@@ -48,9 +48,9 @@ const mockPosts = [
   {
     id: "4",
     author: {
-      name: "Alex Rodriguez", 
+      name: "Nounga Nathan", 
       avatar: "/placeholder-avatar.jpg",
-      username: "alex_r",
+      username: "bosscovish",
     },
     content: "Vends calculatrice graphique TI-82, parfait état. 50€ négociable. Contactez-moi en MP si intéressé !",
     timestamp: "il y a 1j",
@@ -64,15 +64,6 @@ export function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-accent/20">
       <div className="container max-w-2xl mx-auto py-6 px-4 space-y-6">
-        {/* Header */}
-        <div className="text-center space-y-2 campus-animate-fade-in">
-          <h1 className="text-3xl font-bold campus-gradient bg-clip-text text-transparent">
-            Fil d'actualité
-          </h1>
-          <p className="text-muted-foreground">
-            Découvrez ce qui se passe sur votre campus
-          </p>
-        </div>
 
         {/* Create Post */}
         <div className="campus-animate-slide-up">
