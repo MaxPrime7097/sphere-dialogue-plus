@@ -57,22 +57,6 @@ export function AppSidebar() {
 
   return (
     <Sidebar className={isCollapsed ? "w-20" : "w-60"} collapsible="icon">
-      <SidebarHeader className="p-6 border-b">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 campus-gradient rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-sm">CS</span>
-          </div>
-          {!isCollapsed && (
-            <div>
-              <h1 className="font-bold text-lg campus-gradient bg-clip-text text-transparent">
-                CampusSphere
-              </h1>
-              <p className="text-xs text-muted-foreground">Réseau étudiant</p>
-            </div>
-          )}
-        </div>
-      </SidebarHeader>
-
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Navigation</SidebarGroupLabel>
