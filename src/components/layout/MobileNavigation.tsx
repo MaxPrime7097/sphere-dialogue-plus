@@ -30,7 +30,7 @@ const navigationItems = [
   },
   {
     title: "Bien-étre",
-    url: "/wellbeing",
+    url: "/wellness",
     icon: Heart
   },
   { 
