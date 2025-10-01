@@ -124,43 +124,10 @@ export function Events() {
         </div>
 
         <div className="grid lg:grid-cols-4 gap-6">
-          {/* Sidebar */}
-          <div className="lg:col-span-1 space-y-6">
-            {/* Calendar */}
-            
-
-            {/* Filters */}
-            <Card className="campus-card">
-              <CardHeader>
-                <CardTitle className="text-sm font-medium flex items-center gap-2">
-                  <Filter className="h-4 w-4" />
-                  Catégories
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2">
-                {categories.map((category) => (
-                  <Button
-                    key={category.id}
-                    variant={selectedCategory === category.id ? "default" : "ghost"}
-                    size="sm"
-                    className={`w-full justify-start ${
-                      selectedCategory === category.id 
-                        ? "campus-gradient text-white" 
-                        : ""
-                    }`}
-                    onClick={() => setSelectedCategory(category.id)}
-                  >
-                    {category.label}
-                  </Button>
-                ))}
-              </CardContent>
-            </Card>
-          </div>
-
           {/* Events List */}
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-4">
             <Tabs defaultValue="upcoming" className="w-full">
-              <TabsList className="grid w-full grid-cols-3 mb-6">
+              <TabsList className="grid w-full grid-cols-4 mb-6">
                 <TabsTrigger value="upcoming">À venir</TabsTrigger>
                 <TabsTrigger value="my-events">Mes événements</TabsTrigger>
                 <TabsTrigger value="past">Passés</TabsTrigger>
