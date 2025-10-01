@@ -24,8 +24,8 @@ const navigationItems = [
     icon: ShoppingBag
   },
   {
-    title: "Bibliothèque"
-    url: "/library"
+    title: "Bibliothèque",
+    url: "/library",
     icon: BookOpen
   },
   {
