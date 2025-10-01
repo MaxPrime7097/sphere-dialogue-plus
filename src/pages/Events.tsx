@@ -126,21 +126,6 @@ export function Events() {
         <div className="grid lg:grid-cols-4 gap-6">
           {/* Sidebar */}
           <div className="lg:col-span-1 space-y-6">
-            {/* Calendar */}
-            <Card className="campus-card">
-              <CardHeader>
-                <CardTitle className="text-sm font-medium">Calendrier</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CalendarComponent
-                  mode="single"
-                  selected={selectedDate}
-                  onSelect={setSelectedDate}
-                  className="rounded-md border-0"
-                />
-              </CardContent>
-            </Card>
-
             {/* Filters */}
             <Card className="campus-card">
               <CardHeader>
@@ -176,6 +161,7 @@ export function Events() {
                 <TabsTrigger value="upcoming">À venir</TabsTrigger>
                 <TabsTrigger value="my-events">Mes événements</TabsTrigger>
                 <TabsTrigger value="past">Passés</TabsTrigger>
+                <TabsTrigger value="calendar">Calendrier</TabsTrigger>
               </TabsList>
 
               <TabsContent value="upcoming" className="space-y-4">
@@ -295,7 +281,22 @@ export function Events() {
                   </p>
                 </div>
               </TabsContent>
-            </Tabs>
+
+              <TabsContent value="calendar" className="space-y-4">
+                <Card className="campus-card">
+                 <CardHeader>
+                   <CardTitle className="text-sm font-medium">Calendrier</CardTitle>
+                 </CardHeader>
+                 <CardContent>
+                   <CalendarComponent
+                     mode="single"
+                     selected={selectedDate}
+                     onSelect={setSelectedDate}
+                     className="rounded-md border-0"
+                   />
+                 </CardContent>
+                <Card>
+              </TabsContent>
           </div>
         </div>
       </div>
