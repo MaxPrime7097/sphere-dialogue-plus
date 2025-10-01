@@ -49,8 +49,6 @@ const quickActions = [
 
 const utils = [
   {title: "À propos", url: "/cs-inc/about", icon: Info },
-  {title: "Politique de confidentialité", url: "/cs-inc/policies/privacy", icon: BookLock },
-  {title: "Conditions d'utilisation", url: "/cs-inc/policies/conditions", icon: BookUser },
   {title: "Aide", url: "/cs-inc/contact", icon: CircleQuestionMark },
 ];
 
