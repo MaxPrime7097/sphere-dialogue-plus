@@ -1,7 +1,7 @@
 import { 
   Home, 
   User, 
-  FolderOpenDot,
+  Heart,
   Users, 
   Calendar, 
   ShoppingBag, 
@@ -32,7 +32,7 @@ import {
 const navigationItems = [
   { title: "Accueil", url: "/", icon: Home },
   { title: "Profil", url: "/profile", icon: User },
-  { title: "Ressources", url: "/resources", icon: FolderOpenDot },
+  { title: "Ressources", url: "/resources", icon: Heart },
   { title: "Groupes", url: "/groups", icon: Users },
   { title: "Événements", url: "/events", icon: Calendar },
   { title: "Marketplace", url: "/marketplace", icon: ShoppingBag },
