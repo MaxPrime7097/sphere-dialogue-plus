@@ -124,7 +124,7 @@ export function Groups() {
                   <CardHeader className="pb-3">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <Avatar className="h-12 w-12" onClick={() => navigate("/groups/:id")}>
+                        <Avatar className="h-12 w-12">
                           <AvatarImage src={group.avatar} />
                           <AvatarFallback className="campus-gradient text-white font-semibold">
                             {group.name.slice(0, 2).toUpperCase()}

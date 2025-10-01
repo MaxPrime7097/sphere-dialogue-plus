@@ -1,18 +1,17 @@
 import { 
   Home, 
   User, 
+  FolderOpenDot,
   Users, 
   Calendar, 
   ShoppingBag, 
-  BookOpen, 
-  Heart, 
-  Bell, 
+  LibraryBig, 
   MessageSquare,
-  Search,
+  BookMark,
   Settings,
   Info,
   LifeBuoy,
-  BookUser,
+  ScrollText,
   BookLock
 } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
@@ -33,24 +32,23 @@ import {
 const navigationItems = [
   { title: "Accueil", url: "/", icon: Home },
   { title: "Profil", url: "/profile", icon: User },
-  { title: "Ressources", url: "/resources", icon: Heart },
+  { title: "Ressources", url: "/resources", icon: FolderOpenDot },
   { title: "Groupes", url: "/groups", icon: Users },
   { title: "Événements", url: "/events", icon: Calendar },
   { title: "Marketplace", url: "/marketplace", icon: ShoppingBag },
-  { title: "Bibliothèque", url: "/library", icon: BookOpen },
+  { title: "Bibliothèque", url: "/library", icon: LibraryBig },
 ];
 
 const quickActions = [
-  { title: "Notifications", url: "/notifications", icon: Bell },
   { title: "Messages", url: "/messages", icon: MessageSquare },
-  { title: "Recherche", url: "/search", icon: Search },
+  { title: "Enregistrements", url: "/saved", icon: BookMark },
   { title: "Paramètres", url: "/settings", icon: Settings },
 ];
 
 const utils = [
   {title: "À propos", url: "/cs-inc/about", icon: Info },
   {title: "Politique de confidentialité", url: "/cs-inc/policies/privacy", icon: BookLock },
-  {title: "Conditions d'utilisation", url: "/cs-inc/policies/conditions", icon: BookUser },
+  {title: "Conditions d'utilisation", url: "/cs-inc/policies/conditions", icon: ScrollText },
   {title: "Aide", url: "/cs-inc/contact", icon: LifeBuoy },
 ];
 
