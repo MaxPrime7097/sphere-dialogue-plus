@@ -9,7 +9,11 @@ import {
   Bell, 
   MessageSquare,
   Search,
-  Settings
+  Settings,
+  Info,
+  CircleQuestionMark,
+  BookUser,
+  BookLock
 } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 
@@ -29,11 +33,11 @@ import {
 const navigationItems = [
   { title: "Accueil", url: "/", icon: Home },
   { title: "Profil", url: "/profile", icon: User },
+  { title: "Ressources", url: "/resources", icon: Heart },
   { title: "Groupes", url: "/groups", icon: Users },
   { title: "Événements", url: "/events", icon: Calendar },
   { title: "Marketplace", url: "/marketplace", icon: ShoppingBag },
   { title: "Bibliothèque", url: "/library", icon: BookOpen },
-  { title: "Bien-être", url: "/wellness", icon: Heart },
 ];
 
 const quickActions = [
@@ -42,6 +46,14 @@ const quickActions = [
   { title: "Recherche", url: "/search", icon: Search },
   { title: "Paramètres", url: "/settings", icon: Settings },
 ];
+
+const utils = [
+  {title: "À propos", url: "/cs-inc/about", icon: Info }
+  {title: "Politique de confidentialité", url: "/cs-inc/policies/privacy", icon: BookLock }
+  {title: "Conditions d'utilisation", url: "/cs-inc/policies/conditions", icon: BookUser }
+  {title: "Aide", url: "/cs-inc/contact", icon: CircleQuestionMark }
+
+]
 
 export function AppSidebar() {
   const { state } = useSidebar();
@@ -93,6 +105,25 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+
+        <SidebarGroup>
+          <SidebarGroupLabel>Utilitaires</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {utils.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <NavLink to={item.url} end className={getNavClasses}>
+                      <item.icon className="h-5 w-5" />
+                      {!isCollapsed && <span>{item.title}</span>}
+                    </NavLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
       </SidebarContent>
     </Sidebar>
   );

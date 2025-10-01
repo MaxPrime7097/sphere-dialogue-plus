@@ -40,7 +40,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           {/* Public routes */}
-          <Route path="/landing" element={<Landing />} />
+          <Route path="/cs-inc/landing" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           
@@ -130,16 +130,16 @@ const App = () => (
               <ResourceDetail />
             </AppLayout>
           } />
-          <Route path="/admin" element={
+          <Route path="/cs-inc/admin" element={
             <AppLayout>
               <AdminDashboard />
             </AppLayout>
           } />
           
           {/* Public pages */}
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/faq" element={<FAQ />} />
+          <Route path="/cs-inc/about" element={<About />} />
+          <Route path="/cs-inc/contact" element={<Contact />} />
+          <Route path="/cs-inc/faq" element={<FAQ />} />
           
           {/* 404 */}
           <Route path="*" element={<NotFound />} />
