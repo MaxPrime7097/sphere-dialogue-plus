@@ -126,6 +126,9 @@ export function Events() {
         <div className="grid lg:grid-cols-4 gap-6">
           {/* Sidebar */}
           <div className="lg:col-span-1 space-y-6">
+            {/* Calendar */}
+            
+
             {/* Filters */}
             <Card className="campus-card">
               <CardHeader>
@@ -281,22 +284,24 @@ export function Events() {
                   </p>
                 </div>
               </TabsContent>
-
+              
               <TabsContent value="calendar" className="space-y-4">
                 <Card className="campus-card">
-                 <CardHeader>
-                   <CardTitle className="text-sm font-medium">Calendrier</CardTitle>
-                 </CardHeader>
-                 <CardContent>
-                   <CalendarComponent
-                     mode="single"
-                     selected={selectedDate}
-                     onSelect={setSelectedDate}
-                     className="rounded-md border-0"
-                   />
-                 </CardContent>
-                <Card>
-              </TabsContent>
+                  <CardHeader>
+                    <CardTitle className="text-sm font-medium">Calendrier</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <CalendarComponent
+                    mode="single"
+                    selected={selectedDate}
+                    onSelect={setSelectedDate}
+                    className="rounded-md border-0"
+                    />  
+                  </CardContent>
+                </Card>
+              </TabsContent>      
+
+            </Tabs>
           </div>
         </div>
       </div>
