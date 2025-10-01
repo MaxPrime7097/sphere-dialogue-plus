@@ -21,6 +21,14 @@ import { Notifications } from "./pages/Notifications";
 import { SearchResults } from "./pages/SearchResults";
 import { EditProfile } from "./pages/EditProfile";
 import { SavedItems } from "./pages/SavedItems";
+import { EventDetail } from "./pages/EventDetail";
+import { GroupDetail } from "./pages/GroupDetail";
+import { Resources } from "./pages/Resources";
+import { ResourceDetail } from "./pages/ResourceDetail";
+import { AdminDashboard } from "./pages/admin/AdminDashboard";
+import { About } from "./pages/About";
+import { Contact } from "./pages/Contact";
+import { FAQ } from "./pages/FAQ";
 
 const queryClient = new QueryClient();
 
@@ -102,6 +110,36 @@ const App = () => (
               <SavedItems />
             </AppLayout>
           } />
+          <Route path="/events/:id" element={
+            <AppLayout>
+              <EventDetail />
+            </AppLayout>
+          } />
+          <Route path="/groups/:id" element={
+            <AppLayout>
+              <GroupDetail />
+            </AppLayout>
+          } />
+          <Route path="/resources" element={
+            <AppLayout>
+              <Resources />
+            </AppLayout>
+          } />
+          <Route path="/resources/:id" element={
+            <AppLayout>
+              <ResourceDetail />
+            </AppLayout>
+          } />
+          <Route path="/admin" element={
+            <AppLayout>
+              <AdminDashboard />
+            </AppLayout>
+          } />
+          
+          {/* Public pages */}
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/faq" element={<FAQ />} />
           
           {/* 404 */}
           <Route path="*" element={<NotFound />} />

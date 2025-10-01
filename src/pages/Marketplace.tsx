@@ -153,7 +153,7 @@ export function Marketplace() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-accent/20">
-      <div className="container max-w-7xl mx-auto py-6 px-4">
+      <div className="w-full max-w-7xl mx-auto py-4 md:py-6 px-3 md:px-4">
         {/* Header */}
         <div className="flex justify-between items-center mb-6 campus-animate-fade-in">
           <div>
