@@ -144,7 +144,7 @@ export function Contact() {
           <p className="text-muted-foreground mb-4">
             Consultez notre FAQ avant de nous contacter
           </p>
-          <Button variant="outline" onClick={() => window.location.href = "/faq"}>
+          <Button variant="outline" onClick={() => window.location.href = "/cs-inc/faq"}>
             Voir la FAQ
           </Button>
         </div>

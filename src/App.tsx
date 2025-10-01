@@ -40,7 +40,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           {/* Public routes */}
-          <Route path="/cs-inc/landing" element={<Landing />} />
+          <Route path="/cs-inc" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           
