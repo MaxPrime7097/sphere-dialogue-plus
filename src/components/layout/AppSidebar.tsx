@@ -57,7 +57,7 @@ export function AppSidebar() {
 
   return (
     <Sidebar className={isCollapsed ? "w-20" : "w-60"} collapsible="icon">
-      <SidebarContent className= "pt-15">
+      <SidebarContent className= "pt-12">
         <SidebarGroup>
           <SidebarGroupLabel>Navigation</SidebarGroupLabel>
           <SidebarGroupContent>
