@@ -192,7 +192,7 @@ export function FAQ() {
             <Button
               size="lg"
               className="campus-gradient text-white hover:opacity-90"
-              onClick={() => window.location.href = "/contact"}
+              onClick={() => window.location.href = "/cs-inc/contact"}
             >
               Contactez-nous
             </Button>
