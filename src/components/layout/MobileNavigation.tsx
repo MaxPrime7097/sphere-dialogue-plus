@@ -1,4 +1,4 @@
-import { Home, Users, Calendar, MessageSquare, User } from "lucide-react";
+import { Home, Users, Calendar, MessageSquare, User, Heart, ShoppingBag, BookOpen } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -17,6 +17,21 @@ const navigationItems = [
     title: "Événements", 
     url: "/events", 
     icon: Calendar 
+  },
+  {
+    title: "Marketplace",
+    url: "/marketplace",
+    icon: ShoppingBag
+  },
+  {
+    title: "Bibliothèque"
+    url: "/library"
+    icon: BookOpen
+  },
+  {
+    title: "Bien-étre",
+    url: "/wellbeing",
+    icon: Heart
   },
   { 
     title: "Messages", 
@@ -48,7 +63,6 @@ export function MobileNavigation() {
             }
           >
             <item.icon className="h-5 w-5" />
-            <span className="text-xs font-medium">{item.title}</span>
           </NavLink>
         ))}
       </div>

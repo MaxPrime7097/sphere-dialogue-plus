@@ -7,7 +7,7 @@ import {
   BookOpen, 
   Heart, 
   Bell, 
-  MessageCircle,
+  MessageSquare,
   Search,
   Settings
 } from "lucide-react";
@@ -38,7 +38,7 @@ const navigationItems = [
 
 const quickActions = [
   { title: "Notifications", url: "/notifications", icon: Bell },
-  { title: "Messages", url: "/messages", icon: MessageCircle },
+  { title: "Messages", url: "/messages", icon: MessageSquare },
   { title: "Recherche", url: "/search", icon: Search },
   { title: "Paramètres", url: "/settings", icon: Settings },
 ];
