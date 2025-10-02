@@ -9,6 +9,7 @@ import { CreatePostModal } from "@/components/modals/CreatePostModal";
 import { MobileNavigation } from "./MobileNavigation";
 import { MobileTopBar } from "./MobileTopBar";
 import { NotificationDropdown } from "./NotificationDropdown";
+import logo from './assets/CS.svg';
 
 interface AppLayoutProps {
   children: ReactNode;
@@ -48,7 +49,8 @@ export function AppLayout({ children }: AppLayoutProps) {
             <div className="flex items-center justify-between px-4 h-full w-full">
               <div className="flex items-center gap-4">
                 <SidebarTrigger className="hover:bg-accent" />
-                <div>
+                <div >
+                  <img src={logo} alt="Logo CampusSphere" />;
                   <h1 className="text-3xl font-bold campus-gradient bg-clip-text text-transparent" style={{ fontFamily: 'Automata Display' }}>
                     CampusSphere
                   </h1>
