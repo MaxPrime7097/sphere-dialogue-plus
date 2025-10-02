@@ -111,42 +111,35 @@ export function Register() {
   const progress = (currentStep / totalSteps) * 100;
 
   const languages = ["Français", "English"];
-  const StudyYears = [
-    {
-    label: "Système francophone",
-    options: [
-      { value: "BTS1", label: "BTS - 1ʳᵉ année" },
-      { value: "BTS2", label: "BTS - 2ᵉ année – Obtention du BTS" },
-      { value: "L1", label: "L1 - Licence 1" },
-      { value: "L2", label: "L2 - Licence 2" },
-      { value: "L3", label: "L3 - Licence 3" },
-      { value: "L4", label: "L4 - Licence 4 – Obtention de la Licence" },
-      { value: "M1", label: "M1 - Master 1" },
-      { value: "M2", label: "M2 - Master 2 – Obtention du Master" },
-      { value: "D1", label: "D1 - Doctorat 1" },
-      { value: "D2", label: "D2 - Doctorat 2" },
-      { value: "D3", label: "D3 - Doctorat 3 – Soutenance de thèse" },
-      { value: "D4", label: "D4 - Doctorat 4 (si plus de 3 ans)" },
-    ],
-    },
-    {
-    label: "Système anglophone",
-    options: [
-      { value: "HND1", label: "HND - Year 1" },
-      { value: "HND2", label: "HND - Year 2 - Graduation" },
-      { value: "Bachelor1", label: "Bachelor - Year 1" },
-      { value: "Bachelor2", label: "Bachelor - Year 2" },
-      { value: "Bachelor3", label: "Bachelor - Year 3" },
-      { value: "Bachelor4", label: "Bachelor - Year 4 - Graduation" },
-      { value: "Master1", label: "Master - Year 1" },
-      { value: "Master2", label: "Master - Year 2 - Graduation" },
-      { value: "PhD1", label: "PhD - Year 1" },
-      { value: "PhD2", label: "PhD - Year 2" },
-      { value: "PhD3", label: "PhD - Year 3 - Thesis defense" },
-      { value: "PhD4", label: "PhD - Year 4 (if more than 3 years)" },
-    ],
-    },
-  ];
+  const studyYears = [
+    // Système francophone
+    "BTS - 1ʳᵉ année",
+    "BTS - 2ᵉ année – Obtention du BTS",
+    "L1 - Licence 1",
+    "L2 - Licence 2",
+    "L3 - Licence 3",
+    "L4 - Licence 4 – Obtention de la Licence",
+    "M1 - Master 1",
+    "M2 - Master 2 – Obtention du Master",
+    "D1 - Doctorat 1",
+    "D2 - Doctorat 2",
+    "D3 - Doctorat 3 – Soutenance de thèse",
+    "D4 - Doctorat 4 (si plus de 3 ans)",
+
+    // Système anglophone
+    "HND - Year 1",
+    "HND - Year 2 - Graduation",
+    "Bachelor - Year 1",
+    "Bachelor - Year 2",
+    "Bachelor - Year 3",
+    "Bachelor - Year 4 - Graduation",
+    "Master - Year 1",
+    "Master - Year 2 - Graduation",
+    "PhD - Year 1",
+    "PhD - Year 2",
+    "PhD - Year 3 - Thesis defense",
+    "PhD - Year 4 (if more than 3 years)",
+    ];
   const towns = ["Douala", "Yaoundé"];
 
   return (
