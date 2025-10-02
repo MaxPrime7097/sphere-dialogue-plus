@@ -112,34 +112,20 @@ export function Register() {
 
   const languages = ["Français", "English"];
   const studyYears = [
-    // Système francophone
-    "BTS - 1ʳᵉ année",
-    "BTS - 2ᵉ année – Obtention du BTS",
-    "L1 - Licence 1",
-    "L2 - Licence 2",
-    "L3 - Licence 3",
-    "L4 - Licence 4 – Obtention de la Licence",
-    "M1 - Master 1",
-    "M2 - Master 2 – Obtention du Master",
-    "D1 - Doctorat 1",
-    "D2 - Doctorat 2",
-    "D3 - Doctorat 3 – Soutenance de thèse",
-    "D4 - Doctorat 4 (si plus de 3 ans)",
-
-    // Système anglophone
-    "HND - Year 1",
-    "HND - Year 2 - Graduation",
-    "Bachelor - Year 1",
-    "Bachelor - Year 2",
-    "Bachelor - Year 3",
-    "Bachelor - Year 4 - Graduation",
-    "Master - Year 1",
-    "Master - Year 2 - Graduation",
-    "PhD - Year 1",
-    "PhD - Year 2",
-    "PhD - Year 3 - Thesis defense",
-    "PhD - Year 4 (if more than 3 years)",
-    ];
+    "BTS 1 / HND 1",
+    "BTS 2 / HND 2",
+    "Licence 1 / Bachelor 1",
+    "Licence 2 / Bachelor 2",
+    "Licence 3 / Bachelor 3",
+    "Licence 4 / Bachelor 4",
+    "Master 1",
+    "Master 2",
+    "Doctorat 1 / Phd 1",
+    "Doctorat 2 / Phd 2",
+    "Doctorat 3 / Phd 3",
+  ];
+  const universities
+  const programs
   const towns = ["Douala", "Yaoundé"];
 
   return (
