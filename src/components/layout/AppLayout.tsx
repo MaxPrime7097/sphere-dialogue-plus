@@ -52,6 +52,10 @@ export function AppLayout({ children }: AppLayoutProps) {
                   <h1 className="text-3xl logo-font campus-gradient bg-clip-text text-transparent">
                     CampusSphere
                   </h1>
+                  <p style={{ fontFamily: 'Automata Display' }}>
+                    Ceci est un test avec Automata Display
+                  </p>
+
                 </div>
                 <form onSubmit={handleSearch} className="pl-10 flex items-center gap-2 flex-1 max-w-md">
                   <div className="relative flex-1">
