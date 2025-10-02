@@ -1,7 +1,7 @@
 import { 
   Home, 
   User,
-  FolderOpenDot, 
+  FolderOpen, 
   Users, 
   Calendar, 
   ShoppingBag,  
@@ -11,7 +11,7 @@ import {
   Settings,
   Info,
   LifeBuoy,
-  BookUser,
+  BookLock,
   ScrollText
 } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
@@ -32,7 +32,7 @@ import {
 const navigationItems = [
   { title: "Accueil", url: "/", icon: Home },
   { title: "Profil", url: "/profile", icon: User },
-  { title: "Ressources", url: "/resources", icon: FolderOpenDot },
+  { title: "Ressources", url: "/resources", icon: FolderOpen },
   { title: "Groupes", url: "/groups", icon: Users },
   { title: "Événements", url: "/events", icon: Calendar },
   { title: "Marketplace", url: "/marketplace", icon: ShoppingBag },
