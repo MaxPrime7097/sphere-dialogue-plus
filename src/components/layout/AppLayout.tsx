@@ -49,7 +49,7 @@ export function AppLayout({ children }: AppLayoutProps) {
               <div className="flex items-center gap-4">
                 <SidebarTrigger className="hover:bg-accent" />
                 <div>
-                  <h1 className="text-3xl font-bold font-[Automata] campus-gradient bg-clip-text text-transparent">
+                  <h1 className="text-3xl font-automata campus-gradient bg-clip-text text-transparent">
                     CampusSphere
                   </h1>
                 </div>
