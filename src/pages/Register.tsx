@@ -124,8 +124,6 @@ export function Register() {
     "Doctorat 2 / Phd 2",
     "Doctorat 3 / Phd 3",
   ];
-  const universities
-  const programs
   const towns = ["Douala", "Yaoundé"];
 
   return (
