@@ -488,19 +488,6 @@ export function Register() {
                   />
                 </div>
               </div>
-              <div className="text-center mt-8 text-sm text-muted-foreground">
-                <p>
-                  En vous connectant, vous acceptez nos{" "}
-                  <Button variant="link" className="px-0 h-auto text-primary" onClick={() => navigate('/cs-inc/policies/conditions')}
-                  >
-                    Conditions d'utilisation
-                  </Button> et notre{" "}
-                  <Button variant="link" className="px-0 h-auto text-primary" onClick={() => navigate('/cs-inc/policies/privacy')}
-                  >
-                    Politique de confidentialité
-                  </Button>
-                </p>
-              </div>
             )}
 
             {/* Navigation Buttons */}
@@ -531,6 +518,19 @@ export function Register() {
                   Terminer l'inscription
                 </Button>
               )}
+            </div>
+            <div className="text-center mt-8 text-sm text-muted-foreground">
+              <p>
+                En vous connectant, vous acceptez nos{" "}
+                <Button variant="link" className="px-0 h-auto text-primary" onClick={() => navigate('/cs-inc/policies/conditions')}
+                >
+                  Conditions d'utilisation
+                </Button> et notre{" "}
+                <Button variant="link" className="px-0 h-auto text-primary" onClick={() => navigate('/cs-inc/policies/privacy')}
+                >
+                  Politique de confidentialité
+                </Button>
+              </p>
             </div>
           </CardContent>
         </Card>
