@@ -144,8 +144,8 @@ const App = () => (
           <Route path="/cs-inc/about" element={<About />} />
           <Route path="/cs-inc/contact" element={<Contact />} />
           <Route path="/cs-inc/faq" element={<FAQ />} />
-          <Route path="/privacy" element={<Privacy />} />
-          <Route path="/terms" element={<Terms />} />
+          <Route path="/cs-inc/policies/privacy" element={<Privacy />} />
+          <Route path="/cs-inc/policies/terms" element={<Terms />} />
           
           {/* 404 */}
           <Route path="*" element={<NotFound />} />
