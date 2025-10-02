@@ -65,8 +65,8 @@ export function AppSidebar() {
       : "hover:bg-accent/50 text-foreground";
 
   return (
-    <Sidebar className={isCollapsed ? "w-20 top-16" : "w-60 top-16"} collapsible="icon">
-      <SidebarContent>
+    <Sidebar className={isCollapsed ? "w-20" : "w-60"} collapsible="icon">
+      <SidebarContent className="pt-20">
         <SidebarGroup>
           <SidebarGroupLabel>Navigation</SidebarGroupLabel>
           <SidebarGroupContent>
