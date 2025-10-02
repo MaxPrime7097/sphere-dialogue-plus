@@ -13,7 +13,8 @@ import {
   Info,
   LifeBuoy,
   ScrollText,
-  BookLock
+  BookLock,
+  BookUser
 } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 
@@ -49,7 +50,7 @@ const quickActions = [
 const utils = [
   {title: "À propos", url: "/cs-inc/about", icon: Info },
   {title: "Politique de confidentialité", url: "/cs-inc/policies/privacy", icon: BookLock },
-  {title: "Conditions d'utilisation", url: "/cs-inc/policies/conditions", icon: ScrollText },
+  {title: "Conditions d'utilisation", url: "/cs-inc/policies/conditions", icon: BookUser },
   {title: "Aide", url: "/cs-inc/contact", icon: LifeBuoy },
 ];
 
