@@ -8,7 +8,6 @@ import {
   Heart, 
   BookMark, 
   MessageSquare,
-  Search,
   Settings,
   Info,
   LifeBuoy,
