@@ -111,7 +111,42 @@ export function Register() {
   const progress = (currentStep / totalSteps) * 100;
 
   const languages = ["Français", "English"];
-  const studyYears = ["L1", "L2", "L3", "M1", "M2", "Doctorat"];
+  const StudyYears = [
+    {
+    label: "Système francophone",
+    options: [
+      { value: "BTS1", label: "BTS - 1ʳᵉ année" },
+      { value: "BTS2", label: "BTS - 2ᵉ année – Obtention du BTS" },
+      { value: "L1", label: "L1 - Licence 1" },
+      { value: "L2", label: "L2 - Licence 2" },
+      { value: "L3", label: "L3 - Licence 3" },
+      { value: "L4", label: "L4 - Licence 4 – Obtention de la Licence" },
+      { value: "M1", label: "M1 - Master 1" },
+      { value: "M2", label: "M2 - Master 2 – Obtention du Master" },
+      { value: "D1", label: "D1 - Doctorat 1" },
+      { value: "D2", label: "D2 - Doctorat 2" },
+      { value: "D3", label: "D3 - Doctorat 3 – Soutenance de thèse" },
+      { value: "D4", label: "D4 - Doctorat 4 (si plus de 3 ans)" },
+    ],
+    },
+    {
+    label: "Système anglophone",
+    options: [
+      { value: "HND1", label: "HND - Year 1" },
+      { value: "HND2", label: "HND - Year 2 - Graduation" },
+      { value: "Bachelor1", label: "Bachelor - Year 1" },
+      { value: "Bachelor2", label: "Bachelor - Year 2" },
+      { value: "Bachelor3", label: "Bachelor - Year 3" },
+      { value: "Bachelor4", label: "Bachelor - Year 4 - Graduation" },
+      { value: "Master1", label: "Master - Year 1" },
+      { value: "Master2", label: "Master - Year 2 - Graduation" },
+      { value: "PhD1", label: "PhD - Year 1" },
+      { value: "PhD2", label: "PhD - Year 2" },
+      { value: "PhD3", label: "PhD - Year 3 - Thesis defense" },
+      { value: "PhD4", label: "PhD - Year 4 (if more than 3 years)" },
+    ],
+    },
+  ];
   const towns = ["Douala", "Yaoundé"];
 
   return (
@@ -309,7 +344,7 @@ export function Register() {
             {currentStep === 2 && (
               <div className="space-y-4">
                 <div>
-                  <Label htmlFor="university">Université *</Label>
+                  <Label htmlFor="university">Université/Institut *</Label>
                   <Input
                     id="university"
                     placeholder="Nom de votre université"
@@ -321,17 +356,17 @@ export function Register() {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="faculty">Faculté/Département *</Label>
+                    <Label htmlFor="faculty">Filière/Spécialisation *</Label>
                     <Input
                       id="faculty"
-                      placeholder="ex: Informatique"
+                      placeholder="ex: Sélectionnez votre filière"
                       value={formData.faculty}
                       onChange={(e) => handleInputChange('faculty', e.target.value)}
                       required
                     />
                   </div>
                   <div>
-                    <Label htmlFor="studyYear">Année d'étude *</Label>
+                    <Label htmlFor="studyYear">Niveau d'études *</Label>
                     <Select onValueChange={(value) => handleInputChange('studyYear', value)}>
                       <SelectTrigger>
                         <SelectValue placeholder="Sélectionnez" />
@@ -348,12 +383,13 @@ export function Register() {
                 </div>
 
                 <div>
-                  <Label htmlFor="studentId">Matricule d'étudiant (optionnel)</Label>
+                  <Label htmlFor="studentId">Matricule étudiant *</Label>
                   <Input
                     id="studentId"
-                    placeholder="Votre numéro d'étudiant"
+                    placeholder="Votre matricule d'étudiant"
                     value={formData.studentId}
                     onChange={(e) => handleInputChange('studentId', e.target.value)}
+                    required
                   />
                 </div>
 
