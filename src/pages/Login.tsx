@@ -156,9 +156,13 @@ export function Login() {
         {/* Footer */}
         <div className="text-center mt-8 text-sm text-muted-foreground">
           <p>
-            En vous connectant, vous acceptez nos{" "}
-            <Button variant="link" className="px-0 h-auto text-primary">
+            En vous connectant, vous acceptez nos{" "} et notre{" "}
+            <Button variant="link" className="px-0 h-auto text-primary" onClick={() => navigate('/register')}
+            >
               Conditions d'utilisation
+            </Button>
+            <Button variant="link" className="px-0 h-auto text-primary">
+              Politique de confidentialté
             </Button>
           </p>
         </div>
