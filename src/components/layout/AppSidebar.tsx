@@ -4,6 +4,7 @@ import {
   Heart,
   Users, 
   Calendar, 
+  BookOpen,
   ShoppingBag, 
   LibraryBig, 
   MessageSquare,
@@ -36,7 +37,7 @@ const navigationItems = [
   { title: "Groupes", url: "/groups", icon: Users },
   { title: "Événements", url: "/events", icon: Calendar },
   { title: "Marketplace", url: "/marketplace", icon: ShoppingBag },
-  { title: "Bibliothèque", url: "/library", icon: LibraryBig },
+  { title: "Bibliothèque", url: "/library", icon: BookOpen },
 ];
 
 const quickActions = [
