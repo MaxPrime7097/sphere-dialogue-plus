@@ -1,20 +1,19 @@
 import { 
   Home, 
   User, 
-  Heart,
   Users, 
   Calendar, 
-  BookOpen,
   ShoppingBag, 
-  LibraryBig, 
+  BookOpen, 
+  Heart, 
+  Bell, 
   MessageSquare,
-  BookMark,
+  Search,
   Settings,
   Info,
   LifeBuoy,
-  ScrollText,
-  BookLock,
-  BookUser
+  BookUser,
+  BookLock
 } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 
@@ -42,8 +41,9 @@ const navigationItems = [
 ];
 
 const quickActions = [
+  { title: "Notifications", url: "/notifications", icon: Bell },
   { title: "Messages", url: "/messages", icon: MessageSquare },
-  { title: "Enregistrements", url: "/saved", icon: BookMark },
+  { title: "Recherche", url: "/search", icon: Search },
   { title: "Paramètres", url: "/settings", icon: Settings },
 ];
 
