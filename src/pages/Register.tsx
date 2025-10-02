@@ -105,7 +105,7 @@ export function Register() {
 
   const handleSubmit = () => {
     // Handle registration completion
-    navigate('/onboarding');
+    navigate('/login');
   };
 
   const progress = (currentStep / totalSteps) * 100;
@@ -333,7 +333,7 @@ export function Register() {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="faculty">Filière/Spécialisation *</Label>
+                    <Label htmlFor="faculty">Filière *</Label>
                     <Input
                       id="faculty"
                       placeholder="ex: Sélectionnez votre filière"
