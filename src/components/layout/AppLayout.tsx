@@ -49,13 +49,9 @@ export function AppLayout({ children }: AppLayoutProps) {
               <div className="flex items-center gap-4">
                 <SidebarTrigger className="hover:bg-accent" />
                 <div>
-                  <h1 className="text-3xl font-[Automata Display] campus-gradient bg-clip-text text-transparent">
+                  <h1 className="text-3xl font-bold campus-gradient bg-clip-text text-transparent" style={{ fontFamily: 'Automata Display' }}>
                     CampusSphere
                   </h1>
-                  <p style={{ fontFamily: 'Automata Display' }}>
-                    Ceci est un test avec Automata Display
-                  </p>
-
                 </div>
                 <form onSubmit={handleSearch} className="pl-10 flex items-center gap-2 flex-1 max-w-md">
                   <div className="relative flex-1">
