@@ -31,23 +31,23 @@ export function About() {
 
   const team = [
     {
-      name: "Sarah Johnson",
-      role: "Co-fondatrice & CEO",
+      name: "Nlend Max",
+      role: "Fondateur & CEO",
       avatar: "/placeholder-avatar.jpg"
     },
     {
-      name: "Thomas Chen",
-      role: "Co-fondateur & CTO",
+      name: "Kana Tommi",
+      role: "Co-fondateur & Head of Design",
       avatar: "/placeholder-avatar.jpg"
     },
     {
-      name: "Marie Dubois",
-      role: "Head of Product",
+      name: "Hussein Boris",
+      role: "CTO & Backend Dev",
       avatar: "/placeholder-avatar.jpg"
     },
     {
-      name: "Alex Martin",
-      role: "Head of Design",
+      name: "Nounga Nathan",
+      role: "CMO & Assistant Dev",
       avatar: "/placeholder-avatar.jpg"
     }
   ];

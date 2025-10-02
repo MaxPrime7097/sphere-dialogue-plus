@@ -19,13 +19,15 @@ export function Register() {
     // Step 1: Personal Info
     firstName: "",
     lastName: "",
+    username: "",
     email: "",
+    phoneNumber: "",
+    dateOfBirth: "",
     password: "",
     confirmPassword: "",
-    dateOfBirth: "",
     avatar: null as File | null,
     bio: "",
-    country: "",
+    town: "",
     language: "",
     
     // Step 2: Academic Info
@@ -108,9 +110,9 @@ export function Register() {
 
   const progress = (currentStep / totalSteps) * 100;
 
-  const countries = ["France", "Belgique", "Suisse", "Canada", "Maroc", "Tunisie"];
-  const languages = ["Français", "English", "Español", "Deutsch"];
+  const languages = ["Français", "English"];
   const studyYears = ["L1", "L2", "L3", "M1", "M2", "Doctorat"];
+  const towns = ["Douala", "Yaoundé"];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-accent/5 to-primary/5 flex items-center justify-center p-4">
@@ -171,17 +173,50 @@ export function Register() {
                   </div>
                 </div>
 
-                <div>
-                  <Label htmlFor="email">Email universitaire *</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="votre.email@universite.fr"
-                    value={formData.email}
-                    onChange={(e) => handleInputChange('email', e.target.value)}
-                    required
-                  />
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="username">Nom d'utilisateur *</Label>
+                    <Input
+                      id="username"
+                      value={formData.lastName}
+                      onChange={(e) => handleInputChange('username', e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="email">Email universitaire *</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="votre.email@universite.fr"
+                      value={formData.email}
+                      onChange={(e) => handleInputChange('email', e.target.value)}
+                      required
+                    />
+                  </div>
                 </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="dateOfBirth">Date de naissance *</Label>
+                    <Input
+                      id="dateOfBirth"
+                      type="date"
+                      value={formData.dateOfBirth}
+                      onChange={(e) => handleInputChange('dateOfBirth', e.target.value)}
+                      required
+                    />
+                  </div>
+                   <div>
+                    <Label htmlFor="phoneNumber">Numéro de Téléphone *</Label>
+                    <Input
+                      id="phoneNumber"
+                      value={formData.phoneNumber}
+                      onChange={(e) => handleInputChange('phoneNumber', e.target.value)}
+                      required
+                    />
+                  </div>
+                </div>  
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
@@ -204,17 +239,6 @@ export function Register() {
                       required
                     />
                   </div>
-                </div>
-
-                <div>
-                  <Label htmlFor="dateOfBirth">Date de naissance *</Label>
-                  <Input
-                    id="dateOfBirth"
-                    type="date"
-                    value={formData.dateOfBirth}
-                    onChange={(e) => handleInputChange('dateOfBirth', e.target.value)}
-                    required
-                  />
                 </div>
 
                 <div>
@@ -248,15 +272,15 @@ export function Register() {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="country">Pays</Label>
-                    <Select onValueChange={(value) => handleInputChange('country', value)}>
+                    <Label htmlFor="country">Ville</Label>
+                    <Select onValueChange={(value) => handleInputChange('town', value)}>
                       <SelectTrigger>
-                        <SelectValue placeholder="Sélectionnez votre pays" />
+                        <SelectValue placeholder="Sélectionnez votre ville" />
                       </SelectTrigger>
                       <SelectContent>
-                        {countries.map(country => (
-                          <SelectItem key={country} value={country}>
-                            {country}
+                        {towns.map(towns => (
+                          <SelectItem key={town} value={town}>
+                            {town}
                           </SelectItem>
                         ))}
                       </SelectContent>
