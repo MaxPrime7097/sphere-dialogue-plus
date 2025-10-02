@@ -1,13 +1,17 @@
 import { useState } from "react";
-import { Search, Filter, Upload, Download, FileText, Heart, Star, Eye, ThumbsUp } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Search, Filter, Upload, Download, FileText, Heart, Star, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { UploadResourceModal } from "@/components/modals/UploadResourceModal";
 
 export function Resources() {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedSubject, setSelectedSubject] = useState("all");
   const [selectedType, setSelectedType] = useState("all");
@@ -141,156 +145,172 @@ export function Resources() {
               Partagez et accédez aux ressources de la communauté
             </p>
           </div>
-          <Button className="campus-gradient text-white hover:opacity-90 gap-2 w-full sm:w-auto">
-            <Upload className="h-4 w-4" />
-            Partager une ressource
-          </Button>
+          <UploadResourceModal>
+            <Button className="campus-gradient text-white hover:opacity-90 gap-2 w-full sm:w-auto">
+              <Upload className="h-4 w-4" />
+              Partager une ressource
+            </Button>
+          </UploadResourceModal>
         </div>
 
-        {/* Filters */}
-        <Card className="campus-card mb-6">
-          <CardContent className="p-3 md:p-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input
-                  placeholder="Rechercher..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10"
-                />
-              </div>
-              
-              <Select value={selectedSubject} onValueChange={setSelectedSubject}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Matière" />
-                </SelectTrigger>
-                <SelectContent>
-                  {subjects.map((subject) => (
-                    <SelectItem key={subject.value} value={subject.value}>
-                      {subject.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+        <Tabs defaultValue="all" className="w-full">
+          <TabsList className="grid w-full grid-cols-3 mb-6">
+            <TabsTrigger value="all">Toutes</TabsTrigger>
+            <TabsTrigger value="popular">Populaires</TabsTrigger>
+            <TabsTrigger value="recent">Récentes</TabsTrigger>
+          </TabsList>
 
-              <Select value={selectedType} onValueChange={setSelectedType}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Type" />
-                </SelectTrigger>
-                <SelectContent>
-                  {types.map((type) => (
-                    <SelectItem key={type.value} value={type.value}>
-                      {type.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-
-              <Button variant="outline" className="gap-2">
-                <Filter className="h-4 w-4" />
-                Plus de filtres
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Resources Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {filteredResources.map((resource, index) => (
-            <Card 
-              key={resource.id}
-              className="campus-card hover:campus-glow transition-all duration-300 campus-animate-fade-in"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <CardContent className="p-4">
-                {/* Resource Header */}
-                <div className="flex gap-3 mb-3">
-                  <div className="h-16 w-16 rounded-lg campus-gradient flex items-center justify-center flex-shrink-0">
-                    <FileText className="h-8 w-8 text-white" />
+          <TabsContent value="all" className="space-y-4">
+            {/* Filters */}
+            <Card className="campus-card">
+              <CardContent className="p-3 md:p-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      placeholder="Rechercher..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="pl-10"
+                    />
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-sm md:text-base line-clamp-2 mb-1">
-                      {resource.title}
-                    </h3>
-                    <p className="text-xs text-muted-foreground line-clamp-2">
-                      {resource.description}
-                    </p>
-                  </div>
-                </div>
+                  
+                  <Select value={selectedSubject} onValueChange={setSelectedSubject}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Matière" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {subjects.map((subject) => (
+                        <SelectItem key={subject.value} value={subject.value}>
+                          {subject.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
 
-                {/* Tags */}
-                <div className="flex flex-wrap gap-1.5 mb-3">
-                  <Badge variant="outline" className="text-xs">
-                    {types.find(t => t.value === resource.type)?.label}
-                  </Badge>
-                  <Badge variant="secondary" className="text-xs">
-                    {subjects.find(s => s.value === resource.subject)?.label}
-                  </Badge>
-                  {resource.tags.slice(0, 2).map((tag) => (
-                    <Badge key={tag} variant="outline" className="text-xs">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
+                  <Select value={selectedType} onValueChange={setSelectedType}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {types.map((type) => (
+                        <SelectItem key={type.value} value={type.value}>
+                          {type.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
 
-                {/* Stats */}
-                <div className="flex items-center justify-between text-xs text-muted-foreground mb-3 pb-3 border-b">
-                  <div className="flex items-center gap-3">
-                    <span className="flex items-center gap-1">
-                      <Download className="h-3 w-3" />
-                      {resource.downloads}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Heart className="h-3 w-3" />
-                      {resource.likes}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Eye className="h-3 w-3" />
-                      {resource.views}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-                    <span className="font-medium">{resource.rating}</span>
-                    <span>({resource.reviews})</span>
-                  </div>
-                </div>
-
-                {/* Uploader */}
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Avatar className="h-6 w-6">
-                      <AvatarImage src={resource.uploader.avatar} />
-                      <AvatarFallback className="text-xs">
-                        {resource.uploader.name.slice(0, 2)}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="text-xs">
-                      <p className="font-medium">{resource.uploader.name}</p>
-                      <p className="text-muted-foreground">{resource.uploadDate}</p>
-                    </div>
-                  </div>
-                  <div className="text-xs text-muted-foreground">
-                    {resource.size}
-                  </div>
-                </div>
-
-                {/* Actions */}
-                <div className="flex gap-2 mt-3">
-                  <Button size="sm" variant="outline" className="flex-1 gap-1">
-                    <Eye className="h-3 w-3" />
-                    Voir
-                  </Button>
-                  <Button size="sm" className="flex-1 campus-gradient text-white hover:opacity-90 gap-1">
-                    <Download className="h-3 w-3" />
-                    Télécharger
+                  <Button variant="outline" className="gap-2">
+                    <Filter className="h-4 w-4" />
+                    Plus de filtres
                   </Button>
                 </div>
               </CardContent>
             </Card>
-          ))}
-        </div>
+
+            {/* Resources Grid */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+              {filteredResources.map((resource) => (
+                <Card 
+                  key={resource.id}
+                  className="campus-card hover:campus-glow transition-all duration-300 cursor-pointer"
+                  onClick={() => navigate(`/resources/${resource.id}`)}
+                >
+                  <CardContent className="p-3">
+                    <div className="h-24 rounded-lg campus-gradient flex items-center justify-center mb-3">
+                      <FileText className="h-12 w-12 text-white" />
+                    </div>
+                    <h3 className="font-semibold text-sm line-clamp-2 mb-2">
+                      {resource.title}
+                    </h3>
+                    <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
+                      <span className="flex items-center gap-1">
+                        <Download className="h-3 w-3" />
+                        {resource.downloads}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                        {resource.rating}
+                      </span>
+                    </div>
+                    <Badge variant="outline" className="text-xs">
+                      {types.find(t => t.value === resource.type)?.label}
+                    </Badge>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="popular" className="space-y-4">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+              {filteredResources.sort((a, b) => b.downloads - a.downloads).map((resource) => (
+                <Card 
+                  key={resource.id}
+                  className="campus-card hover:campus-glow transition-all duration-300 cursor-pointer"
+                  onClick={() => navigate(`/resources/${resource.id}`)}
+                >
+                  <CardContent className="p-3">
+                    <div className="h-24 rounded-lg campus-gradient flex items-center justify-center mb-3">
+                      <FileText className="h-12 w-12 text-white" />
+                    </div>
+                    <h3 className="font-semibold text-sm line-clamp-2 mb-2">
+                      {resource.title}
+                    </h3>
+                    <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
+                      <span className="flex items-center gap-1">
+                        <Download className="h-3 w-3" />
+                        {resource.downloads}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                        {resource.rating}
+                      </span>
+                    </div>
+                    <Badge variant="outline" className="text-xs">
+                      {types.find(t => t.value === resource.type)?.label}
+                    </Badge>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="recent" className="space-y-4">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+              {filteredResources.map((resource) => (
+                <Card 
+                  key={resource.id}
+                  className="campus-card hover:campus-glow transition-all duration-300 cursor-pointer"
+                  onClick={() => navigate(`/resources/${resource.id}`)}
+                >
+                  <CardContent className="p-3">
+                    <div className="h-24 rounded-lg campus-gradient flex items-center justify-center mb-3">
+                      <FileText className="h-12 w-12 text-white" />
+                    </div>
+                    <h3 className="font-semibold text-sm line-clamp-2 mb-2">
+                      {resource.title}
+                    </h3>
+                    <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
+                      <span className="flex items-center gap-1">
+                        <Download className="h-3 w-3" />
+                        {resource.downloads}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                        {resource.rating}
+                      </span>
+                    </div>
+                    <Badge variant="outline" className="text-xs">
+                      {types.find(t => t.value === resource.type)?.label}
+                    </Badge>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </TabsContent>
+        </Tabs>
 
         {filteredResources.length === 0 && (
           <div className="text-center py-12">

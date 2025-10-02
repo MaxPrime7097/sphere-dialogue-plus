@@ -29,6 +29,9 @@ import { AdminDashboard } from "./pages/admin/AdminDashboard";
 import { About } from "./pages/About";
 import { Contact } from "./pages/Contact";
 import { FAQ } from "./pages/FAQ";
+import { ForgotPassword } from "./pages/ForgotPassword";
+import { Privacy } from "./pages/Privacy";
+import { Terms } from "./pages/Terms";
 
 const queryClient = new QueryClient();
 
@@ -43,6 +46,7 @@ const App = () => (
           <Route path="/cs-inc" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           
           {/* Protected routes with layout */}
           <Route path="/" element={
@@ -140,6 +144,8 @@ const App = () => (
           <Route path="/cs-inc/about" element={<About />} />
           <Route path="/cs-inc/contact" element={<Contact />} />
           <Route path="/cs-inc/faq" element={<FAQ />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
           
           {/* 404 */}
           <Route path="*" element={<NotFound />} />

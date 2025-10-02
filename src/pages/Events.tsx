@@ -1,15 +1,20 @@
 import { useState } from "react";
-import { Calendar, Clock, MapPin, Users, Plus, Filter } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Calendar, Clock, MapPin, Users, Plus, Filter, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Calendar as CalendarComponent } from "@/components/ui/calendar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CreateEventModal } from "@/components/modals/CreateEventModal";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export function Events() {
+  const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [searchTerm, setSearchTerm] = useState("");
 
   const events = [
     {
@@ -135,88 +140,71 @@ export function Events() {
               </TabsList>
 
               <TabsContent value="upcoming" className="space-y-4">
-                <div className="grid gap-3 grid-cols-2 md:grid-cols-1 lg:grid-cols-1">
-                  {filteredEvents.map((event, index) => (
-                    <Card
-                    key={event.id} 
-                    className="campus-card hover:campus-glow transition-all duration-300 campus-animate-fade-in"
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                  >
-                    <CardContent className="p-6">
-                      <div className="grid md:grid-cols-4 gap-4">
-                        {/* Event Image */}
-                        <div className="md:col-span-1">
-                          <div className="aspect-video bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg flex items-center justify-center">
-                            <Calendar className="h-8 w-8 text-primary" />
-                          </div>
-                        </div>
-
-                        {/* Event Details */}
-                        <div className="md:col-span-2 space-y-3">
-                          <div>
-                            <div className="flex items-center gap-2 mb-1">
-                              <h3 className="font-semibold text-lg">{event.title}</h3>
-                              <Badge variant="outline" className="text-xs">
-                                {categories.find(c => c.id === event.category)?.label}
-                              </Badge>
-                            </div>
-                            <p className="text-sm text-muted-foreground">
-                              {event.description}
-                            </p>
-                          </div>
-
-                          <div className="grid grid-cols-2 gap-4 text-sm">
-                            <div className="flex items-center gap-2 text-muted-foreground">
-                              <Calendar className="h-4 w-4" />
-                              {new Date(event.date).toLocaleDateString('fr-FR')}
-                            </div>
-                            <div className="flex items-center gap-2 text-muted-foreground">
-                              <Clock className="h-4 w-4" />
-                              {event.time}
-                            </div>
-                            <div className="flex items-center gap-2 text-muted-foreground">
-                              <MapPin className="h-4 w-4" />
-                              {event.location}
-                            </div>
-                            <div className="flex items-center gap-2 text-muted-foreground">
-                              <Users className="h-4 w-4" />
-                              {event.attendees}/{event.maxAttendees} participants
-                            </div>
-                          </div>
-
-                          <p className="text-xs text-muted-foreground">
-                            Organisé par {event.organizer}
-                          </p>
-                        </div>
-
-                        {/* Actions */}
-                        <div className="md:col-span-1 flex flex-col justify-between">
-                          <div className="text-right">
-                            <div className="text-xs text-muted-foreground mb-2">
-                              Places restantes: {event.maxAttendees - event.attendees}
-                            </div>
-                            <div className="w-full bg-secondary rounded-full h-2">
-                              <div 
-                                className="campus-gradient h-2 rounded-full"
-                                style={{ 
-                                  width: `${(event.attendees / event.maxAttendees) * 100}%` 
-                                }}
-                              ></div>
-                            </div>
-                          </div>
-
-                          <Button
-                            variant={event.isAttending ? "outline" : "default"}
-                            size="sm"
-                            className={!event.isAttending ? "campus-gradient text-white hover:opacity-90" : ""}
-                            onClick={() => toggleAttendance(event.id)}
-                          >
-                            {event.isAttending ? "Ne plus participer" : "Participer"}
-                          </Button>
-                        </div>
+                {/* Filters */}
+                <Card className="campus-card">
+                  <CardContent className="p-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      <div className="relative">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input
+                          placeholder="Rechercher des événements..."
+                          value={searchTerm}
+                          onChange={(e) => setSearchTerm(e.target.value)}
+                          className="pl-10"
+                        />
                       </div>
-                    </CardContent>
-                  </Card>
+                      <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Catégorie" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {categories.map((cat) => (
+                            <SelectItem key={cat.id} value={cat.id}>
+                              {cat.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <Button variant="outline">
+                        <Filter className="h-4 w-4 mr-2" />
+                        Plus de filtres
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <div className="grid gap-3 grid-cols-2 lg:grid-cols-4">
+                  {filteredEvents.filter(e => 
+                    e.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    e.description.toLowerCase().includes(searchTerm.toLowerCase())
+                  ).map((event) => (
+                    <Card
+                      key={event.id} 
+                      className="campus-card hover:campus-glow transition-all duration-300 cursor-pointer"
+                      onClick={() => navigate(`/events/${event.id}`)}
+                    >
+                      <CardContent className="p-3">
+                        <div className="aspect-video bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg flex items-center justify-center mb-3">
+                          <Calendar className="h-12 w-12 text-primary" />
+                        </div>
+                        <Badge variant="outline" className="text-xs mb-2">
+                          {categories.find(c => c.id === event.category)?.label}
+                        </Badge>
+                        <h3 className="font-semibold text-sm line-clamp-2 mb-2">
+                          {event.title}
+                        </h3>
+                        <div className="space-y-1 text-xs text-muted-foreground">
+                          <div className="flex items-center gap-1">
+                            <Calendar className="h-3 w-3" />
+                            {new Date(event.date).toLocaleDateString('fr-FR')}
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Users className="h-3 w-3" />
+                            {event.attendees}/{event.maxAttendees}
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
                   ))}
                 </div>
               </TabsContent>

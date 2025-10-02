@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Users, Plus, Search, Crown, MessageCircle, Calendar } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Users, Plus, Search, Crown, MessageCircle, Calendar, Filter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -9,7 +10,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CreateGroupModal } from "@/components/modals/CreateGroupModal";
 
 export function Groups() {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
 
   const myGroups = [
     {
@@ -118,108 +121,98 @@ export function Groups() {
           </TabsList>
 
           <TabsContent value="my-groups" className="space-y-4">
-            <div className="grid gap-3 grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
+            {/* Filters */}
+            <Card className="campus-card mb-4">
+              <CardContent className="p-3">
+                <div className="flex gap-2">
+                  <div className="relative flex-1">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      placeholder="Rechercher mes groupes..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="pl-10"
+                    />
+                  </div>
+                  <Button variant="outline" size="sm">
+                    <Filter className="h-4 w-4" />
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            <div className="grid gap-3 grid-cols-2 lg:grid-cols-4">
               {myGroups.map((group) => (
-                <Card key={group.id} className="campus-card hover:campus-glow transition-all duration-300">
+                <Card 
+                  key={group.id} 
+                  className="campus-card hover:campus-glow transition-all duration-300 cursor-pointer"
+                  onClick={() => navigate(`/groups/${group.id}`)}
+                >
                   <CardHeader className="pb-3">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <Avatar className="h-12 w-12" onClick={() => navigate("/groups/:id")}>
-                          <AvatarImage src={group.avatar} />
-                          <AvatarFallback className="campus-gradient text-white font-semibold">
-                            {group.name.slice(0, 2).toUpperCase()}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div>
-                          <div className="flex items-center gap-2">
-                            <CardTitle className="text-base">{group.name}</CardTitle>
-                            {group.isAdmin && (
-                              <Crown className="h-4 w-4 text-primary" />
-                            )}
-                          </div>
-                          <p className="text-sm text-muted-foreground">
-                            {group.members} membres
-                          </p>
-                        </div>
-                      </div>
-                      {group.newMessages > 0 && (
-                        <Badge variant="destructive" className="text-xs">
-                          {group.newMessages}
-                        </Badge>
-                      )}
-                    </div>
-                  </CardHeader>
-                  <CardContent className="pt-0">
-                    <p className="text-sm text-muted-foreground mb-4">
-                      {group.description}
+                    <Avatar className="h-16 w-16 mx-auto mb-2">
+                      <AvatarImage src={group.avatar} />
+                      <AvatarFallback className="campus-gradient text-white font-semibold">
+                        {group.name.slice(0, 2).toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
+                    <CardTitle className="text-sm text-center line-clamp-1">
+                      {group.name}
+                    </CardTitle>
+                    <p className="text-xs text-muted-foreground text-center">
+                      {group.members} membres
                     </p>
-                    <div className="flex justify-between items-center">
-                      <span className="text-xs text-muted-foreground">
-                        {group.lastActivity}
-                      </span>
-                      <div className="flex gap-2">
-                        <Button variant="ghost" size="sm">
-                          <MessageCircle className="h-4 w-4" />
-                        </Button>
-                        <Button variant="ghost" size="sm">
-                          <Calendar className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
+                  </CardHeader>
                 </Card>
               ))}
             </div>
           </TabsContent>
 
-          <TabsContent value="discover" className="space-y-6">
-            {/* Search */}
-            <div className="relative max-w-md">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Rechercher des groupes..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
-              />
-            </div>
+          <TabsContent value="discover" className="space-y-4">
+            {/* Filters */}
+            <Card className="campus-card">
+              <CardContent className="p-3">
+                <div className="flex gap-2">
+                  <div className="relative flex-1">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      placeholder="Rechercher des groupes..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="pl-10"
+                    />
+                  </div>
+                  <Button variant="outline" size="sm">
+                    <Filter className="h-4 w-4" />
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
 
             {/* Suggested Groups */}
-            <div className="grid gap-3 grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-3 grid-cols-2 lg:grid-cols-4">
               {filteredDiscoverGroups.map((group) => (
-                <Card key={group.id} className="campus-card hover:campus-glow transition-all duration-300">
+                <Card 
+                  key={group.id} 
+                  className="campus-card hover:campus-glow transition-all duration-300 cursor-pointer"
+                  onClick={() => navigate(`/groups/${group.id}`)}
+                >
                   <CardHeader className="pb-3">
-                    <div className="flex items-center gap-3">
-                      <Avatar className="h-12 w-12">
-                        <AvatarImage src={group.avatar} />
-                        <AvatarFallback className="campus-gradient text-white font-semibold">
-                          {group.name.slice(0, 2).toUpperCase()}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <CardTitle className="text-base">{group.name}</CardTitle>
-                        <div className="flex items-center gap-2">
-                          <p className="text-sm text-muted-foreground">
-                            {group.members} membres
-                          </p>
-                          <Badge variant="outline" className="text-xs">
-                            {group.category}
-                          </Badge>
-                        </div>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="pt-0">
-                    <p className="text-sm text-muted-foreground mb-4">
-                      {group.description}
+                    <Avatar className="h-16 w-16 mx-auto mb-2">
+                      <AvatarImage src={group.avatar} />
+                      <AvatarFallback className="campus-gradient text-white font-semibold">
+                        {group.name.slice(0, 2).toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
+                    <CardTitle className="text-sm text-center line-clamp-1">
+                      {group.name}
+                    </CardTitle>
+                    <p className="text-xs text-muted-foreground text-center">
+                      {group.members} membres
                     </p>
-                    <Button 
-                      className="w-full campus-gradient text-white hover:opacity-90"
-                      size="sm"
-                    >
-                      Rejoindre
-                    </Button>
-                  </CardContent>
+                    <Badge variant="outline" className="text-xs mx-auto">
+                      {group.category}
+                    </Badge>
+                  </CardHeader>
                 </Card>
               ))}
             </div>

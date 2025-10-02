@@ -38,11 +38,13 @@ export function AppLayout({ children }: AppLayoutProps) {
         </div>
         
         <div className="flex-1 flex flex-col">
-          {/* Mobile Top Bar */}
-          <MobileTopBar />
+          {/* Mobile Top Bar - Fixed */}
+          <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-background border-b">
+            <MobileTopBar />
+          </div>
           
-          {/* Desktop Top Navigation */}
-          <header className="hidden md:flex h-16 w-full border-b bg-card/50 backdrop-blur-sm sticky top-0 z-40">
+          {/* Desktop Top Navigation - Fixed */}
+          <header className="hidden md:flex h-16 w-full border-b bg-card/50 backdrop-blur-sm fixed top-0 right-0 left-0 md:left-64 z-40">
             <div className="flex items-center justify-between px-4 h-full w-full">
               <div className="flex items-center gap-4">
                 <SidebarTrigger className="hover:bg-accent" />
@@ -84,12 +86,14 @@ export function AppLayout({ children }: AppLayoutProps) {
           </header>
 
           {/* Main Content */}
-          <main className="flex-1 overflow-auto pb-16 md:pb-0">
+          <main className="flex-1 overflow-auto pt-16 pb-16 md:pb-0 md:pt-16">
             {children}
           </main>
           
-          {/* Mobile Bottom Navigation */}
-          <MobileNavigation />
+          {/* Mobile Bottom Navigation - Fixed */}
+          <div className="md:hidden fixed bottom-0 left-0 right-0 z-50">
+            <MobileNavigation />
+          </div>
         </div>
       </div>
     </SidebarProvider>
