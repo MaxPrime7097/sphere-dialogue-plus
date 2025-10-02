@@ -6,7 +6,7 @@ import {
   ShoppingBag, 
   BookOpen, 
   Heart, 
-  Bell, 
+  BookMark, 
   MessageSquare,
   Search,
   Settings,
@@ -41,9 +41,8 @@ const navigationItems = [
 ];
 
 const quickActions = [
-  { title: "Notifications", url: "/notifications", icon: Bell },
   { title: "Messages", url: "/messages", icon: MessageSquare },
-  { title: "Recherche", url: "/search", icon: Search },
+  { title: "Enregistrements", url: "/saved", icon: BookMark },
   { title: "Paramètres", url: "/settings", icon: Settings },
 ];
 
