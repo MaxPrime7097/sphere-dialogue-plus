@@ -1,8 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Shield, Lock, Eye, Database, UserCheck } from "lucide-react";
+import { ArrowLeft, BookLock, Lock, Eye, Database, UserCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
 export function Privacy() {
   const navigate = useNavigate();
 
@@ -19,7 +18,7 @@ export function Privacy() {
         </Button>
 
         <div className="text-center mb-12">
-          <Shield className="h-16 w-16 campus-gradient mx-auto mb-4 p-3 rounded-2xl text-white" />
+          <BookLock className="h-16 w-16 campus-gradient mx-auto mb-4 p-3 rounded-2xl text-white" />
           <h1 className="text-4xl font-bold campus-gradient bg-clip-text text-transparent mb-4">
             Politique de Confidentialité
           </h1>

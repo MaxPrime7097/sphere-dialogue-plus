@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, FileText, AlertCircle, CheckCircle, XCircle } from "lucide-react";
+import { ArrowLeft, ScrollText, AlertCircle, CheckCircle, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -19,7 +19,7 @@ export function Terms() {
         </Button>
 
         <div className="text-center mb-12">
-          <FileText className="h-16 w-16 campus-gradient mx-auto mb-4 p-3 rounded-2xl text-white" />
+          <ScrollText className="h-16 w-16 campus-gradient mx-auto mb-4 p-3 rounded-2xl text-white" />
           <h1 className="text-4xl font-bold campus-gradient bg-clip-text text-transparent mb-4">
             Conditions d'Utilisation
           </h1>
