@@ -272,13 +272,13 @@ export function Register() {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="country">Ville</Label>
+                    <Label htmlFor="town">Ville</Label>
                     <Select onValueChange={(value) => handleInputChange('town', value)}>
                       <SelectTrigger>
                         <SelectValue placeholder="Sélectionnez votre ville" />
                       </SelectTrigger>
                       <SelectContent>
-                        {towns.map(towns => (
+                        {towns.map(town => (
                           <SelectItem key={town} value={town}>
                             {town}
                           </SelectItem>
@@ -348,7 +348,7 @@ export function Register() {
                 </div>
 
                 <div>
-                  <Label htmlFor="studentId">Numéro étudiant (optionnel)</Label>
+                  <Label htmlFor="studentId">Matricule d'étudiant (optionnel)</Label>
                   <Input
                     id="studentId"
                     placeholder="Votre numéro d'étudiant"
