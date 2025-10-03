@@ -92,7 +92,7 @@ export function AppLayout({ children }: AppLayoutProps) {
 
           {/* Main Content */}
           <main className="flex-1 overflow-auto pt-8 pb-16 md:pb-0 md:pt-16">
-            
+
             {children}
           </main>
           
