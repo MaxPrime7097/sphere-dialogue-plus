@@ -9,6 +9,7 @@ import { CreatePostModal } from "@/components/modals/CreatePostModal";
 import { MobileNavigation } from "./MobileNavigation";
 import { MobileTopBar } from "./MobileTopBar";
 import { NotificationDropdown } from "./NotificationDropdown";
+import logo from './assets/CS.svg';
 
 
 interface AppLayoutProps {
@@ -49,11 +50,11 @@ export function AppLayout({ children }: AppLayoutProps) {
             <div className="flex items-center justify-between px-4 h-full w-full">
               <div className="flex items-center gap-4">
                 <SidebarTrigger className="hover:bg-accent" />
-                <div onClick={() => navigate(`/`)}>
-                  <span className="text-3xl font-bold campus-gradient bg-clip-text text-transparent" style={{ fontFamily: 'Automata Display' }}>
+                <span onClick={() => navigate(`/`)}>
+                  <h1 className="text-3xl font-bold campus-gradient bg-clip-text text-transparent" style={{ fontFamily: 'Automata Display' }}>
                     CampusSphere
-                  </span>
-                </div>
+                  </h1>
+                </span>
                 <form onSubmit={handleSearch} className="pl-10 flex items-center gap-2 flex-1 max-w-md">
                   <div className="relative flex-1">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
