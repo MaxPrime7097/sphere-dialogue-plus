@@ -51,6 +51,7 @@ export function AppLayout({ children }: AppLayoutProps) {
               <div className="flex items-center gap-4">
                 <SidebarTrigger className="hover:bg-accent" />
                 <span onClick={() => navigate(`/`)}>
+                  <img src="/CS.svg" alt="Logo CampusSphere" />
                   <button className="text-3xl font-bold campus-gradient bg-clip-text text-transparent" style={{ fontFamily: 'Automata Display' }}>
                     CampusSphere
                   </button>
