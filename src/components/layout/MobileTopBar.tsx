@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { CreatePostModal } from "@/components/modals/CreatePostModal";
-import { NotificationDropdown } from "./NotificationDropdown";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface MobileTopBarProps {
   onMenuClick?: () => void;
@@ -13,8 +13,10 @@ interface MobileTopBarProps {
 
 export function MobileTopBar({ onMenuClick }: MobileTopBarProps) {
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const unreadCount = 3; // TODO: Get from state/API
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -79,7 +81,22 @@ export function MobileTopBar({ onMenuClick }: MobileTopBarProps) {
               <Search className="h-5 w-5" />
             </Button>
             
-            <NotificationDropdown />
+            <Button
+              variant="ghost"
+              size="sm"
+              className="relative"
+              onClick={() => navigate('/notifications')}
+            >
+              <Bell className="h-5 w-5" />
+              {unreadCount > 0 && (
+                <Badge 
+                  variant="destructive" 
+                  className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs"
+                >
+                  {unreadCount}
+                </Badge>
+              )}
+            </Button>
 
             <CreatePostModal>
               <Button size="sm" className="campus-gradient text-white hover:opacity-90">
