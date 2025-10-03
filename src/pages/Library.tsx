@@ -278,100 +278,55 @@ export function Library() {
             </Card>
 
             {/* Resources Grid */}
-            <div className="grid gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
               {filteredResources.map((resource, index) => (
                 <Card 
                   key={resource.id} 
-                  className="campus-card hover:campus-glow transition-all duration-300 campus-animate-fade-in"
+                  className="campus-card hover:campus-glow transition-all duration-300 cursor-pointer campus-animate-fade-in"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <CardContent className="p-6">
-                    <div className="grid lg:grid-cols-4 gap-4">
-                      {/* Resource Info */}
-                      <div className="lg:col-span-3 space-y-3">
-                        <div>
-                          <div className="flex items-start justify-between mb-2">
-                            <div className="flex items-center gap-2 mb-1">
-                              {getFormatIcon(resource.format)}
-                              <h3 className="font-semibold text-lg">{resource.title}</h3>
-                            </div>
-                            <div className="flex items-center gap-1">
-                              <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                              <span className="text-sm font-medium">{resource.rating}</span>
-                            </div>
-                          </div>
-                          <p className="text-sm text-muted-foreground line-clamp-2">
-                            {resource.description}
-                          </p>
-                        </div>
-
-                        <div className="flex flex-wrap gap-2">
-                          <Badge className={getTypeColor(resource.type)}>
-                            {documentTypes.find(t => t.value === resource.type)?.label}
-                          </Badge>
-                          <Badge variant="outline">
-                            {subjects.find(s => s.value === resource.subject)?.label}
-                          </Badge>
-                          {resource.tags.slice(0, 3).map((tag) => (
-                            <Badge key={tag} variant="secondary" className="text-xs">
-                              {tag}
-                            </Badge>
-                          ))}
-                        </div>
-
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-muted-foreground">
-                          <div>
-                            <span className="font-medium">Taille:</span> {resource.size}
-                          </div>
-                          <div>
-                            <span className="font-medium">Pages:</span> {resource.pages || resource.duration}
-                          </div>
-                          <div>
-                            <span className="font-medium">Téléchargements:</span> {resource.downloads}
-                          </div>
-                          <div>
-                            <span className="font-medium">Mis à jour:</span> {resource.lastUpdated}
-                          </div>
-                        </div>
-
-                        <div className="flex items-center gap-4 text-sm">
-                          <div className="flex items-center gap-2">
-                            <Avatar className="h-6 w-6">
-                              <AvatarImage src={resource.uploadedBy.avatar} />
-                              <AvatarFallback className="text-xs">
-                                {resource.uploadedBy.name.slice(0, 2).toUpperCase()}
-                              </AvatarFallback>
-                            </Avatar>
-                            <span>Partagé par {resource.uploadedBy.name}</span>
-                          </div>
-                          <div>
-                            <span className="font-medium">{resource.professor}</span> - {resource.university}
-                          </div>
+                  <CardContent className="p-4">
+                    <div className="space-y-3">
+                      <div className="aspect-square bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg flex items-center justify-center">
+                        {getFormatIcon(resource.format)}
+                      </div>
+                      
+                      <div>
+                        <h3 className="font-semibold text-sm line-clamp-2 mb-1">
+                          {resource.title}
+                        </h3>
+                        <div className="flex items-center gap-1 mb-2">
+                          <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                          <span className="text-xs font-medium">{resource.rating}</span>
                         </div>
                       </div>
 
-                      {/* Actions */}
-                      <div className="lg:col-span-1 flex flex-col justify-between">
-                        <div className="text-right">
-                          <div className="flex items-center justify-end gap-2 mb-2">
-                            <Heart className="h-4 w-4 text-muted-foreground hover:text-red-500 cursor-pointer" />
-                            <span className="text-sm text-muted-foreground">{resource.likes}</span>
-                          </div>
-                          <Badge variant="outline" className="text-xs">
-                            {resource.year}
-                          </Badge>
-                        </div>
+                      <div className="flex flex-wrap gap-1">
+                        <Badge className={`text-xs ${getTypeColor(resource.type)}`}>
+                          {documentTypes.find(t => t.value === resource.type)?.label}
+                        </Badge>
+                      </div>
 
-                        <div className="space-y-2">
-                          <Button variant="outline" size="sm" className="w-full gap-2">
-                            <Eye className="h-4 w-4" />
-                            Aperçu
-                          </Button>
-                          <Button size="sm" className="w-full campus-gradient text-white hover:opacity-90 gap-2">
-                            <Download className="h-4 w-4" />
-                            Télécharger
-                          </Button>
+                      <div className="text-xs text-muted-foreground space-y-1">
+                        <div className="flex justify-between">
+                          <span>Taille:</span>
+                          <span>{resource.size}</span>
                         </div>
+                        <div className="flex justify-between">
+                          <span>Pages:</span>
+                          <span>{resource.pages}</span>
+                        </div>
+                      </div>
+
+                      <div className="space-y-2 pt-2 border-t">
+                        <Button variant="outline" size="sm" className="w-full gap-2">
+                          <Eye className="h-3 w-3" />
+                          Aperçu
+                        </Button>
+                        <Button size="sm" className="w-full campus-gradient text-white hover:opacity-90 gap-2">
+                          <Download className="h-3 w-3" />
+                          Télécharger
+                        </Button>
                       </div>
                     </div>
                   </CardContent>

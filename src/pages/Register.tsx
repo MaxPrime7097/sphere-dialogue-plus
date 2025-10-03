@@ -131,10 +131,8 @@ export function Register() {
       <div className="w-full max-w-2xl">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="w-16 h-16 campus-gradient rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <span className="text-white font-bold text-xl">CS</span>
-          </div>
-          <h1 className="text-2xl font-bold campus-gradient bg-clip-text text-transparent">
+          <img src="/CS.svg" alt="CampusSphere" className="w-20 h-20 mx-auto mb-4" />
+          <h1 className="text-2xl font-bold font-automata campus-gradient bg-clip-text text-transparent">
             Rejoindre CampusSphere
           </h1>
           <p className="text-muted-foreground mt-2">

@@ -61,11 +61,9 @@ export function Landing() {
       {/* Navigation */}
       <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 campus-gradient rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">CS</span>
-            </div>
-            <span className="text-xl font-bold campus-gradient bg-clip-text text-transparent">
+          <div className="flex items-center gap-3">
+            <img src="/CS.svg" alt="CampusSphere Logo" className="w-10 h-10" />
+            <span className="text-2xl font-bold font-automata campus-gradient bg-clip-text text-transparent">
               CampusSphere
             </span>
           </div>
@@ -89,7 +87,7 @@ export function Landing() {
         <div className="container mx-auto max-w-6xl">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="text-center lg:text-left">
-              <h1 className="text-4xl md:text-6xl font-bold mb-6">
+              <h1 className="text-4xl md:text-6xl font-bold font-automata mb-6">
                 <span className="campus-gradient bg-clip-text text-transparent">
                   Connectez-vous
                 </span>
@@ -245,11 +243,9 @@ export function Landing() {
         <div className="container mx-auto max-w-6xl">
           <div className="grid md:grid-cols-4 gap-8">
             <div className="col-span-2">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 campus-gradient rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">CS</span>
-                </div>
-                <span className="text-xl font-bold">CampusSphere</span>
+              <div className="flex items-center gap-3 mb-4">
+                <img src="/CS.svg" alt="CampusSphere" className="w-10 h-10" />
+                <span className="text-2xl font-bold font-automata">CampusSphere</span>
               </div>
               <p className="text-muted-foreground mb-4">
                 La plateforme qui connecte les étudiants et enrichit l'expérience universitaire.

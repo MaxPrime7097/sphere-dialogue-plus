@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { CommentsModal } from "@/components/modals/CommentsModal";
+import { useNavigate } from "react-router-dom";
 
 interface PostCardProps {
   post: {
@@ -31,6 +32,7 @@ interface PostCardProps {
 }
 
 export function PostCard({ post }: PostCardProps) {
+  const navigate = useNavigate();
   const [isLiked, setIsLiked] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [likesCount, setLikesCount] = useState(post.likes);
@@ -50,7 +52,10 @@ export function PostCard({ post }: PostCardProps) {
       <Card className="campus-card hover:campus-glow transition-all duration-300">
         <CardHeader className="pb-3">
           <div className="flex items-start justify-between">
-            <div className="flex items-center gap-3">
+            <div 
+              className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity"
+              onClick={() => navigate('/profile')}
+            >
               <Avatar className="h-10 w-10">
                 <AvatarImage src={post.author.avatar} />
                 <AvatarFallback className="campus-gradient text-white font-semibold">
@@ -59,7 +64,7 @@ export function PostCard({ post }: PostCardProps) {
               </Avatar>
               <div>
                 <div className="flex items-center gap-2">
-                  <h4 className="font-semibold text-sm">{post.author.name}</h4>
+                  <h4 className="font-semibold text-sm hover:underline">{post.author.name}</h4>
                   {post.author.isVerified && (
                     <div className="w-4 h-4 campus-gradient rounded-full flex items-center justify-center">
                       <span className="text-white text-xs">✓</span>

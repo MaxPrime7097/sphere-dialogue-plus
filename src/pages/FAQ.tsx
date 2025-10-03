@@ -118,10 +118,8 @@ export function FAQ() {
       <div className="container max-w-4xl mx-auto py-8 md:py-12 px-4">
         {/* Header */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full campus-gradient mb-4">
-            <HelpCircle className="h-8 w-8 text-white" />
-          </div>
-          <h1 className="text-3xl md:text-5xl font-bold campus-gradient bg-clip-text text-transparent mb-4">
+          <img src="/CS.svg" alt="CampusSphere" className="w-20 h-20 mx-auto mb-4" />
+          <h1 className="text-3xl md:text-5xl font-bold font-automata campus-gradient bg-clip-text text-transparent mb-4">
             Questions Fréquentes
           </h1>
           <p className="text-lg text-muted-foreground">

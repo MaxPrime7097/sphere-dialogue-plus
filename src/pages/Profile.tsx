@@ -11,12 +11,38 @@ export function Profile() {
   const navigate = useNavigate();
   const [isFollowing, setIsFollowing] = useState(false);
 
-  // Mock user data
+  const isOwnProfile = true; // TODO: Check if viewing own profile
+
+  // Mock user data with extended info from register
   const user = {
+    // Personal info
     name: "Alex Dubois",
+    firstName: "Alex",
+    lastName: "Dubois",
     username: "alex_dubois",
+    email: "alex.dubois@university.fr",
+    phoneNumber: "+33 6 12 34 56 78",
+    dateOfBirth: "15/03/2001",
     avatar: "/placeholder-avatar.jpg",
     bio: "Étudiant en informatique passionné par l'IA et le développement web. Toujours prêt à aider et à apprendre !",
+    town: "Paris",
+    language: "Français",
+    
+    // Academic info
+    university: "Université Paris-Saclay",
+    faculty: "Informatique",
+    studyYear: "Master 2",
+    studentId: "21804567",
+    campus: "Campus Nord",
+    
+    // Experience & Skills
+    previousEducation: "Licence Informatique - Sorbonne Université",
+    experiences: "Stage développeur Full-Stack chez TechCorp (6 mois)",
+    skills: ["React", "Node.js", "Python", "Machine Learning", "SQL"],
+    interests: ["Intelligence Artificielle", "Développement Web", "Gaming", "Open Source"],
+    portfolioLinks: "github.com/alexdubois",
+    
+    // Social
     location: "Paris, France",
     joinDate: "Septembre 2023",
     website: "alexdubois.dev",
@@ -68,22 +94,26 @@ export function Profile() {
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex gap-2">
-                  <Button 
-                    variant={isFollowing ? "outline" : "default"}
-                    onClick={() => setIsFollowing(!isFollowing)}
-                    className={!isFollowing ? "campus-gradient text-white hover:opacity-90" : ""}
-                    size="sm"
-                  >
-                    {isFollowing ? "Ne plus suivre" : "Suivre"}
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => navigate("/profile/edit")}
-                  >
-                    <Settings className="h-4 w-4 mr-2" />
-                    Modifier
-                  </Button>
+                  {!isOwnProfile && (
+                    <Button 
+                      variant={isFollowing ? "outline" : "default"}
+                      onClick={() => setIsFollowing(!isFollowing)}
+                      className={!isFollowing ? "campus-gradient text-white hover:opacity-90" : ""}
+                      size="sm"
+                    >
+                      {isFollowing ? "Ne plus suivre" : "Suivre"}
+                    </Button>
+                  )}
+                  {isOwnProfile && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => navigate("/profile/edit")}
+                    >
+                      <Settings className="h-4 w-4 mr-2" />
+                      Modifier
+                    </Button>
+                  )}
                 </div>
               </div>
 
@@ -204,35 +234,85 @@ export function Profile() {
             </TabsContent>
 
             <TabsContent value="about" className="mt-6">
-              <Card className="campus-card">
-                <CardHeader>
-                  <CardTitle>Informations</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div>
-                    <h4 className="font-semibold mb-2">Études</h4>
-                    <p className="text-sm text-muted-foreground">
-                      Master en Informatique, spécialisation Intelligence Artificielle
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-2">Centres d'intérêt</h4>
+              <div className="space-y-4">
+                <Card className="campus-card">
+                  <CardHeader>
+                    <CardTitle>Informations Académiques</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <p className="text-sm text-muted-foreground">Université</p>
+                        <p className="font-medium">{user.university}</p>
+                      </div>
+                      <div>
+                        <p className="text-sm text-muted-foreground">Filière</p>
+                        <p className="font-medium">{user.faculty}</p>
+                      </div>
+                      <div>
+                        <p className="text-sm text-muted-foreground">Niveau</p>
+                        <p className="font-medium">{user.studyYear}</p>
+                      </div>
+                      <div>
+                        <p className="text-sm text-muted-foreground">Campus</p>
+                        <p className="font-medium">{user.campus}</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="campus-card">
+                  <CardHeader>
+                    <CardTitle>Compétences</CardTitle>
+                  </CardHeader>
+                  <CardContent>
                     <div className="flex flex-wrap gap-2">
-                      {["Machine Learning", "React", "Node.js", "Python", "Gaming"].map((interest) => (
+                      {user.skills.map((skill) => (
+                        <Badge key={skill} variant="secondary">
+                          {skill}
+                        </Badge>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="campus-card">
+                  <CardHeader>
+                    <CardTitle>Centres d'intérêt</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex flex-wrap gap-2">
+                      {user.interests.map((interest) => (
                         <Badge key={interest} variant="outline">
                           {interest}
                         </Badge>
                       ))}
                     </div>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-2">Projets récents</h4>
-                    <p className="text-sm text-muted-foreground">
-                      Chatbot IA pour l'assistance étudiante, Application de gestion de notes
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+
+                {user.previousEducation && (
+                  <Card className="campus-card">
+                    <CardHeader>
+                      <CardTitle>Formations Précédentes</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-muted-foreground">{user.previousEducation}</p>
+                    </CardContent>
+                  </Card>
+                )}
+
+                {user.experiences && (
+                  <Card className="campus-card">
+                    <CardHeader>
+                      <CardTitle>Expériences</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-muted-foreground">{user.experiences}</p>
+                    </CardContent>
+                  </Card>
+                )}
+              </div>
             </TabsContent>
           </Tabs>
         </div>

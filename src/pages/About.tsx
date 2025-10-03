@@ -57,7 +57,8 @@ export function About() {
       {/* Hero Section */}
       <div className="container max-w-6xl mx-auto py-12 md:py-20 px-4">
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-6xl font-bold campus-gradient bg-clip-text text-transparent mb-6">
+          <img src="/CS.svg" alt="CampusSphere" className="w-24 h-24 mx-auto mb-6" />
+          <h1 className="text-4xl md:text-6xl font-bold font-automata campus-gradient bg-clip-text text-transparent mb-6">
             À propos de CampusSphere
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">

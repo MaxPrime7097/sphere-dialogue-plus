@@ -4,6 +4,14 @@
 
 /* CampusSphere Design System - Modern student social network */
 
+/* Import custom font */
+@font-face {
+  font-family: 'Automata';
+  src: url('/logo/AUTOMATA.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 @layer base {
   :root {
     /* Core CampusSphere Brand Colors */
