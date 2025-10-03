@@ -41,17 +41,15 @@ export function AppLayout({ children }: AppLayoutProps) {
         
         <div className="flex-1 flex flex-col">
           {/* Mobile Top Bar*/}
-          <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-background border-b">
-            <MobileTopBar />
-          </div>
+          <MobileTopBar />
           
           {/* Desktop Top Navigation - Fixed */}
           <header className="hidden md:flex h-16 w-full border-b bg-card/50 backdrop-blur-sm fixed top-0 right-0 left-0 md:left-0 z-40">
             <div className="flex items-center justify-between px-4 h-full w-full">
               <div className="flex items-center gap-4">
                 <SidebarTrigger className="hover:bg-accent" />
-                <span onClick={() => navigate(`/`)}>
-                  <img src="/CS.svg" alt="Logo CampusSphere" />
+                <span onClick={() => navigate(`/`)} className="flex items center gap-2">
+                  <img src="/CS.svg" alt="Logo CampusSphere" className="h-10 w-10"/>
                   <button className="text-3xl font-bold campus-gradient bg-clip-text text-transparent pl-10" style={{ fontFamily: 'Automata Display' }}>
                     CampusSphere
                   </button>
@@ -98,9 +96,7 @@ export function AppLayout({ children }: AppLayoutProps) {
           </main>
           
           {/* Mobile Bottom Navigation - Fixed */}
-          <div className="md:hidden fixed bottom-0 left-0 right-0 z-50">
             <MobileNavigation />
-          </div>
         </div>
       </div>
     </SidebarProvider>
