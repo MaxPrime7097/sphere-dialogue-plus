@@ -113,7 +113,7 @@ export function Events() {
         {/* Header */}
         <div className="flex justify-between items-center mb-6 campus-animate-fade-in">
           <div>
-            <h1 className="text-3xl font-automata-display campus-gradient bg-clip-text text-transparent">
+            <h1 className="text-3xl font-bold campus-gradient bg-clip-text text-transparent">
               Événements Campus
             </h1>
             <p className="text-muted-foreground mt-2">
