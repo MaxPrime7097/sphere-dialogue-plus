@@ -9,7 +9,6 @@ import { CreatePostModal } from "@/components/modals/CreatePostModal";
 import { MobileNavigation } from "./MobileNavigation";
 import { MobileTopBar } from "./MobileTopBar";
 import { NotificationDropdown } from "./NotificationDropdown";
-import logo from './assets/CS.svg';
 
 
 interface AppLayoutProps {

@@ -62,7 +62,7 @@ export function AppSidebar() {
   const getNavClasses = ({ isActive }: { isActive: boolean }) =>
     isActive 
       ? "bg-accent text-foreground font-medium" 
-      : "hover:bg-primary/10 text-primary";
+      : "hover:bg-accent text-primary";
 
   return (
     <Sidebar className={isCollapsed ? "w-20" : "w-60"} collapsible="icon">
