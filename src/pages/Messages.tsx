@@ -10,7 +10,7 @@ import { Separator } from "@/components/ui/separator";
 
 export function Messages() {
   const navigate = useNavigate();
-  const [selectedConversation, setSelectedConversation] = useState<string | null>("1");
+  const [selectedConversation, setSelectedConversation] = useState<string | null>(null);
   const [newMessage, setNewMessage] = useState("");
 
   const conversations = [

@@ -46,31 +46,36 @@ export function Settings() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-accent/20">
-      <div className="container max-w-4xl mx-auto py-6 px-4">
+      <div className="container max-w-4xl mx-auto py-4 md:py-6 px-3 md:px-4">
         {/* Header */}
-        <div className="mb-8 campus-animate-fade-in">
-          <h1 className="text-3xl font-bold campus-gradient bg-clip-text text-transparent">
-            Paramètres
-          </h1>
-          <p className="text-muted-foreground mt-2">
+        <div className="mb-6 md:mb-8 campus-animate-fade-in">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-10 h-10 md:w-12 md:h-12 campus-gradient rounded-xl flex items-center justify-center">
+              <img src="/CS.svg" alt="CampusSphere" className="w-6 h-6 md:w-7 md:h-7" />
+            </div>
+            <h1 className="text-2xl md:text-3xl font-bold campus-gradient bg-clip-text text-transparent" style={{ fontFamily: 'Automata Display' }}>
+              Paramètres
+            </h1>
+          </div>
+          <p className="text-sm md:text-base text-muted-foreground">
             Gérez vos préférences et votre compte
           </p>
         </div>
 
-        <div className="grid gap-6">
+        <div className="grid gap-4 md:gap-6">
           {/* Notifications */}
           <Card className="campus-card">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Bell className="h-5 w-5" />
+            <CardHeader className="p-4 md:p-6">
+              <CardTitle className="flex items-center gap-2 text-lg md:text-xl">
+                <Bell className="h-4 w-4 md:h-5 md:w-5" />
                 Notifications
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <Label htmlFor="posts-notifications">Posts et interactions</Label>
-                  <p className="text-sm text-muted-foreground">
+            <CardContent className="space-y-4 md:space-y-6 p-4 md:p-6 pt-0">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                <div className="flex-1">
+                  <Label htmlFor="posts-notifications" className="text-sm md:text-base">Posts et interactions</Label>
+                  <p className="text-xs md:text-sm text-muted-foreground">
                     Likes, commentaires et mentions
                   </p>
                 </div>
@@ -83,10 +88,10 @@ export function Settings() {
                 />
               </div>
 
-              <div className="flex items-center justify-between">
-                <div>
-                  <Label htmlFor="messages-notifications">Messages</Label>
-                  <p className="text-sm text-muted-foreground">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                <div className="flex-1">
+                  <Label htmlFor="messages-notifications" className="text-sm md:text-base">Messages</Label>
+                  <p className="text-xs md:text-sm text-muted-foreground">
                     Nouveaux messages privés et de groupe
                   </p>
                 </div>
@@ -99,10 +104,10 @@ export function Settings() {
                 />
               </div>
 
-              <div className="flex items-center justify-between">
-                <div>
-                  <Label htmlFor="events-notifications">Événements</Label>
-                  <p className="text-sm text-muted-foreground">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                <div className="flex-1">
+                  <Label htmlFor="events-notifications" className="text-sm md:text-base">Événements</Label>
+                  <p className="text-xs md:text-sm text-muted-foreground">
                     Rappels et nouveaux événements
                   </p>
                 </div>
@@ -115,10 +120,10 @@ export function Settings() {
                 />
               </div>
 
-              <div className="flex items-center justify-between">
-                <div>
-                  <Label htmlFor="marketing-notifications">Communications marketing</Label>
-                  <p className="text-sm text-muted-foreground">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                <div className="flex-1">
+                  <Label htmlFor="marketing-notifications" className="text-sm md:text-base">Communications marketing</Label>
+                  <p className="text-xs md:text-sm text-muted-foreground">
                     Nouveautés et conseils d'utilisation
                   </p>
                 </div>
@@ -135,21 +140,21 @@ export function Settings() {
 
           {/* Apparence */}
           <Card className="campus-card">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Globe className="h-5 w-5" />
+            <CardHeader className="p-4 md:p-6">
+              <CardTitle className="flex items-center gap-2 text-lg md:text-xl">
+                <Globe className="h-4 w-4 md:h-5 md:w-5" />
                 Apparence et langue
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <Label>Thème sombre</Label>
-                  <p className="text-sm text-muted-foreground">
+            <CardContent className="space-y-4 md:space-y-6 p-4 md:p-6 pt-0">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                <div className="flex-1">
+                  <Label className="text-sm md:text-base">Thème sombre</Label>
+                  <p className="text-xs md:text-sm text-muted-foreground">
                     Basculer entre le thème clair et sombre
                   </p>
                 </div>
-                <Button variant="outline" onClick={toggleTheme}>
+                <Button variant="outline" onClick={toggleTheme} size="sm" className="w-full sm:w-auto">
                   {darkMode ? (
                     <>
                       <Sun className="h-4 w-4 mr-2" />
@@ -165,9 +170,9 @@ export function Settings() {
               </div>
 
               <div className="space-y-2">
-                <Label>Langue de l'interface</Label>
+                <Label className="text-sm md:text-base">Langue de l'interface</Label>
                 <Select defaultValue="fr">
-                  <SelectTrigger className="w-48">
+                  <SelectTrigger className="w-full sm:w-48">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -180,9 +185,9 @@ export function Settings() {
               </div>
 
               <div className="space-y-2">
-                <Label>Fuseau horaire</Label>
+                <Label className="text-sm md:text-base">Fuseau horaire</Label>
                 <Select defaultValue="europe-paris">
-                  <SelectTrigger className="w-48">
+                  <SelectTrigger className="w-full sm:w-48">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -199,24 +204,24 @@ export function Settings() {
           {/* Autres paramètres */}
           {settingsSections.map((section, index) => (
             <Card key={index} className="campus-card">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <section.icon className="h-5 w-5" />
+              <CardHeader className="p-4 md:p-6">
+                <CardTitle className="flex items-center gap-2 text-lg md:text-xl">
+                  <section.icon className="h-4 w-4 md:h-5 md:w-5" />
                   {section.title}
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-1">
+              <CardContent className="space-y-1 p-4 md:p-6 pt-0">
                 {section.items.map((item, itemIndex) => (
                   <div key={itemIndex}>
                     <Button
                       variant="ghost"
-                      className={`w-full justify-between h-auto p-4 ${
+                      className={`w-full justify-between h-auto p-3 md:p-4 text-sm md:text-base ${
                         item.danger ? 'text-destructive hover:text-destructive' : ''
                       }`}
                       onClick={item.action}
                     >
                       <span>{item.label}</span>
-                      <ChevronRight className="h-4 w-4" />
+                      <ChevronRight className="h-3 w-3 md:h-4 md:w-4" />
                     </Button>
                     {itemIndex < section.items.length - 1 && <Separator />}
                   </div>
@@ -227,23 +232,23 @@ export function Settings() {
 
           {/* À propos */}
           <Card className="campus-card">
-            <CardContent className="pt-6">
+            <CardContent className="pt-4 md:pt-6 p-4 md:p-6">
               <div className="text-center space-y-4">
-                <div className="w-16 h-16 campus-gradient rounded-2xl flex items-center justify-center mx-auto">
-                  <span className="text-white font-bold text-xl">CS</span>
+                <div className="w-16 h-16 md:w-20 md:h-20 campus-gradient rounded-2xl flex items-center justify-center mx-auto p-3 md:p-4">
+                  <img src="/CS.svg" alt="CampusSphere" className="w-full h-full" />
                 </div>
                 <div>
-                  <h3 className="font-semibold">CampusSphere</h3>
-                  <p className="text-sm text-muted-foreground">Version 1.0.0</p>
+                  <h3 className="font-semibold text-lg md:text-xl" style={{ fontFamily: 'Automata Display' }}>CampusSphere</h3>
+                  <p className="text-xs md:text-sm text-muted-foreground">Version 1.0.0</p>
                 </div>
-                <div className="flex justify-center gap-4 text-sm">
-                  <Button variant="link" className="px-0">
+                <div className="flex flex-col sm:flex-row justify-center gap-2 sm:gap-4 text-xs md:text-sm">
+                  <Button variant="link" className="px-0 h-auto">
                     Conditions d'utilisation
                   </Button>
-                  <Button variant="link" className="px-0">
+                  <Button variant="link" className="px-0 h-auto">
                     Politique de confidentialité
                   </Button>
-                  <Button variant="link" className="px-0">
+                  <Button variant="link" className="px-0 h-auto">
                     Support
                   </Button>
                 </div>

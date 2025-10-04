@@ -83,64 +83,104 @@ export function Landing() {
       </nav>
 
       {/* Hero Section */}
-      <section className="py-20 px-4">
+      <section className="relative py-20 md:py-32 px-4 overflow-hidden">
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute top-20 left-10 w-72 h-72 campus-gradient opacity-20 blur-3xl rounded-full"></div>
+          <div className="absolute bottom-20 right-10 w-96 h-96 campus-gradient opacity-20 blur-3xl rounded-full"></div>
+        </div>
+        
         <div className="container mx-auto max-w-6xl">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="text-center lg:text-left">
-              <h1 className="text-4xl md:text-6xl font-bold font-automata mb-6">
+            <div className="text-center lg:text-left space-y-8">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/20 bg-primary/5">
+                <Star className="h-4 w-4 text-primary" />
+                <span className="text-sm font-medium">Plateforme #1 pour étudiants</span>
+              </div>
+              
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight" style={{ fontFamily: 'Automata Display' }}>
                 <span className="campus-gradient bg-clip-text text-transparent">
                   Connectez-vous
                 </span>
                 <br />
-                avec votre campus
+                <span className="text-foreground">avec votre campus</span>
               </h1>
-              <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-                CampusSphere est le réseau social conçu pour les étudiants. 
-                Échangez, collaborez et grandissez ensemble dans votre parcours académique.
+              
+              <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">
+                Le réseau social qui transforme votre expérience universitaire. 
+                Échangez, collaborez et grandissez avec des milliers d'étudiants.
               </p>
+              
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Button 
                   size="lg" 
-                  className="campus-gradient text-white hover:opacity-90"
+                  className="campus-gradient text-white hover:opacity-90 text-lg px-8 py-6"
                   onClick={() => navigate('/register')}
                 >
                   Rejoindre gratuitement
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
-                <Button variant="outline" size="lg">
-                  Découvrir les fonctionnalités
+                <Button variant="outline" size="lg" className="text-lg px-8 py-6">
+                  Voir la démo
                 </Button>
+              </div>
+              
+              <div className="flex items-center gap-8 pt-4">
+                <div>
+                  <p className="text-3xl font-bold campus-gradient bg-clip-text text-transparent">15K+</p>
+                  <p className="text-sm text-muted-foreground">Étudiants actifs</p>
+                </div>
+                <div>
+                  <p className="text-3xl font-bold campus-gradient bg-clip-text text-transparent">50+</p>
+                  <p className="text-sm text-muted-foreground">Universités</p>
+                </div>
+                <div>
+                  <p className="text-3xl font-bold campus-gradient bg-clip-text text-transparent">4.8★</p>
+                  <p className="text-sm text-muted-foreground">Note moyenne</p>
+                </div>
               </div>
             </div>
             
-            <div className="relative">
-              <div className="campus-glass rounded-2xl p-8 campus-glow">
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 campus-gradient rounded-full flex items-center justify-center">
-                      <Users className="h-5 w-5 text-white" />
+            <div className="relative lg:block">
+              <div className="absolute inset-0 campus-gradient opacity-30 blur-3xl"></div>
+              <div className="relative campus-glass rounded-3xl p-8 campus-glow">
+                <div className="space-y-6">
+                  <div className="flex items-center gap-4 p-4 bg-card rounded-xl">
+                    <div className="w-12 h-12 campus-gradient rounded-full flex items-center justify-center flex-shrink-0">
+                      <Users className="h-6 w-6 text-white" />
                     </div>
-                    <div>
-                      <p className="font-semibold">15,000+ étudiants</p>
-                      <p className="text-sm text-muted-foreground">déjà connectés</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 campus-gradient rounded-full flex items-center justify-center">
-                      <Calendar className="h-5 w-5 text-white" />
-                    </div>
-                    <div>
-                      <p className="font-semibold">500+ événements</p>
-                      <p className="text-sm text-muted-foreground">organisés ce mois</p>
+                    <div className="flex-1">
+                      <p className="font-semibold text-lg">15,000+ étudiants</p>
+                      <p className="text-sm text-muted-foreground">connectés quotidiennement</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 campus-gradient rounded-full flex items-center justify-center">
-                      <Star className="h-5 w-5 text-white" />
+                  
+                  <div className="flex items-center gap-4 p-4 bg-card rounded-xl">
+                    <div className="w-12 h-12 campus-gradient rounded-full flex items-center justify-center flex-shrink-0">
+                      <Calendar className="h-6 w-6 text-white" />
                     </div>
-                    <div>
-                      <p className="font-semibold">4.8/5 étoiles</p>
-                      <p className="text-sm text-muted-foreground">note moyenne</p>
+                    <div className="flex-1">
+                      <p className="font-semibold text-lg">500+ événements</p>
+                      <p className="text-sm text-muted-foreground">organisés chaque mois</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-4 p-4 bg-card rounded-xl">
+                    <div className="w-12 h-12 campus-gradient rounded-full flex items-center justify-center flex-shrink-0">
+                      <BookOpen className="h-6 w-6 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-semibold text-lg">10K+ ressources</p>
+                      <p className="text-sm text-muted-foreground">partagées et vérifiées</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-4 p-4 bg-card rounded-xl">
+                    <div className="w-12 h-12 campus-gradient rounded-full flex items-center justify-center flex-shrink-0">
+                      <Shield className="h-6 w-6 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-semibold text-lg">100% sécurisé</p>
+                      <p className="text-sm text-muted-foreground">données protégées RGPD</p>
                     </div>
                   </div>
                 </div>

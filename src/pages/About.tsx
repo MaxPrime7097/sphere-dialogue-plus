@@ -55,16 +55,28 @@ export function About() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-accent/20">
       {/* Hero Section */}
-      <div className="container max-w-6xl mx-auto py-12 md:py-20 px-4">
-        <div className="text-center mb-16">
-          <img src="/CS.svg" alt="CampusSphere" className="w-24 h-24 mx-auto mb-6" />
-          <h1 className="text-4xl md:text-6xl font-bold font-automata campus-gradient bg-clip-text text-transparent mb-6">
-            À propos de CampusSphere
-          </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-            Le réseau social qui connecte les étudiants et enrichit l'expérience universitaire
-          </p>
+      <div className="relative overflow-hidden">
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute top-20 left-20 w-96 h-96 campus-gradient opacity-20 blur-3xl rounded-full"></div>
+          <div className="absolute bottom-20 right-20 w-96 h-96 campus-gradient opacity-20 blur-3xl rounded-full"></div>
         </div>
+        
+        <div className="container max-w-6xl mx-auto py-12 md:py-20 px-4">
+          <div className="text-center mb-16 space-y-6">
+            <div className="inline-flex items-center justify-center w-32 h-32 mx-auto mb-6 campus-gradient rounded-3xl p-6">
+              <img src="/CS.svg" alt="CampusSphere" className="w-full h-full" />
+            </div>
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold campus-gradient bg-clip-text text-transparent mb-6" style={{ fontFamily: 'Automata Display' }}>
+              À propos de CampusSphere
+            </h1>
+            <p className="text-lg md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              Le réseau social qui connecte les étudiants et enrichit l'expérience universitaire
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <div className="container max-w-6xl mx-auto px-4 pb-12">{/* Content container */}
 
         {/* Mission */}
         <Card className="campus-card mb-16">
@@ -171,7 +183,7 @@ export function About() {
             </div>
           </CardContent>
         </Card>
-      </div>
+      </div> {/* Close content container */}
     </div>
   );
 }

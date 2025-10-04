@@ -1,5 +1,5 @@
 import { ReactNode, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "./AppSidebar";
 import { Button } from "@/components/ui/button";
@@ -9,6 +9,7 @@ import { CreatePostModal } from "@/components/modals/CreatePostModal";
 import { MobileNavigation } from "./MobileNavigation";
 import { MobileTopBar } from "./MobileTopBar";
 import { NotificationDropdown } from "./NotificationDropdown";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 
 interface AppLayoutProps {
@@ -17,7 +18,12 @@ interface AppLayoutProps {
 
 export function AppLayout({ children }: AppLayoutProps) {
   const navigate = useNavigate();
+  const location = useLocation();
+  const isMobile = useIsMobile();
   const [searchQuery, setSearchQuery] = useState("");
+  
+  const isMessagesPage = location.pathname === '/messages';
+  const hideNavOnMobile = isMobile && isMessagesPage;
   
   const toggleTheme = () => {
     document.documentElement.classList.toggle('dark');
@@ -40,19 +46,19 @@ export function AppLayout({ children }: AppLayoutProps) {
         
         <div className="flex-1 flex flex-col">
           {/* Mobile Top Bar*/}
-          <MobileTopBar />
+          {!hideNavOnMobile && <MobileTopBar />}
           
           {/* Desktop Top Navigation - Fixed */}
           <header className="hidden md:flex h-16 w-full border-b bg-card/50 backdrop-blur-sm fixed top-0 right-0 left-0 md:left-0 z-40">
             <div className="flex items-center justify-between px-4 h-full w-full">
               <div className="flex items-center gap-4">
                 <SidebarTrigger className="hover:bg-accent" />
-                <span onClick={() => navigate(`/`)} className="flex items center gap-2">
-                  <img src="/CS.svg" alt="Logo CampusSphere" className="h-12 w-12"/>
-                  <button className="text-3xl font-bold campus-gradient bg-clip-text text-transparent" style={{ fontFamily: 'Automata Display' }}>
+                <button onClick={() => navigate(`/`)} className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+                  <img src="/CS.svg" alt="Logo CampusSphere" className="h-10 w-10"/>
+                  <span className="text-2xl font-bold campus-gradient bg-clip-text text-transparent" style={{ fontFamily: 'Automata Display' }}>
                     CampusSphere
-                  </button>
-                </span>
+                  </span>
+                </button>
                 <form onSubmit={handleSearch} className="pl-10 flex items-center gap-2 flex-1 max-w-md">
                   <div className="relative flex-1">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -90,13 +96,12 @@ export function AppLayout({ children }: AppLayoutProps) {
           </header>
 
           {/* Main Content */}
-          <main className="flex-1 overflow-auto pt-0 pb-16 md:pb-0 md:pt-16">
-
+          <main className={`flex-1 overflow-auto ${hideNavOnMobile ? 'pt-0 pb-0' : 'pt-0 pb-16'} md:pb-0 md:pt-16`}>
             {children}
           </main>
           
           {/* Mobile Bottom Navigation - Fixed */}
-            <MobileNavigation />
+          {!hideNavOnMobile && <MobileNavigation />}
         </div>
       </div>
     </SidebarProvider>

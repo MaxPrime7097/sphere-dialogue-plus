@@ -23,16 +23,26 @@ export function Contact() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-accent/20">
-      <div className="container max-w-5xl mx-auto py-8 md:py-12 px-4">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-3xl md:text-5xl font-bold campus-gradient bg-clip-text text-transparent mb-4">
+      <div className="relative overflow-hidden py-12 md:py-20 mb-8">
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute top-10 left-10 w-72 h-72 campus-gradient opacity-20 blur-3xl rounded-full"></div>
+          <div className="absolute bottom-10 right-10 w-72 h-72 campus-gradient opacity-20 blur-3xl rounded-full"></div>
+        </div>
+        
+        <div className="container max-w-5xl mx-auto px-4 text-center">
+          <div className="inline-flex items-center justify-center w-24 h-24 mx-auto mb-6 campus-gradient rounded-2xl">
+            <img src="/CS.svg" alt="CampusSphere" className="w-16 h-16" />
+          </div>
+          <h1 className="text-4xl md:text-6xl font-bold campus-gradient bg-clip-text text-transparent mb-6" style={{ fontFamily: 'Automata Display' }}>
             Contactez-nous
           </h1>
-          <p className="text-lg text-muted-foreground">
-            Une question ? Une suggestion ? Nous sommes là pour vous aider
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+            Une question ? Une suggestion ? Notre équipe est là pour vous aider et vous accompagner
           </p>
         </div>
+      </div>
+      
+      <div className="container max-w-5xl mx-auto px-4 pb-12">{/* Content starts */}
 
         <div className="grid lg:grid-cols-3 gap-6 mb-8">
           {/* Contact Info Cards */}
@@ -148,7 +158,7 @@ export function Contact() {
             Voir la FAQ
           </Button>
         </div>
-      </div>
+      </div> {/* Close content */}
     </div>
   );
 }

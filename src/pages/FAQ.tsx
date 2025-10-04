@@ -115,17 +115,26 @@ export function FAQ() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-accent/20">
-      <div className="container max-w-4xl mx-auto py-8 md:py-12 px-4">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <img src="/CS.svg" alt="CampusSphere" className="w-20 h-20 mx-auto mb-4" />
-          <h1 className="text-3xl md:text-5xl font-bold font-automata campus-gradient bg-clip-text text-transparent mb-4">
+      <div className="relative overflow-hidden py-12 md:py-20 mb-8">
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute top-10 left-1/4 w-96 h-96 campus-gradient opacity-20 blur-3xl rounded-full"></div>
+          <div className="absolute bottom-10 right-1/4 w-96 h-96 campus-gradient opacity-20 blur-3xl rounded-full"></div>
+        </div>
+        
+        <div className="container max-w-4xl mx-auto px-4 text-center">
+          <div className="inline-flex items-center justify-center w-28 h-28 mx-auto mb-6 campus-gradient rounded-3xl p-6">
+            <img src="/CS.svg" alt="CampusSphere" className="w-full h-full" />
+          </div>
+          <h1 className="text-4xl md:text-6xl font-bold campus-gradient bg-clip-text text-transparent mb-6" style={{ fontFamily: 'Automata Display' }}>
             Questions Fréquentes
           </h1>
-          <p className="text-lg text-muted-foreground">
-            Trouvez rapidement des réponses à vos questions
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+            Trouvez rapidement des réponses à toutes vos questions sur CampusSphere
           </p>
         </div>
+      </div>
+      
+      <div className="container max-w-4xl mx-auto px-4 pb-12">{/* Content starts */}
 
         {/* Search */}
         <Card className="campus-card mb-8">
@@ -196,7 +205,7 @@ export function FAQ() {
             </Button>
           </CardContent>
         </Card>
-      </div>
+      </div> {/* Close content */}
     </div>
   );
 }

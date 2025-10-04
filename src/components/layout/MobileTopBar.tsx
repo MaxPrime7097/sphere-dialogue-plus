@@ -53,23 +53,21 @@ export function MobileTopBar({ onMenuClick }: MobileTopBarProps) {
         </div>
       ) : (
         <div className="flex items-center justify-between px-4 h-14">
-        {/* Left: Menu or Logo */}
-        <div className="flex items-center gap-3">
-          {onMenuClick ? (
-            <Button variant="ghost" size="sm" onClick={onMenuClick}>
-              <Menu className="h-5 w-5" />
-            </Button>
-          ) : (
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 campus-gradient rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">CS</span>
-              </div>
-              <span className="font-bold campus-gradient bg-clip-text text-transparent">
-                CampusSphere
-              </span>
-            </div>
-          )}
-        </div>
+          {/* Left: Menu or Logo */}
+          <div className="flex items-center gap-3">
+            {onMenuClick ? (
+              <Button variant="ghost" size="sm" onClick={onMenuClick}>
+                <Menu className="h-5 w-5" />
+              </Button>
+            ) : (
+              <button onClick={() => navigate(`/`)} className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+                <img src="/CS.svg" alt="CampusSphere" className="h-8 w-8" />
+                <span className="text-lg font-bold campus-gradient bg-clip-text text-transparent" style={{ fontFamily: 'Automata Display' }}>
+                  CampusSphere
+                </span>
+              </button>
+            )}
+          </div>
 
           {/* Right: Actions */}
           <div className="flex items-center gap-2">
