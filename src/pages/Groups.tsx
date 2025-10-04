@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Users, Plus, Search, Crown, MessageCircle, Calendar, Filter } from "lucide-react";
+import { Users, Plus, Search, Crown, MessageCircle, Calendar, Filter, UserPlus } from "lucide-react";
+import { toast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -87,6 +88,11 @@ export function Groups() {
     group.description.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const handleJoinGroup = (e: React.MouseEvent, groupId: string) => {
+    e.stopPropagation();
+    toast({ title: "Demande envoyée !", description: "Vous recevrez une notification dès validation." });
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-accent/20">
       <div className="w-full max-w-6xl mx-auto py-4 md:py-6 px-3 md:px-4">
@@ -101,9 +107,9 @@ export function Groups() {
             </p>
           </div>
           <CreateGroupModal>
-            <Button className="campus-gradient text-white hover:opacity-90 gap-2">
+            <Button size="sm" className="campus-gradient text-white hover:opacity-90 gap-2">
               <Plus className="h-4 w-4" />
-              Créer un groupe
+              <span className="hidden sm:inline">Créer</span>
             </Button>
           </CreateGroupModal>
         </div>
@@ -196,7 +202,7 @@ export function Groups() {
                   className="campus-card hover:campus-glow transition-all duration-300 cursor-pointer"
                   onClick={() => navigate(`/groups/${group.id}`)}
                 >
-                  <CardHeader className="pb-3">
+                  <CardHeader className="pb-2">
                     <Avatar className="h-16 w-16 mx-auto mb-2">
                       <AvatarImage src={group.avatar} />
                       <AvatarFallback className="campus-gradient text-white font-semibold">
@@ -209,10 +215,30 @@ export function Groups() {
                     <p className="text-xs text-muted-foreground text-center">
                       {group.members} membres
                     </p>
-                    <Badge variant="outline" className="text-xs mx-auto">
+                    <Badge variant="outline" className="text-xs mx-auto mb-2">
                       {group.category}
                     </Badge>
                   </CardHeader>
+                  <CardContent className="pt-0 px-3 pb-3">
+                    <Button 
+                      size="sm" 
+                      className="w-full h-7 text-xs campus-gradient text-white"
+                      onClick={(e) => handleJoinGroup(e, group.id)}
+                    >
+                      <UserPlus className="h-3 w-3 mr-1" />
+                      Rejoindre
+                    </Button>
+                  </CardContent>
+                  <CardContent className="pt-0 px-3 pb-3">
+                    <Button 
+                      size="sm" 
+                      className="w-full h-7 text-xs campus-gradient text-white"
+                      onClick={(e) => handleJoinGroup(e, group.id)}
+                    >
+                      <UserPlus className="h-3 w-3 mr-1" />
+                      Rejoindre
+                    </Button>
+                  </CardContent>
                 </Card>
               ))}
             </div>

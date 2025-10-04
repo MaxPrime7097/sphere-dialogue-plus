@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Search, Filter, Download, BookOpen, FileText, Video, Headphones, Eye, Heart, Star } from "lucide-react";
+import { Search, Filter, Download, BookOpen, FileText, Video, Headphones, Eye, Heart, Star, Bookmark } from "lucide-react";
+import { toast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -199,6 +200,21 @@ export function Library() {
     }
   };
 
+  const handlePreview = (e: React.MouseEvent, resourceId: string) => {
+    e.stopPropagation();
+    toast({ title: "Aperçu en cours..." });
+  };
+
+  const handleDownload = (e: React.MouseEvent, resourceId: string) => {
+    e.stopPropagation();
+    toast({ title: "Téléchargement démarré !" });
+  };
+
+  const handleSave = (e: React.MouseEvent, resourceId: string) => {
+    e.stopPropagation();
+    toast({ title: "Ajouté aux favoris !" });
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-accent/20">
       <div className="w-full max-w-7xl mx-auto py-4 md:py-6 px-3 md:px-4">
@@ -269,9 +285,9 @@ export function Library() {
                     </SelectContent>
                   </Select>
 
-                  <Button variant="outline" className="gap-2">
+                  <Button variant="outline" size="sm" className="gap-2">
                     <Filter className="h-4 w-4" />
-                    Plus de filtres
+                    <span className="hidden lg:inline">Filtres</span>
                   </Button>
                 </div>
               </CardContent>
@@ -285,49 +301,48 @@ export function Library() {
                   className="campus-card hover:campus-glow transition-all duration-300 cursor-pointer campus-animate-fade-in"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <CardContent className="p-4">
-                    <div className="space-y-3">
-                      <div className="aspect-square bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg flex items-center justify-center">
-                        {getFormatIcon(resource.format)}
-                      </div>
-                      
-                      <div>
-                        <h3 className="font-semibold text-sm line-clamp-2 mb-1">
-                          {resource.title}
-                        </h3>
-                        <div className="flex items-center gap-1 mb-2">
-                          <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-                          <span className="text-xs font-medium">{resource.rating}</span>
-                        </div>
-                      </div>
-
-                      <div className="flex flex-wrap gap-1">
-                        <Badge className={`text-xs ${getTypeColor(resource.type)}`}>
-                          {documentTypes.find(t => t.value === resource.type)?.label}
-                        </Badge>
-                      </div>
-
-                      <div className="text-xs text-muted-foreground space-y-1">
-                        <div className="flex justify-between">
-                          <span>Taille:</span>
-                          <span>{resource.size}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span>Pages:</span>
-                          <span>{resource.pages}</span>
-                        </div>
-                      </div>
-
-                      <div className="space-y-2 pt-2 border-t">
-                        <Button variant="outline" size="sm" className="w-full gap-2">
-                          <Eye className="h-3 w-3" />
-                          Aperçu
-                        </Button>
-                        <Button size="sm" className="w-full campus-gradient text-white hover:opacity-90 gap-2">
-                          <Download className="h-3 w-3" />
-                          Télécharger
-                        </Button>
-                      </div>
+                  <CardContent className="p-3">
+                    <div className="h-24 rounded-lg campus-gradient flex items-center justify-center mb-3">
+                      {getFormatIcon(resource.format)}
+                    </div>
+                    <Badge className={`${getTypeColor(resource.type)} text-xs mb-2`}>
+                      {documentTypes.find(t => t.value === resource.type)?.label}
+                    </Badge>
+                    <h3 className="font-semibold text-sm line-clamp-2 mb-1">
+                      {resource.title}
+                    </h3>
+                    <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
+                      <span className="flex items-center gap-1">
+                        <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                        {resource.rating}
+                      </span>
+                      <span>{resource.downloads} DL</span>
+                    </div>
+                    <div className="flex gap-1">
+                      <Button 
+                        size="sm" 
+                        variant="ghost" 
+                        className="h-7 flex-1 text-xs"
+                        onClick={(e) => handlePreview(e, resource.id)}
+                      >
+                        <Eye className="h-3 w-3" />
+                      </Button>
+                      <Button 
+                        size="sm" 
+                        variant="ghost" 
+                        className="h-7 flex-1 text-xs"
+                        onClick={(e) => handleSave(e, resource.id)}
+                      >
+                        <Bookmark className="h-3 w-3" />
+                      </Button>
+                      <Button 
+                        size="sm" 
+                        variant="default" 
+                        className="h-7 flex-1 text-xs campus-gradient text-white"
+                        onClick={(e) => handleDownload(e, resource.id)}
+                      >
+                        <Download className="h-3 w-3" />
+                      </Button>
                     </div>
                   </CardContent>
                 </Card>

@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Search, Filter, Plus, Heart, ShoppingBag, Star } from "lucide-react";
+import { Search, Filter, Plus, Heart, ShoppingBag, Star, MessageCircle } from "lucide-react";
+import { toast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -147,8 +148,14 @@ export function Marketplace() {
     return matchesSearch && matchesCategory && matchesPrice;
   });
 
-  const toggleLike = (itemId: string) => {
-    console.log("Toggle like for item:", itemId);
+  const toggleLike = (e: React.MouseEvent, itemId: string) => {
+    e.stopPropagation();
+    toast({ title: "Ajouté aux favoris !" });
+  };
+
+  const handleContact = (e: React.MouseEvent, itemId: string) => {
+    e.stopPropagation();
+    toast({ title: "Conversation ouverte", description: "Vous pouvez maintenant contacter le vendeur." });
   };
 
   return (
@@ -165,9 +172,9 @@ export function Marketplace() {
             </p>
           </div>
           <CreateMarketplaceItemModal>
-            <Button className="campus-gradient text-white hover:opacity-90 gap-2">
+            <Button size="sm" className="campus-gradient text-white hover:opacity-90 gap-2 w-full sm:w-auto">
               <Plus className="h-4 w-4" />
-              Vendre un article
+              <span className="hidden sm:inline">Vendre</span>
             </Button>
           </CreateMarketplaceItemModal>
         </div>
@@ -212,10 +219,10 @@ export function Marketplace() {
                 </SelectContent>
               </Select>
 
-              <Button variant="outline" className="gap-2">
-                <Filter className="h-4 w-4" />
-                Plus de filtres
-              </Button>
+                <Button variant="outline" size="sm" className="gap-2">
+                  <Filter className="h-4 w-4" />
+                  <span className="hidden lg:inline">Filtres</span>
+                </Button>
             </div>
           </CardContent>
         </Card>
@@ -237,7 +244,7 @@ export function Marketplace() {
                     variant="ghost"
                     size="sm"
                     className="absolute top-2 right-2 h-8 w-8 p-0 bg-background/80 hover:bg-background"
-                    onClick={() => toggleLike(item.id)}
+                    onClick={(e) => toggleLike(e, item.id)}
                   >
                     <Heart 
                       className={`h-4 w-4 ${item.isLiked ? 'fill-red-500 text-red-500' : 'text-muted-foreground'}`} 
@@ -302,12 +309,17 @@ export function Marketplace() {
                   </div>
                 </div>
 
-                <div className="flex justify-between items-center text-xs text-muted-foreground">
-                  <span>{item.location}</span>
+                <div className="flex justify-between items-center text-xs text-muted-foreground mb-2">
+                  <span className="truncate">{item.location}</span>
                   <span>{item.postedDate}</span>
                 </div>
 
-                <Button size="sm" className="w-full campus-gradient text-white hover:opacity-90">
+                <Button 
+                  size="sm" 
+                  className="w-full h-7 text-xs campus-gradient text-white hover:opacity-90 gap-1"
+                  onClick={(e) => handleContact(e, item.id)}
+                >
+                  <MessageCircle className="h-3 w-3" />
                   Contacter
                 </Button>
               </CardContent>

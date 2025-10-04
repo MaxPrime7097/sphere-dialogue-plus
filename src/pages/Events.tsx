@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Calendar, Clock, MapPin, Users, Plus, Filter, Search } from "lucide-react";
+import { Calendar, Clock, MapPin, Users, Plus, Filter, Search, Check } from "lucide-react";
+import { toast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -102,9 +103,9 @@ export function Events() {
     ? events 
     : events.filter(event => event.category === selectedCategory);
 
-  const toggleAttendance = (eventId: string) => {
-    // Logique pour gérer la participation aux événements
-    console.log("Toggle attendance for event:", eventId);
+  const toggleAttendance = (e: React.MouseEvent, eventId: string) => {
+    e.stopPropagation();
+    toast({ title: "Inscription confirmée !", description: "Vous avez rejoint cet événement." });
   };
 
   return (
@@ -121,9 +122,9 @@ export function Events() {
             </p>
           </div>
           <CreateEventModal>
-            <Button className="campus-gradient text-white hover:opacity-90 gap-2">
+            <Button size="sm" className="campus-gradient text-white hover:opacity-90 gap-2">
               <Plus className="h-4 w-4" />
-              Créer un événement
+              <span className="hidden sm:inline">Créer</span>
             </Button>
           </CreateEventModal>
         </div>
@@ -165,9 +166,9 @@ export function Events() {
                           ))}
                         </SelectContent>
                       </Select>
-                      <Button variant="outline">
-                        <Filter className="h-4 w-4 mr-2" />
-                        Plus de filtres
+                      <Button variant="outline" size="sm">
+                        <Filter className="h-4 w-4" />
+                        <span className="hidden lg:inline ml-2">Filtres</span>
                       </Button>
                     </div>
                   </CardContent>
@@ -193,7 +194,7 @@ export function Events() {
                         <h3 className="font-semibold text-sm line-clamp-2 mb-2">
                           {event.title}
                         </h3>
-                        <div className="space-y-1 text-xs text-muted-foreground">
+                        <div className="space-y-1 text-xs text-muted-foreground mb-2">
                           <div className="flex items-center gap-1">
                             <Calendar className="h-3 w-3" />
                             {new Date(event.date).toLocaleDateString('fr-FR')}
@@ -203,6 +204,25 @@ export function Events() {
                             {event.attendees}/{event.maxAttendees}
                           </div>
                         </div>
+                        {event.isAttending ? (
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            className="w-full h-7 text-xs"
+                            disabled
+                          >
+                            <Check className="h-3 w-3 mr-1" />
+                            Inscrit
+                          </Button>
+                        ) : (
+                          <Button 
+                            size="sm" 
+                            className="w-full h-7 text-xs campus-gradient text-white"
+                            onClick={(e) => toggleAttendance(e, event.id)}
+                          >
+                            S'inscrire
+                          </Button>
+                        )}
                       </CardContent>
                     </Card>
                   ))}

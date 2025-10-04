@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Search, Filter, Upload, Download, FileText, Heart, Star, Eye } from "lucide-react";
+import { Search, Filter, Upload, Download, FileText, Heart, Star, Eye, Bookmark } from "lucide-react";
+import { toast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -132,6 +133,21 @@ export function Resources() {
     return matchesSearch && matchesSubject && matchesType;
   });
 
+  const handleLike = (e: React.MouseEvent, resourceId: string) => {
+    e.stopPropagation();
+    toast({ title: "Ressource likée !" });
+  };
+
+  const handleSave = (e: React.MouseEvent, resourceId: string) => {
+    e.stopPropagation();
+    toast({ title: "Ressource sauvegardée !" });
+  };
+
+  const handleDownload = (e: React.MouseEvent, resourceId: string) => {
+    e.stopPropagation();
+    toast({ title: "Téléchargement en cours..." });
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-accent/20">
       <div className="container max-w-6xl mx-auto py-4 md:py-6 px-4">
@@ -146,9 +162,9 @@ export function Resources() {
             </p>
           </div>
           <UploadResourceModal>
-            <Button className="campus-gradient text-white hover:opacity-90 gap-2 w-full sm:w-auto">
+            <Button size="sm" className="campus-gradient text-white hover:opacity-90 gap-2 w-full sm:w-auto">
               <Upload className="h-4 w-4" />
-              Partager une ressource
+              <span className="hidden sm:inline">Partager</span>
             </Button>
           </UploadResourceModal>
         </div>
@@ -201,9 +217,9 @@ export function Resources() {
                     </SelectContent>
                   </Select>
 
-                  <Button variant="outline" className="gap-2">
+                  <Button variant="outline" size="sm" className="gap-2">
                     <Filter className="h-4 w-4" />
-                    Plus de filtres
+                    <span className="hidden lg:inline">Filtres</span>
                   </Button>
                 </div>
               </CardContent>
@@ -234,9 +250,35 @@ export function Resources() {
                         {resource.rating}
                       </span>
                     </div>
-                    <Badge variant="outline" className="text-xs">
+                    <Badge variant="outline" className="text-xs mb-2">
                       {types.find(t => t.value === resource.type)?.label}
                     </Badge>
+                    <div className="flex gap-1">
+                      <Button 
+                        size="sm" 
+                        variant="ghost" 
+                        className="h-7 flex-1 text-xs gap-1"
+                        onClick={(e) => handleLike(e, resource.id)}
+                      >
+                        <Heart className="h-3 w-3" />
+                      </Button>
+                      <Button 
+                        size="sm" 
+                        variant="ghost" 
+                        className="h-7 flex-1 text-xs gap-1"
+                        onClick={(e) => handleSave(e, resource.id)}
+                      >
+                        <Bookmark className="h-3 w-3" />
+                      </Button>
+                      <Button 
+                        size="sm" 
+                        variant="default" 
+                        className="h-7 flex-1 text-xs gap-1 campus-gradient text-white"
+                        onClick={(e) => handleDownload(e, resource.id)}
+                      >
+                        <Download className="h-3 w-3" />
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
               ))}
@@ -268,9 +310,35 @@ export function Resources() {
                         {resource.rating}
                       </span>
                     </div>
-                    <Badge variant="outline" className="text-xs">
+                    <Badge variant="outline" className="text-xs mb-2">
                       {types.find(t => t.value === resource.type)?.label}
                     </Badge>
+                    <div className="flex gap-1">
+                      <Button 
+                        size="sm" 
+                        variant="ghost" 
+                        className="h-7 flex-1 text-xs gap-1"
+                        onClick={(e) => handleLike(e, resource.id)}
+                      >
+                        <Heart className="h-3 w-3" />
+                      </Button>
+                      <Button 
+                        size="sm" 
+                        variant="ghost" 
+                        className="h-7 flex-1 text-xs gap-1"
+                        onClick={(e) => handleSave(e, resource.id)}
+                      >
+                        <Bookmark className="h-3 w-3" />
+                      </Button>
+                      <Button 
+                        size="sm" 
+                        variant="default" 
+                        className="h-7 flex-1 text-xs gap-1 campus-gradient text-white"
+                        onClick={(e) => handleDownload(e, resource.id)}
+                      >
+                        <Download className="h-3 w-3" />
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
               ))}
@@ -302,9 +370,35 @@ export function Resources() {
                         {resource.rating}
                       </span>
                     </div>
-                    <Badge variant="outline" className="text-xs">
+                    <Badge variant="outline" className="text-xs mb-2">
                       {types.find(t => t.value === resource.type)?.label}
                     </Badge>
+                    <div className="flex gap-1">
+                      <Button 
+                        size="sm" 
+                        variant="ghost" 
+                        className="h-7 flex-1 text-xs gap-1"
+                        onClick={(e) => handleLike(e, resource.id)}
+                      >
+                        <Heart className="h-3 w-3" />
+                      </Button>
+                      <Button 
+                        size="sm" 
+                        variant="ghost" 
+                        className="h-7 flex-1 text-xs gap-1"
+                        onClick={(e) => handleSave(e, resource.id)}
+                      >
+                        <Bookmark className="h-3 w-3" />
+                      </Button>
+                      <Button 
+                        size="sm" 
+                        variant="default" 
+                        className="h-7 flex-1 text-xs gap-1 campus-gradient text-white"
+                        onClick={(e) => handleDownload(e, resource.id)}
+                      >
+                        <Download className="h-3 w-3" />
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
               ))}
