@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Search, Send, Phone, Video, MoreVertical, Plus, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,7 +10,7 @@ import { Separator } from "@/components/ui/separator";
 
 export function Messages() {
   const navigate = useNavigate();
-  const [selectedConversation, setSelectedConversation] = useState<string | null>(null);
+  const { conversationId } = useParams<{ conversationId: string }>();
   const [newMessage, setNewMessage] = useState("");
 
   const conversations = [
@@ -98,13 +98,13 @@ export function Messages() {
     }
   };
 
-  const selectedConv = conversations.find(c => c.id === selectedConversation);
+  const selectedConv = conversations.find(c => c.id === conversationId);
 
   return (
-    <div className="h-[calc(100vh-4rem)] md:h-[calc(100vh-8rem)] bg-gradient-to-br from-background to-accent/20">
+    <div className={`${conversationId ? 'h-screen' : 'h-[calc(100vh-4rem)]'} md:h-[calc(100vh-8rem)] bg-gradient-to-br from-background to-accent/20`}>
       <div className="flex h-full">
         {/* Conversations List */}
-        <div className={`w-full md:w-80 border-r bg-card/50 ${selectedConversation ? 'hidden md:block' : 'block'}`}>
+        <div className={`w-full md:w-80 border-r bg-card/50 ${conversationId ? 'hidden md:block' : 'block'}`}>
           <div className="p-4 border-b">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-bold campus-gradient bg-clip-text text-transparent">
@@ -129,9 +129,9 @@ export function Messages() {
               <div
                 key={conversation.id}
                 className={`p-4 border-b cursor-pointer transition-colors hover:bg-accent/50 ${
-                  selectedConversation === conversation.id ? 'bg-accent' : ''
+                  conversationId === conversation.id ? 'bg-accent' : ''
                 }`}
-                onClick={() => setSelectedConversation(conversation.id)}
+                onClick={() => navigate(`/messages/${conversation.id}`)}
               >
                 <div className="flex items-center gap-3">
                   <div className="relative">
@@ -170,44 +170,44 @@ export function Messages() {
         </div>
 
         {/* Chat Area */}
-        {selectedConversation ? (
+        {conversationId ? (
           <div className="flex-1 flex flex-col">
             {/* Chat Header */}
-            <div className="p-4 border-b bg-card/50 backdrop-blur-sm">
+            <div className="p-3 md:p-4 border-b bg-card/50 backdrop-blur-sm">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 md:gap-3">
                   <Button
                     variant="ghost"
                     size="sm"
                     className="md:hidden"
-                    onClick={() => setSelectedConversation(null)}
+                    onClick={() => navigate('/messages')}
                   >
                     ←
                   </Button>
                   
-                  <Avatar className="h-10 w-10">
+                  <Avatar className="h-8 w-8 md:h-10 md:w-10">
                     <AvatarImage src={selectedConv?.avatar} />
-                    <AvatarFallback className="campus-gradient text-white font-semibold">
+                    <AvatarFallback className="campus-gradient text-white font-semibold text-xs md:text-sm">
                       {selectedConv?.name.slice(0, 2).toUpperCase()}
                     </AvatarFallback>
                   </Avatar>
                   
                   <div>
-                    <h3 className="font-semibold">{selectedConv?.name}</h3>
+                    <h3 className="font-semibold text-sm md:text-base">{selectedConv?.name}</h3>
                     <p className="text-xs text-muted-foreground">
                       {selectedConv?.type === 'group' ? '4 membres' : 'En ligne'}
                     </p>
                   </div>
                 </div>
                 
-                <div className="flex items-center gap-2">
-                  <Button variant="ghost" size="sm">
+                <div className="flex items-center gap-1 md:gap-2">
+                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 md:h-9 md:w-9">
                     <Phone className="h-4 w-4" />
                   </Button>
-                  <Button variant="ghost" size="sm">
+                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 md:h-9 md:w-9">
                     <Video className="h-4 w-4" />
                   </Button>
-                  <Button variant="ghost" size="sm">
+                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 md:h-9 md:w-9">
                     <MoreVertical className="h-4 w-4" />
                   </Button>
                 </div>
@@ -215,7 +215,7 @@ export function Messages() {
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4">
+            <div className="flex-1 overflow-y-auto p-3 md:p-4 space-y-3 md:space-y-4">
               {messages.map((message) => (
                 <div
                   key={message.id}
@@ -233,7 +233,7 @@ export function Messages() {
                      </Avatar>
                    )}
                   
-                   <div className={`max-w-xs lg:max-w-md ${message.isCurrentUser ? 'text-right' : ''}`}>
+                   <div className={`max-w-[70%] sm:max-w-xs lg:max-w-md ${message.isCurrentUser ? 'text-right' : ''}`}>
                      {!message.isCurrentUser && (
                        <p 
                          className="text-xs text-muted-foreground mb-1 cursor-pointer hover:underline"
@@ -262,7 +262,7 @@ export function Messages() {
             </div>
 
             {/* Message Input */}
-            <div className="p-4 border-t bg-card/50">
+            <div className="p-3 md:p-4 border-t bg-card/50">
               <div className="flex gap-2">
                 <Input
                   placeholder="Tapez votre message..."

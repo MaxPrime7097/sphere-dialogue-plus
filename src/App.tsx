@@ -89,6 +89,11 @@ const App = () => (
               <Messages />
             </AppLayout>
           } />
+          <Route path="/messages/:conversationId" element={
+            <AppLayout>
+              <Messages />
+            </AppLayout>
+          } />
           <Route path="/settings" element={
             <AppLayout>
               <Settings />

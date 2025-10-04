@@ -22,8 +22,8 @@ export function AppLayout({ children }: AppLayoutProps) {
   const isMobile = useIsMobile();
   const [searchQuery, setSearchQuery] = useState("");
   
-  const isMessagesPage = location.pathname === '/messages';
-  const hideNavOnMobile = isMobile && isMessagesPage;
+  const isInConversation = location.pathname.startsWith('/messages/') && location.pathname.split('/').length > 2;
+  const hideNavOnMobile = isMobile && isInConversation;
   
   const toggleTheme = () => {
     document.documentElement.classList.toggle('dark');
