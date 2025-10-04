@@ -155,7 +155,7 @@ export function Groups() {
             </p>
           </div>
           <CreateGroupModal>
-            <Button size="sm" className="campus-gradient text-white hover:opacity-90 gap-2">
+            <Button size="sm" className="campus-gradient text-white hover:opacity-90 gap-2 w-full sm:w-auto">
               <Plus className="h-4 w-4" />
               <span className="hidden sm:inline">Créer</span>
             </Button>
