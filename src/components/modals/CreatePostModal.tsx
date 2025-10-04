@@ -55,8 +55,8 @@ export function CreatePostModal({ children }: CreatePostModalProps) {
       </DialogTrigger>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2 text-xl font-automata">
-            <Plus className="h-6 w-6" />
+          <DialogTitle className="flex items-center gap-2">
+            <Plus className="h-5 w-5" />
             Créer un nouveau post
           </DialogTitle>
         </DialogHeader>

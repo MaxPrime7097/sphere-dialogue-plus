@@ -69,10 +69,11 @@ export function UploadResourceModal({ children }: UploadResourceModalProps) {
       </DialogTrigger>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-2xl campus-gradient bg-clip-text text-transparent">
-            Partager une ressource
+          <DialogTitle className="flex items-center gap-2">
+            <Upload className="h-5 w-5" />
+            Uploader une ressource
           </DialogTitle>
-        </DialogHeader>
+        <DialogHeader>
         
         <div className="space-y-4">
           {/* File Upload */}
