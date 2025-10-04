@@ -122,10 +122,7 @@ export function FAQ() {
         </div>
         
         <div className="container max-w-4xl mx-auto px-4 text-center">
-          <div className="inline-flex items-center justify-center w-28 h-28 mx-auto mb-6 campus-gradient rounded-3xl p-6">
-            <img src="/CS.svg" alt="CampusSphere" className="w-full h-full" />
-          </div>
-          <h1 className="text-4xl md:text-6xl font-bold campus-gradient bg-clip-text text-transparent mb-6" style={{ fontFamily: 'Automata Display' }}>
+          <h1 className="text-4xl md:text-6xl font-bold campus-gradient bg-clip-text text-transparent mb-6">
             Questions Fréquentes
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">

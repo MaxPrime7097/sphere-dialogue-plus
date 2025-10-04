@@ -49,11 +49,8 @@ export function Settings() {
       <div className="container max-w-4xl mx-auto py-4 md:py-6 px-3 md:px-4">
         {/* Header */}
         <div className="mb-6 md:mb-8 campus-animate-fade-in">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 md:w-12 md:h-12 campus-gradient rounded-xl flex items-center justify-center">
-              <img src="/CS.svg" alt="CampusSphere" className="w-6 h-6 md:w-7 md:h-7" />
-            </div>
-            <h1 className="text-2xl md:text-3xl font-bold campus-gradient bg-clip-text text-transparent" style={{ fontFamily: 'Automata Display' }}>
+          <div className="mb-2">
+            <h1 className="text-2xl md:text-3xl font-bold campus-gradient bg-clip-text text-transparent">
               Paramètres
             </h1>
           </div>
@@ -234,11 +231,8 @@ export function Settings() {
           <Card className="campus-card">
             <CardContent className="pt-4 md:pt-6 p-4 md:p-6">
               <div className="text-center space-y-4">
-                <div className="w-16 h-16 md:w-20 md:h-20 campus-gradient rounded-2xl flex items-center justify-center mx-auto p-3 md:p-4">
-                  <img src="/CS.svg" alt="CampusSphere" className="w-full h-full" />
-                </div>
                 <div>
-                  <h3 className="font-semibold text-lg md:text-xl" style={{ fontFamily: 'Automata Display' }}>CampusSphere</h3>
+                  <h3 className="font-semibold text-lg md:text-xl">CampusSphere</h3>
                   <p className="text-xs md:text-sm text-muted-foreground">Version 1.0.0</p>
                 </div>
                 <div className="flex flex-col sm:flex-row justify-center gap-2 sm:gap-4 text-xs md:text-sm">

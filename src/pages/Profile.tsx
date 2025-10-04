@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { MapPin, Calendar, Link, Users, BookOpen, Award, Settings } from "lucide-react";
+import { MapPin, Calendar, Link, Users, BookOpen, Award, Settings, FileText, Briefcase, GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { CreatePost } from "@/components/feed/CreatePost";
+import { PostCard } from "@/components/feed/PostCard";
 
 export function Profile() {
   const navigate = useNavigate();
@@ -36,11 +38,40 @@ export function Profile() {
     campus: "Campus Nord",
     
     // Experience & Skills
-    previousEducation: "Licence Informatique - Sorbonne Université",
-    experiences: "Stage développeur Full-Stack chez TechCorp (6 mois)",
-    skills: ["React", "Node.js", "Python", "Machine Learning", "SQL"],
-    interests: ["Intelligence Artificielle", "Développement Web", "Gaming", "Open Source"],
+    previousEducation: [
+      {
+        degree: "Licence Informatique",
+        school: "Sorbonne Université",
+        year: "2019-2022"
+      },
+      {
+        degree: "Baccalauréat Scientifique",
+        school: "Lycée Henri IV",
+        year: "2019"
+      }
+    ],
+    experiences: [
+      {
+        title: "Développeur Full-Stack",
+        company: "TechCorp",
+        duration: "6 mois",
+        description: "Développement d'applications web avec React et Node.js"
+      },
+      {
+        title: "Assistant de recherche",
+        company: "Lab IA - Université Paris-Saclay",
+        duration: "1 an",
+        description: "Recherche en machine learning et traitement du langage naturel"
+      }
+    ],
+    skills: ["React", "Node.js", "Python", "Machine Learning", "SQL", "TypeScript", "Docker", "MongoDB"],
+    interests: ["Intelligence Artificielle", "Développement Web", "Gaming", "Open Source", "Cybersécurité"],
     portfolioLinks: "github.com/alexdubois",
+    sharedFiles: [
+      { name: "Notes_IA_2024.pdf", type: "PDF", size: "2.3 MB" },
+      { name: "Projet_React_Final.zip", type: "ZIP", size: "15 MB" },
+      { name: "Resume_Algo.docx", type: "DOCX", size: "850 KB" }
+    ],
     
     // Social
     location: "Paris, France",
@@ -54,27 +85,60 @@ export function Profile() {
     badges: ["Contributeur actif", "Mentor", "Top étudiant"]
   };
 
-  const recentPosts = [
+  // Mock connections (friends)
+  const connections = [
+    { id: "1", name: "Max Prime", username: "cypher", avatar: "/placeholder-avatar.jpg", mutual: 12 },
+    { id: "2", name: "Hussein Boris", username: "skxiller", avatar: "/placeholder-avatar.jpg", mutual: 8 },
+    { id: "3", name: "Kana Tommi", username: "tommik07", avatar: "/placeholder-avatar.jpg", mutual: 15 },
+    { id: "4", name: "Nounga Nathan", username: "bosscovish", avatar: "/placeholder-avatar.jpg", mutual: 6 },
+    { id: "5", name: "Sophie Martin", username: "sophie_m", avatar: "/placeholder-avatar.jpg", mutual: 10 },
+    { id: "6", name: "Lucas Petit", username: "lucas_dev", avatar: "/placeholder-avatar.jpg", mutual: 4 },
+  ];
+
+  // Mock posts from user
+  const userPosts = [
     {
       id: "1",
+      author: {
+        name: user.name,
+        avatar: user.avatar,
+        username: user.username,
+        isVerified: true
+      },
       content: "Viens de terminer mon projet de machine learning ! Super fier du résultat 🤖",
       timestamp: "il y a 2h",
       likes: 15,
-      comments: 4
+      comments: 4,
+      category: "Académique"
     },
     {
-      id: "2", 
+      id: "2",
+      author: {
+        name: user.name,
+        avatar: user.avatar,
+        username: user.username,
+        isVerified: true
+      },
       content: "Quelqu'un pour réviser les maths ensemble demain ? Bibliothèque à 14h",
       timestamp: "il y a 1j",
       likes: 8,
-      comments: 6
+      comments: 6,
+      category: "Demande d'aide"
     },
     {
       id: "3",
+      author: {
+        name: user.name,
+        avatar: user.avatar,
+        username: user.username,
+        isVerified: true
+      },
       content: "Excellente conférence sur React aujourd'hui ! Mes notes sont disponibles sur mon GitHub",
+      image: "/placeholder-gaming.jpg",
       timestamp: "il y a 2j",
       likes: 23,
-      comments: 8
+      comments: 8,
+      category: "Académique"
     }
   ];
 
@@ -179,9 +243,9 @@ export function Profile() {
                 <BookOpen className="h-4 w-4" />
                 Posts
               </TabsTrigger>
-              <TabsTrigger value="activity" className="gap-2">
+              <TabsTrigger value="connections" className="gap-2">
                 <Users className="h-4 w-4" />
-                Activité
+                Connections
               </TabsTrigger>
               <TabsTrigger value="about" className="gap-2">
                 <Award className="h-4 w-4" />
@@ -189,55 +253,98 @@ export function Profile() {
               </TabsTrigger>
             </TabsList>
 
+            {/* Posts Tab */}
             <TabsContent value="posts" className="space-y-4 mt-6">
-              {recentPosts.map((post) => (
-                <Card key={post.id} className="campus-card">
-                  <CardContent className="p-4">
-                    <p className="mb-2">{post.content}</p>
-                    <div className="flex justify-between items-center text-sm text-muted-foreground">
-                      <span>{post.timestamp}</span>
-                      <div className="flex gap-4">
-                        <span>{post.likes} likes</span>
-                        <span>{post.comments} commentaires</span>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+              {isOwnProfile && (
+                <div className="campus-animate-slide-up">
+                  <CreatePost />
+                </div>
+              )}
+              
+              {userPosts.map((post) => (
+                <div key={post.id} className="campus-animate-fade-in">
+                  <PostCard post={post} />
+                </div>
               ))}
             </TabsContent>
 
-            <TabsContent value="activity" className="mt-6">
+            {/* Connections Tab */}
+            <TabsContent value="connections" className="mt-6">
               <Card className="campus-card">
                 <CardHeader>
-                  <CardTitle>Activité récente</CardTitle>
+                  <CardTitle>Amis ({connections.length})</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-2 h-2 campus-gradient rounded-full"></div>
-                      <span className="text-sm">A rejoint le groupe "Développement Web"</span>
-                      <span className="text-xs text-muted-foreground ml-auto">il y a 2h</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-2 h-2 campus-gradient rounded-full"></div>
-                      <span className="text-sm">A commenté sur un post</span>
-                      <span className="text-xs text-muted-foreground ml-auto">il y a 4h</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-2 h-2 campus-gradient rounded-full"></div>
-                      <span className="text-sm">A participé à l'événement "Hackathon 2024"</span>
-                      <span className="text-xs text-muted-foreground ml-auto">il y a 1j</span>
-                    </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {connections.map((connection) => (
+                      <Card key={connection.id} className="campus-card cursor-pointer hover:campus-glow transition-all">
+                        <CardContent className="p-4">
+                          <div className="flex items-center gap-3">
+                            <Avatar className="h-12 w-12">
+                              <AvatarImage src={connection.avatar} />
+                              <AvatarFallback className="campus-gradient text-white">
+                                {connection.name.split(' ').map(n => n[0]).join('')}
+                              </AvatarFallback>
+                            </Avatar>
+                            <div className="flex-1">
+                              <p className="font-semibold">{connection.name}</p>
+                              <p className="text-sm text-muted-foreground">@{connection.username}</p>
+                              <p className="text-xs text-muted-foreground">{connection.mutual} amis en commun</p>
+                            </div>
+                            <Button size="sm" variant="outline">Voir</Button>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
                   </div>
                 </CardContent>
               </Card>
             </TabsContent>
 
+            {/* About Tab */}
             <TabsContent value="about" className="mt-6">
               <div className="space-y-4">
+                {/* Informations Personnelles */}
                 <Card className="campus-card">
                   <CardHeader>
-                    <CardTitle>Informations Académiques</CardTitle>
+                    <CardTitle className="flex items-center gap-2">
+                      <Users className="h-5 w-5" />
+                      Informations Personnelles
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <p className="text-sm text-muted-foreground">Email</p>
+                        <p className="font-medium">{user.email}</p>
+                      </div>
+                      <div>
+                        <p className="text-sm text-muted-foreground">Téléphone</p>
+                        <p className="font-medium">{user.phoneNumber}</p>
+                      </div>
+                      <div>
+                        <p className="text-sm text-muted-foreground">Date de naissance</p>
+                        <p className="font-medium">{user.dateOfBirth}</p>
+                      </div>
+                      <div>
+                        <p className="text-sm text-muted-foreground">Ville</p>
+                        <p className="font-medium">{user.town}</p>
+                      </div>
+                      <div>
+                        <p className="text-sm text-muted-foreground">Langue</p>
+                        <p className="font-medium">{user.language}</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Informations Académiques */}
+                <Card className="campus-card">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <GraduationCap className="h-5 w-5" />
+                      Informations Académiques
+                    </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-3">
                     <div className="grid grid-cols-2 gap-4">
@@ -257,10 +364,34 @@ export function Profile() {
                         <p className="text-sm text-muted-foreground">Campus</p>
                         <p className="font-medium">{user.campus}</p>
                       </div>
+                      <div>
+                        <p className="text-sm text-muted-foreground">N° Étudiant</p>
+                        <p className="font-medium">{user.studentId}</p>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
 
+                {/* Centres d'intérêt */}
+                <Card className="campus-card">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Award className="h-5 w-5" />
+                      Centres d'intérêt
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex flex-wrap gap-2">
+                      {user.interests.map((interest) => (
+                        <Badge key={interest} variant="outline">
+                          {interest}
+                        </Badge>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Compétences */}
                 <Card className="campus-card">
                   <CardHeader>
                     <CardTitle>Compétences</CardTitle>
@@ -276,42 +407,76 @@ export function Profile() {
                   </CardContent>
                 </Card>
 
+                {/* Formations */}
                 <Card className="campus-card">
                   <CardHeader>
-                    <CardTitle>Centres d'intérêt</CardTitle>
+                    <CardTitle className="flex items-center gap-2">
+                      <BookOpen className="h-5 w-5" />
+                      Formations Précédentes
+                    </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="flex flex-wrap gap-2">
-                      {user.interests.map((interest) => (
-                        <Badge key={interest} variant="outline">
-                          {interest}
-                        </Badge>
+                    <div className="space-y-4">
+                      {user.previousEducation.map((edu, index) => (
+                        <div key={index} className="border-l-2 border-primary/50 pl-4">
+                          <p className="font-semibold">{edu.degree}</p>
+                          <p className="text-sm text-muted-foreground">{edu.school}</p>
+                          <p className="text-xs text-muted-foreground">{edu.year}</p>
+                        </div>
                       ))}
                     </div>
                   </CardContent>
                 </Card>
 
-                {user.previousEducation && (
-                  <Card className="campus-card">
-                    <CardHeader>
-                      <CardTitle>Formations Précédentes</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-muted-foreground">{user.previousEducation}</p>
-                    </CardContent>
-                  </Card>
-                )}
+                {/* Expériences */}
+                <Card className="campus-card">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Briefcase className="h-5 w-5" />
+                      Expériences
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      {user.experiences.map((exp, index) => (
+                        <div key={index} className="border-l-2 border-primary/50 pl-4">
+                          <p className="font-semibold">{exp.title}</p>
+                          <p className="text-sm text-muted-foreground">{exp.company}</p>
+                          <p className="text-xs text-muted-foreground mb-2">{exp.duration}</p>
+                          <p className="text-sm">{exp.description}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
 
-                {user.experiences && (
-                  <Card className="campus-card">
-                    <CardHeader>
-                      <CardTitle>Expériences</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-muted-foreground">{user.experiences}</p>
-                    </CardContent>
-                  </Card>
-                )}
+                {/* Fichiers Partagés */}
+                <Card className="campus-card">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <FileText className="h-5 w-5" />
+                      Fichiers Partagés
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      {user.sharedFiles.map((file, index) => (
+                        <div key={index} className="flex items-center justify-between p-3 border rounded-lg hover:bg-accent/50 transition-colors">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 campus-gradient rounded-lg flex items-center justify-center">
+                              <FileText className="h-5 w-5 text-white" />
+                            </div>
+                            <div>
+                              <p className="font-medium text-sm">{file.name}</p>
+                              <p className="text-xs text-muted-foreground">{file.type} • {file.size}</p>
+                            </div>
+                          </div>
+                          <Button size="sm" variant="ghost">Télécharger</Button>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
             </TabsContent>
           </Tabs>

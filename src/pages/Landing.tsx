@@ -202,7 +202,7 @@ export function Landing() {
             </p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
             {features.map((feature, index) => (
               <Card 
                 key={index}
@@ -222,6 +222,101 @@ export function Landing() {
                 </CardContent>
               </Card>
             ))}
+          </div>
+
+          {/* Additional Features Detail */}
+          <div className="grid md:grid-cols-2 gap-8 mt-16">
+            <Card className="campus-card">
+              <CardContent className="p-8">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 campus-gradient rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Users className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-xl mb-2">Groupes d'étude intelligents</h3>
+                    <p className="text-muted-foreground mb-4">
+                      Créez ou rejoignez des groupes basés sur vos cours, centres d'intérêt et objectifs académiques. 
+                      Notre algorithme vous suggère les meilleurs groupes selon votre profil.
+                    </p>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li>• Organisation de sessions d'étude</li>
+                      <li>• Partage de notes et ressources</li>
+                      <li>• Discussions en temps réel</li>
+                      <li>• Calendrier partagé</li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="campus-card">
+              <CardContent className="p-8">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 campus-gradient rounded-lg flex items-center justify-center flex-shrink-0">
+                    <BookOpen className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-xl mb-2">Bibliothèque collaborative</h3>
+                    <p className="text-muted-foreground mb-4">
+                      Accédez à une vaste collection de ressources partagées par la communauté étudiante. 
+                      Notes de cours, résumés, exercices corrigés et bien plus.
+                    </p>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li>• Ressources vérifiées et notées</li>
+                      <li>• Recherche avancée par matière</li>
+                      <li>• Téléchargement illimité</li>
+                      <li>• Contribution récompensée</li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="campus-card">
+              <CardContent className="p-8">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 campus-gradient rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Calendar className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-xl mb-2">Événements et activités</h3>
+                    <p className="text-muted-foreground mb-4">
+                      Ne manquez plus jamais un événement important. Découvrez conférences, ateliers, 
+                      soirées étudiantes et opportunités de networking.
+                    </p>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li>• Calendrier d'événements personnalisé</li>
+                      <li>• Notifications avant les événements</li>
+                      <li>• Création d'événements</li>
+                      <li>• Gestion des inscriptions</li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="campus-card">
+              <CardContent className="p-8">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 campus-gradient rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Shield className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-xl mb-2">Sécurité et confidentialité</h3>
+                    <p className="text-muted-foreground mb-4">
+                      Vos données sont protégées avec les normes les plus strictes. 
+                      Contrôlez qui voit vos informations et comment elles sont utilisées.
+                    </p>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li>• Conformité RGPD complète</li>
+                      <li>• Chiffrement de bout en bout</li>
+                      <li>• Paramètres de confidentialité avancés</li>
+                      <li>• Modération active 24/7</li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>

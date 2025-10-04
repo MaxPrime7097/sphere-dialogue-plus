@@ -30,10 +30,7 @@ export function Contact() {
         </div>
         
         <div className="container max-w-5xl mx-auto px-4 text-center">
-          <div className="inline-flex items-center justify-center w-24 h-24 mx-auto mb-6 campus-gradient rounded-2xl">
-            <img src="/CS.svg" alt="CampusSphere" className="w-16 h-16" />
-          </div>
-          <h1 className="text-4xl md:text-6xl font-bold campus-gradient bg-clip-text text-transparent mb-6" style={{ fontFamily: 'Automata Display' }}>
+          <h1 className="text-4xl md:text-6xl font-bold campus-gradient bg-clip-text text-transparent mb-6">
             Contactez-nous
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">

@@ -66,7 +66,7 @@ export function About() {
             <div className="inline-flex items-center justify-center w-32 h-32 mx-auto mb-6 campus-gradient rounded-3xl p-6">
               <img src="/CS.svg" alt="CampusSphere" className="w-full h-full" />
             </div>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold campus-gradient bg-clip-text text-transparent mb-6" style={{ fontFamily: 'Automata Display' }}>
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold campus-gradient bg-clip-text text-transparent mb-6">
               À propos de CampusSphere
             </h1>
             <p className="text-lg md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
@@ -131,9 +131,50 @@ export function About() {
                 Aujourd'hui, CampusSphere rassemble des milliers d'étudiants de différentes universités,
                 créant une communauté dynamique où chacun peut trouver sa place, apprendre, partager et grandir.
               </p>
+              <p>
+                Notre plateforme a été conçue par des étudiants, pour des étudiants. Nous comprenons les défis
+                quotidiens de la vie étudiante : la difficulté de trouver des ressources fiables, le besoin
+                de créer des connexions authentiques, l'importance d'un réseau de soutien académique et social.
+              </p>
+              <p>
+                Grâce à une approche centrée sur l'utilisateur et une amélioration continue basée sur vos retours,
+                CampusSphere évolue constamment pour mieux répondre à vos besoins. Chaque fonctionnalité est pensée
+                pour faciliter votre parcours académique et enrichir votre expérience universitaire.
+              </p>
             </div>
           </CardContent>
         </Card>
+
+        {/* Impact Section */}
+        <div className="mb-16">
+          <h2 className="text-3xl font-bold text-center mb-12">Notre Impact</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <Card className="campus-card text-center">
+              <CardContent className="p-6">
+                <p className="text-4xl font-bold campus-gradient bg-clip-text text-transparent mb-2">15K+</p>
+                <p className="text-sm text-muted-foreground">Étudiants actifs</p>
+              </CardContent>
+            </Card>
+            <Card className="campus-card text-center">
+              <CardContent className="p-6">
+                <p className="text-4xl font-bold campus-gradient bg-clip-text text-transparent mb-2">50+</p>
+                <p className="text-sm text-muted-foreground">Universités partenaires</p>
+              </CardContent>
+            </Card>
+            <Card className="campus-card text-center">
+              <CardContent className="p-6">
+                <p className="text-4xl font-bold campus-gradient bg-clip-text text-transparent mb-2">500+</p>
+                <p className="text-sm text-muted-foreground">Événements organisés</p>
+              </CardContent>
+            </Card>
+            <Card className="campus-card text-center">
+              <CardContent className="p-6">
+                <p className="text-4xl font-bold campus-gradient bg-clip-text text-transparent mb-2">10K+</p>
+                <p className="text-sm text-muted-foreground">Ressources partagées</p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
 
         {/* Team */}
         <div className="mb-16">
