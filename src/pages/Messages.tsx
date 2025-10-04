@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Search, Send, Phone, Video, MoreVertical, Plus, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 
 export function Messages() {
+  const navigate = useNavigate();
   const [selectedConversation, setSelectedConversation] = useState<string | null>("1");
   const [newMessage, setNewMessage] = useState("");
 
@@ -218,22 +220,28 @@ export function Messages() {
                 <div
                   key={message.id}
                   className={`flex gap-3 ${message.isCurrentUser ? 'flex-row-reverse' : ''}`}
-                >
-                  {!message.isCurrentUser && (
-                    <Avatar className="h-8 w-8 flex-shrink-0">
-                      <AvatarImage src={message.avatar} />
-                      <AvatarFallback className="text-xs">
-                        {message.sender.split(' ').map(n => n[0]).join('')}
-                      </AvatarFallback>
-                    </Avatar>
-                  )}
+                 >
+                   {!message.isCurrentUser && (
+                     <Avatar 
+                       className="h-8 w-8 flex-shrink-0 cursor-pointer hover:opacity-80 transition-opacity"
+                       onClick={() => navigate('/profile')}
+                     >
+                       <AvatarImage src={message.avatar} />
+                       <AvatarFallback className="text-xs">
+                         {message.sender.split(' ').map(n => n[0]).join('')}
+                       </AvatarFallback>
+                     </Avatar>
+                   )}
                   
-                  <div className={`max-w-xs lg:max-w-md ${message.isCurrentUser ? 'text-right' : ''}`}>
-                    {!message.isCurrentUser && (
-                      <p className="text-xs text-muted-foreground mb-1">
-                        {message.sender}
-                      </p>
-                    )}
+                   <div className={`max-w-xs lg:max-w-md ${message.isCurrentUser ? 'text-right' : ''}`}>
+                     {!message.isCurrentUser && (
+                       <p 
+                         className="text-xs text-muted-foreground mb-1 cursor-pointer hover:underline"
+                         onClick={() => navigate('/profile')}
+                       >
+                         {message.sender}
+                       </p>
+                     )}
                     
                     <Card className={`${
                       message.isCurrentUser 

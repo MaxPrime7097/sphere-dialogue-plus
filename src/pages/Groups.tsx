@@ -229,16 +229,6 @@ export function Groups() {
                       Rejoindre
                     </Button>
                   </CardContent>
-                  <CardContent className="pt-0 px-3 pb-3">
-                    <Button 
-                      size="sm" 
-                      className="w-full h-7 text-xs campus-gradient text-white"
-                      onClick={(e) => handleJoinGroup(e, group.id)}
-                    >
-                      <UserPlus className="h-3 w-3 mr-1" />
-                      Rejoindre
-                    </Button>
-                  </CardContent>
                 </Card>
               ))}
             </div>
