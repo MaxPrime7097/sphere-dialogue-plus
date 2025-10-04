@@ -73,7 +73,7 @@ export function UploadResourceModal({ children }: UploadResourceModalProps) {
             <Upload className="h-5 w-5" />
             Uploader une ressource
           </DialogTitle>
-        <DialogHeader>
+        </DialogHeader>
         
         <div className="space-y-4">
           {/* File Upload */}
