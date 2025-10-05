@@ -152,13 +152,13 @@ export function Resources() {
     <div className="min-h-screen bg-gradient-to-br from-background to-accent/20">
       <div className="container max-w-6xl mx-auto py-4 md:py-6 px-4">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 campus-animate-fade-in">
           <div>
             <h1 className="text-3xl font-bold campus-gradient bg-clip-text text-transparent">
               Ressources Étudiantes
             </h1>
             <p className="text-sm md:text-base text-muted-foreground mt-1">
-              Partagez et accédez aux ressources de la communauté
+              Partagez et accédez aux ressources partagées par la communauté
             </p>
           </div>
           <UploadResourceModal>

@@ -221,10 +221,10 @@ export function Library() {
         {/* Header */}
         <div className="mb-6 campus-animate-fade-in">
           <h1 className="text-3xl font-bold campus-gradient bg-clip-text text-transparent mb-2">
-            Bibliothèque Numérique
+            Bibliothèque Campus
           </h1>
           <p className="text-muted-foreground">
-            Accédez à une vaste collection de ressources académiques partagées par la communauté
+            Accédez à une vaste collection de cours et livres
           </p>
         </div>
 
