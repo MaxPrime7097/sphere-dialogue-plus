@@ -25,7 +25,7 @@ const mockPosts = [
       username: "skxiller",
     },
     content: "Super soirée jeux hier au foyer ! Merci à tous ceux qui sont venus. On remet ça vendredi prochain ? 🎮",
-    image: "/placeholder-gaming.jpg",
+    image: "https://tse2.mm.bing.net/th/id/OIP.wp1_y7fPdobF02_iPjGc7wHaEO?rs=1&pid=ImgDetMain&o=7&rm=3",
     timestamp: "il y a 4h",
     likes: 28,
     comments: 8,
