@@ -164,7 +164,7 @@ export function Resources() {
           <UploadResourceModal>
             <Button size="sm" className="campus-gradient text-white hover:opacity-90 gap-2 w-full sm:w-auto">
               <Upload className="h-4 w-4" />
-              <span className="hidden sm:inline">Partager</span>
+              <span className="inline">Uploader</span>
             </Button>
           </UploadResourceModal>
         </div>
