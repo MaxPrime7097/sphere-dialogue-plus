@@ -105,7 +105,7 @@ export function PostCard({ post }: PostCardProps) {
           <p className="text-sm leading-relaxed">{post.content}</p>
           
           {post.image && (
-            <div className="rounded-lg md:overflow-hidden w-full">
+            <div className="rounded-lg overflow-hidden md:overflow-hidden w-full">
               <img 
                 src={post.image} 
                 alt="Post content" 
