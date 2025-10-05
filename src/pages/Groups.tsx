@@ -148,7 +148,7 @@ export function Groups() {
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 campus-animate-fade-in">
           <div>
             <h1 className="text-3xl font-bold campus-gradient bg-clip-text text-transparent">
-              Groupes & Communautés
+              Groupes Campus
             </h1>
             <p className="text-muted-foreground mt-2">
               Connectez-vous avec des étudiants partageant vos passions
