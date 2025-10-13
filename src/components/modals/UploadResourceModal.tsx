@@ -13,6 +13,37 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
+import { useToast } from "@/hooks/use-toast";
+import { z } from "zod";
+
+const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
+const ACCEPTED_FILE_TYPES = [
+  'application/pdf',
+  'application/msword',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  'application/vnd.ms-powerpoint',
+  'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+  'application/zip',
+  'application/x-zip-compressed'
+];
+
+const resourceSchema = z.object({
+  title: z.string()
+    .trim()
+    .min(3, { message: "Title must be at least 3 characters" })
+    .max(100, { message: "Title must be less than 100 characters" }),
+  description: z.string()
+    .trim()
+    .min(10, { message: "Description must be at least 10 characters" })
+    .max(500, { message: "Description must be less than 500 characters" }),
+  subject: z.string().min(1, { message: "Please select a subject" }),
+  type: z.string().min(1, { message: "Please select a type" }),
+  file: z.custom<File>((val) => val instanceof File, { message: "Please upload a file" })
+    .refine((file) => file.size <= MAX_FILE_SIZE, { message: "File size must be less than 50MB" })
+    .refine((file) => ACCEPTED_FILE_TYPES.includes(file.type), { 
+      message: "Invalid file type. Only PDF, DOC, PPT, and ZIP files are allowed" 
+    }),
+});
 
 interface UploadResourceModalProps {
   children: React.ReactNode;
@@ -23,21 +54,29 @@ export function UploadResourceModal({ children }: UploadResourceModalProps) {
   const [file, setFile] = useState<File | null>(null);
   const [tags, setTags] = useState<string[]>([]);
   const [newTag, setNewTag] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [subject, setSubject] = useState("");
+  const [type, setType] = useState("");
+  const { toast } = useToast();
 
   const subjects = [
-    { value: "math", label: "Mathématiques" },
-    { value: "cs", label: "Informatique" },
-    { value: "physics", label: "Physique" },
-    { value: "economics", label: "Économie" },
-    { value: "language", label: "Langues" }
+    { value: "math", label: "Mathematics" },
+    { value: "cs", label: "Computer Science" },
+    { value: "physics", label: "Physics" },
+    { value: "economics", label: "Economics" },
+    { value: "language", label: "Languages" },
+    { value: "business", label: "Business" },
+    { value: "engineering", label: "Engineering" }
   ];
 
   const types = [
-    { value: "notes", label: "Notes de cours" },
-    { value: "summary", label: "Résumés" },
-    { value: "exercises", label: "Exercices" },
-    { value: "projects", label: "Projets" },
-    { value: "slides", label: "Présentations" }
+    { value: "notes", label: "Course Notes" },
+    { value: "summary", label: "Summaries" },
+    { value: "exercises", label: "Exercises" },
+    { value: "projects", label: "Projects" },
+    { value: "slides", label: "Presentations" },
+    { value: "exams", label: "Past Exams" }
   ];
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,8 +86,29 @@ export function UploadResourceModal({ children }: UploadResourceModalProps) {
   };
 
   const addTag = () => {
-    if (newTag.trim() && !tags.includes(newTag.trim())) {
-      setTags([...tags, newTag.trim()]);
+    const trimmedTag = newTag.trim();
+    if (!trimmedTag) return;
+    
+    if (trimmedTag.length > 20) {
+      toast({
+        variant: "destructive",
+        title: "Tag too long",
+        description: "Tags must be less than 20 characters",
+      });
+      return;
+    }
+    
+    if (tags.length >= 5) {
+      toast({
+        variant: "destructive",
+        title: "Maximum tags reached",
+        description: "You can only add up to 5 tags",
+      });
+      return;
+    }
+    
+    if (!tags.includes(trimmedTag)) {
+      setTags([...tags, trimmedTag]);
       setNewTag("");
     }
   };
@@ -58,7 +118,45 @@ export function UploadResourceModal({ children }: UploadResourceModalProps) {
   };
 
   const handleSubmit = () => {
-    // Handle resource upload
+    if (!file) {
+      toast({
+        variant: "destructive",
+        title: "File required",
+        description: "Please upload a file",
+      });
+      return;
+    }
+
+    const validation = resourceSchema.safeParse({
+      title,
+      description,
+      subject,
+      type,
+      file
+    });
+
+    if (!validation.success) {
+      toast({
+        variant: "destructive",
+        title: "Validation failed",
+        description: validation.error.errors[0].message,
+      });
+      return;
+    }
+
+    // Would integrate with backend
+    toast({
+      title: "Resource uploaded",
+      description: "Your resource has been published successfully",
+    });
+
+    // Reset form
+    setTitle("");
+    setDescription("");
+    setSubject("");
+    setType("");
+    setFile(null);
+    setTags([]);
     setOpen(false);
   };
 
@@ -71,14 +169,14 @@ export function UploadResourceModal({ children }: UploadResourceModalProps) {
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Upload className="h-5 w-5" />
-            Uploader une ressource
+            Upload Resource
           </DialogTitle>
         </DialogHeader>
         
         <div className="space-y-4">
           {/* File Upload */}
           <div>
-            <Label>Fichier *</Label>
+            <Label>File *</Label>
             <div className="border-2 border-dashed border-border rounded-lg p-6 text-center">
               {file ? (
                 <div className="flex items-center justify-between">
@@ -105,7 +203,7 @@ export function UploadResourceModal({ children }: UploadResourceModalProps) {
                   <div className="mt-2">
                     <label htmlFor="file-upload">
                       <Button variant="outline" type="button" asChild>
-                        <span>Choisir un fichier</span>
+                        <span>Choose a file</span>
                       </Button>
                     </label>
                     <input
@@ -117,7 +215,7 @@ export function UploadResourceModal({ children }: UploadResourceModalProps) {
                     />
                   </div>
                   <p className="text-xs text-muted-foreground mt-2">
-                    PDF, DOC, PPT, ZIP jusqu'à 50MB
+                    PDF, DOC, PPT, ZIP up to 50MB
                   </p>
                 </>
               )}
@@ -126,10 +224,13 @@ export function UploadResourceModal({ children }: UploadResourceModalProps) {
 
           {/* Title */}
           <div>
-            <Label htmlFor="title">Titre *</Label>
+            <Label htmlFor="title">Title *</Label>
             <Input
               id="title"
-              placeholder="Ex: Notes complètes - Algèbre Linéaire"
+              placeholder="E.g., Complete Notes - Linear Algebra"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              maxLength={100}
             />
           </div>
 
@@ -138,23 +239,26 @@ export function UploadResourceModal({ children }: UploadResourceModalProps) {
             <Label htmlFor="description">Description *</Label>
             <Textarea
               id="description"
-              placeholder="Décrivez votre ressource..."
+              placeholder="Describe your resource..."
               rows={3}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              maxLength={500}
             />
           </div>
 
           {/* Subject & Type */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label>Matière *</Label>
-              <Select>
-                <SelectTrigger>
-                  <SelectValue placeholder="Sélectionner" />
+              <Label>Subject *</Label>
+              <Select value={subject} onValueChange={setSubject}>
+                <SelectTrigger className="bg-popover">
+                  <SelectValue placeholder="Select subject" />
                 </SelectTrigger>
-                <SelectContent>
-                  {subjects.map((subject) => (
-                    <SelectItem key={subject.value} value={subject.value}>
-                      {subject.label}
+                <SelectContent className="bg-popover z-50">
+                  {subjects.map((subj) => (
+                    <SelectItem key={subj.value} value={subj.value}>
+                      {subj.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -162,14 +266,14 @@ export function UploadResourceModal({ children }: UploadResourceModalProps) {
             </div>
             <div>
               <Label>Type *</Label>
-              <Select>
-                <SelectTrigger>
-                  <SelectValue placeholder="Sélectionner" />
+              <Select value={type} onValueChange={setType}>
+                <SelectTrigger className="bg-popover">
+                  <SelectValue placeholder="Select type" />
                 </SelectTrigger>
-                <SelectContent>
-                  {types.map((type) => (
-                    <SelectItem key={type.value} value={type.value}>
-                      {type.label}
+                <SelectContent className="bg-popover z-50">
+                  {types.map((t) => (
+                    <SelectItem key={t.value} value={t.value}>
+                      {t.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -179,16 +283,17 @@ export function UploadResourceModal({ children }: UploadResourceModalProps) {
 
           {/* Tags */}
           <div>
-            <Label>Tags</Label>
+            <Label>Tags (max 5)</Label>
             <div className="flex gap-2 mb-2">
               <Input
-                placeholder="Ajouter un tag..."
+                placeholder="Add a tag..."
                 value={newTag}
                 onChange={(e) => setNewTag(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addTag())}
+                maxLength={20}
               />
-              <Button type="button" onClick={addTag} variant="outline">
-                Ajouter
+              <Button type="button" onClick={addTag} variant="outline" disabled={tags.length >= 5}>
+                Add
               </Button>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -213,13 +318,14 @@ export function UploadResourceModal({ children }: UploadResourceModalProps) {
               className="flex-1"
               onClick={() => setOpen(false)}
             >
-              Annuler
+              Cancel
             </Button>
             <Button 
               className="flex-1 campus-gradient text-white hover:opacity-90"
               onClick={handleSubmit}
+              disabled={!title || !description || !subject || !type || !file}
             >
-              Publier
+              Publish
             </Button>
           </div>
         </div>

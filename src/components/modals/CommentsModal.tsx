@@ -9,6 +9,15 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Heart, Send } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { z } from "zod";
+
+const commentSchema = z.object({
+  content: z.string()
+    .trim()
+    .min(1, { message: "Comment cannot be empty" })
+    .max(500, { message: "Comment must be less than 500 characters" })
+});
 
 interface Comment {
   id: string;
@@ -30,6 +39,7 @@ interface CommentsModalProps {
 
 export function CommentsModal({ open, onOpenChange, postId }: CommentsModalProps) {
   const [newComment, setNewComment] = useState("");
+  const { toast } = useToast();
   
   // Mock comments
   const comments: Comment[] = [
@@ -40,8 +50,8 @@ export function CommentsModal({ open, onOpenChange, postId }: CommentsModalProps
         avatar: "/placeholder-avatar.jpg",
         username: "sophie_m"
       },
-      content: "Super intéressant ! Merci pour le partage 👍",
-      timestamp: "il y a 1h",
+      content: "Really interesting! Thanks for sharing 👍",
+      timestamp: "1h ago",
       likes: 3
     },
     {
@@ -51,24 +61,37 @@ export function CommentsModal({ open, onOpenChange, postId }: CommentsModalProps
         avatar: "/placeholder-avatar.jpg",
         username: "lucas_d"
       },
-      content: "Je suis totalement d'accord avec toi !",
-      timestamp: "il y a 2h",
+      content: "I totally agree with you!",
+      timestamp: "2h ago",
       likes: 1
     }
   ];
 
   const handleSubmit = () => {
-    if (newComment.trim()) {
-      console.log("New comment:", newComment);
-      setNewComment("");
+    const validation = commentSchema.safeParse({ content: newComment });
+    
+    if (!validation.success) {
+      toast({
+        variant: "destructive",
+        title: "Invalid comment",
+        description: validation.error.errors[0].message,
+      });
+      return;
     }
+
+    // Would integrate with backend
+    toast({
+      title: "Comment posted",
+      description: "Your comment has been added",
+    });
+    setNewComment("");
   };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[80vh] flex flex-col p-0">
+      <DialogContent className="max-w-2xl max-h-[80vh] flex flex-col p-0 bg-popover">
         <DialogHeader className="px-6 py-4 border-b">
-          <DialogTitle>Commentaires</DialogTitle>
+          <DialogTitle>Comments</DialogTitle>
         </DialogHeader>
         
         <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4">
@@ -90,11 +113,14 @@ export function CommentsModal({ open, onOpenChange, postId }: CommentsModalProps
                 
                 <div className="flex items-center gap-4 mt-2 text-xs text-muted-foreground">
                   <span>{comment.timestamp}</span>
-                  <button className="flex items-center gap-1 hover:text-primary">
+                  <button 
+                    className="flex items-center gap-1 hover:text-primary"
+                    aria-label="Like comment"
+                  >
                     <Heart className="h-3 w-3" />
                     {comment.likes}
                   </button>
-                  <button className="hover:text-primary">Répondre</button>
+                  <button className="hover:text-primary">Reply</button>
                 </div>
               </div>
             </div>
@@ -108,16 +134,19 @@ export function CommentsModal({ open, onOpenChange, postId }: CommentsModalProps
             </Avatar>
             <div className="flex-1 flex gap-2">
               <Textarea
-                placeholder="Écrire un commentaire..."
+                placeholder="Write a comment..."
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleSubmit())}
                 className="min-h-[80px] resize-none"
+                maxLength={500}
               />
               <Button
                 size="icon"
                 onClick={handleSubmit}
                 disabled={!newComment.trim()}
                 className="campus-gradient text-white hover:opacity-90"
+                aria-label="Post comment"
               >
                 <Send className="h-4 w-4" />
               </Button>

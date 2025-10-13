@@ -9,7 +9,28 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { CalendarIcon, Clock, MapPin, Users } from "lucide-react";
 import { format } from "date-fns";
-import { fr } from "date-fns/locale";
+import { enUS } from "date-fns/locale";
+import { useToast } from "@/hooks/use-toast";
+import { z } from "zod";
+
+const eventSchema = z.object({
+  title: z.string()
+    .trim()
+    .min(3, { message: "Title must be at least 3 characters" })
+    .max(100, { message: "Title must be less than 100 characters" }),
+  description: z.string()
+    .trim()
+    .min(10, { message: "Description must be at least 10 characters" })
+    .max(500, { message: "Description must be less than 500 characters" }),
+  location: z.string()
+    .trim()
+    .min(3, { message: "Location must be at least 3 characters" })
+    .max(100, { message: "Location must be less than 100 characters" }),
+  category: z.string().min(1, { message: "Please select a category" }),
+  date: z.date({ required_error: "Please select a date" }),
+  time: z.string().min(1, { message: "Please select a time" }),
+  maxAttendees: z.string().optional(),
+});
 
 interface CreateEventModalProps {
   children: React.ReactNode;
@@ -24,16 +45,17 @@ export function CreateEventModal({ children }: CreateEventModalProps) {
   const [time, setTime] = useState("");
   const [maxAttendees, setMaxAttendees] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const { toast } = useToast();
 
   const categories = [
-    { value: "academic", label: "Académique" },
+    { value: "academic", label: "Academic" },
     { value: "networking", label: "Networking" },
-    { value: "tech", label: "Technologie" },
+    { value: "tech", label: "Technology" },
     { value: "business", label: "Business" },
-    { value: "creative", label: "Créatif" },
+    { value: "creative", label: "Creative" },
     { value: "sport", label: "Sport" },
     { value: "social", label: "Social" },
-    { value: "cultural", label: "Culturel" }
+    { value: "cultural", label: "Cultural" }
   ];
 
   const timeSlots = [
@@ -42,27 +64,21 @@ export function CreateEventModal({ children }: CreateEventModalProps) {
   ];
 
   const handleSubmit = () => {
-    if (title.trim() && description.trim() && date && time && location.trim() && category) {
-      console.log("Creating event:", {
-        title,
-        description,
-        location,
-        category,
-        date,
-        time,
-        maxAttendees: maxAttendees ? parseInt(maxAttendees) : null
-      });
-      
-      // Reset form
-      setTitle("");
-      setDescription("");
-      setLocation("");
-      setCategory("");
-      setDate(undefined);
-      setTime("");
-      setMaxAttendees("");
-      setIsOpen(false);
+    if (!date) {
+      toast({ variant: "destructive", title: "Date required", description: "Please select a date" });
+      return;
     }
+
+    const validation = eventSchema.safeParse({ title, description, location, category, date, time, maxAttendees });
+    
+    if (!validation.success) {
+      toast({ variant: "destructive", title: "Validation failed", description: validation.error.errors[0].message });
+      return;
+    }
+
+    toast({ title: "Event created", description: "Your event has been created successfully" });
+    
+    setTitle(""); setDescription(""); setLocation(""); setCategory(""); setDate(undefined); setTime(""); setMaxAttendees(""); setIsOpen(false);
   };
 
   return (
@@ -74,19 +90,20 @@ export function CreateEventModal({ children }: CreateEventModalProps) {
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <CalendarIcon className="h-5 w-5" />
-            Créer un nouvel événement
+            Create New Event
           </DialogTitle>
         </DialogHeader>
         
         <div className="space-y-4">
           <div>
-            <Label htmlFor="eventTitle">Titre de l'événement</Label>
+            <Label htmlFor="eventTitle">Event Title</Label>
             <Input
               id="eventTitle"
-              placeholder="Ex: Hackathon IA 2024"
+              placeholder="E.g., AI Hackathon 2024"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               className="mt-2"
+              maxLength={100}
             />
           </div>
 
@@ -94,10 +111,11 @@ export function CreateEventModal({ children }: CreateEventModalProps) {
             <Label htmlFor="eventDescription">Description</Label>
             <Textarea
               id="eventDescription"
-              placeholder="Décrivez votre événement, ses objectifs et ce que les participants peuvent attendre..."
+              placeholder="Describe your event, objectives and what participants can expect..."
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               className="min-h-[100px] mt-2"
+              maxLength={500}
             />
           </div>
 
@@ -111,7 +129,7 @@ export function CreateEventModal({ children }: CreateEventModalProps) {
                     className="w-full justify-start text-left font-normal mt-2"
                   >
                     <CalendarIcon className="mr-2 h-4 w-4" />
-                    {date ? format(date, "PPP", { locale: fr }) : "Sélectionner une date"}
+                    {date ? format(date, "PPP", { locale: enUS }) : "Select a date"}
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0">
@@ -150,10 +168,11 @@ export function CreateEventModal({ children }: CreateEventModalProps) {
               <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
                 id="eventLocation"
-                placeholder="Salle, amphithéâtre, campus..."
+                placeholder="Room, auditorium, campus..."
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 className="pl-10"
+                maxLength={100}
               />
             </div>
           </div>
@@ -192,16 +211,8 @@ export function CreateEventModal({ children }: CreateEventModalProps) {
           </div>
 
           <div className="flex justify-end gap-2 pt-4 border-t">
-            <Button variant="outline" onClick={() => setIsOpen(false)}>
-              Annuler
-            </Button>
-            <Button 
-              onClick={handleSubmit}
-              disabled={!title.trim() || !description.trim() || !date || !time || !location.trim() || !category}
-              className="campus-gradient text-white hover:opacity-90"
-            >
-              Créer l'événement
-            </Button>
+            <Button variant="outline" onClick={() => setIsOpen(false)}>Cancel</Button>
+            <Button onClick={handleSubmit} disabled={!title.trim() || !description.trim() || !date || !time || !location.trim() || !category} className="campus-gradient text-white hover:opacity-90">Create Event</Button>
           </div>
         </div>
       </DialogContent>
