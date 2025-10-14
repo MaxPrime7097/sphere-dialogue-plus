@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Search, Send, Phone, Video, MoreVertical, Plus, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,24 +10,25 @@ import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
 
-const messageSchema = z.object({
-  content: z.string()
-    .trim()
-    .min(1, { message: "Message cannot be empty" })
-    .max(1000, { message: "Message must be less than 1000 characters" })
-});
-
 export function Messages() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { conversationId } = useParams<{ conversationId: string }>();
   const [newMessage, setNewMessage] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const { toast } = useToast();
 
+  const messageSchema = z.object({
+    content: z.string()
+      .trim()
+      .min(1, { message: t('messages.validation.tooShort') })
+      .max(1000, { message: t('messages.validation.tooLong') })
+  });
+
   const allConversations = [
     {
       id: "1",
-      name: "Web Dev Group",
+      name: t('messages.sampleGroup', { defaultValue: "Groupe Dev Web" }),
       type: "group" as const,
       avatar: "/placeholder-group.jpg",
       lastMessage: "Thomas: Great! See you tomorrow?",
@@ -111,16 +113,14 @@ export function Messages() {
     if (!validation.success) {
       toast({
         variant: "destructive",
-        title: "Invalid message",
+        title: t('messages.validation.invalid', { defaultValue: "Message invalide" }),
         description: validation.error.errors[0].message,
       });
       return;
     }
 
-    // Handle send message - would integrate with backend
     toast({
-      title: "Message sent",
-      description: "Your message has been delivered.",
+      title: t('messages.validation.sent'),
     });
     setNewMessage("");
   };
@@ -135,7 +135,7 @@ export function Messages() {
           <div className="p-3 md:p-4 border-b flex-shrink-0">
             <div className="flex items-center justify-between mb-3 md:mb-4">
               <h2 className="text-lg md:text-xl font-bold campus-gradient bg-clip-text text-transparent">
-                Messages
+                {t('messages.title')}
               </h2>
               <Button size="sm" variant="outline" className="h-8 w-8 p-0">
                 <Plus className="h-4 w-4" />
@@ -145,7 +145,7 @@ export function Messages() {
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
-                placeholder="Search conversations..."
+                placeholder={t('messages.searchPlaceholder')}
                 className="pl-10 text-sm"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -156,7 +156,7 @@ export function Messages() {
           <div className="overflow-y-auto flex-1">
             {conversations.length === 0 ? (
               <div className="flex items-center justify-center h-32 text-sm text-muted-foreground">
-                No conversations found
+                {t('messages.noConversations')}
               </div>
             ) : (
               conversations.map((conversation) => (
@@ -300,7 +300,7 @@ export function Messages() {
             <div className="p-3 md:p-4 border-t bg-card/50 flex-shrink-0">
               <div className="flex gap-2">
                 <Input
-                  placeholder="Type your message..."
+                  placeholder={t('messages.typeMessage')}
                   value={newMessage}
                   onChange={(e) => setNewMessage(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleSendMessage())}
@@ -324,9 +324,9 @@ export function Messages() {
               <div className="w-16 h-16 campus-gradient rounded-full flex items-center justify-center mx-auto mb-4">
                 <MessageSquare className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-lg font-semibold mb-2">Select a conversation</h3>
+              <h3 className="text-lg font-semibold mb-2">{t('messages.selectTitle', { defaultValue: "Sélectionner une conversation" })}</h3>
               <p className="text-sm text-muted-foreground max-w-sm">
-                Choose a conversation to start chatting
+                {t('messages.selectConversation')}
               </p>
             </div>
           </div>

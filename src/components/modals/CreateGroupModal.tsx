@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,23 +11,12 @@ import { Users, Lock, Globe } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
 
-const groupSchema = z.object({
-  name: z.string()
-    .trim()
-    .min(3, { message: "Group name must be at least 3 characters" })
-    .max(50, { message: "Group name must be less than 50 characters" }),
-  description: z.string()
-    .trim()
-    .min(10, { message: "Description must be at least 10 characters" })
-    .max(500, { message: "Description must be less than 500 characters" }),
-  category: z.string().min(1, { message: "Please select a category" }),
-});
-
 interface CreateGroupModalProps {
   children: React.ReactNode;
 }
 
 export function CreateGroupModal({ children }: CreateGroupModalProps) {
+  const { t } = useTranslation();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
@@ -35,15 +25,27 @@ export function CreateGroupModal({ children }: CreateGroupModalProps) {
   const [isOpen, setIsOpen] = useState(false);
   const { toast } = useToast();
 
+  const groupSchema = z.object({
+    name: z.string()
+      .trim()
+      .min(3, { message: t('modals.createGroup.nameMin', { defaultValue: "Le nom doit contenir au moins 3 caractères" }) })
+      .max(50, { message: t('modals.createGroup.nameTooLong') }),
+    description: z.string()
+      .trim()
+      .min(10, { message: t('modals.createGroup.descMin', { defaultValue: "La description doit contenir au moins 10 caractères" }) })
+      .max(500, { message: t('modals.createGroup.descriptionTooLong') }),
+    category: z.string().min(1, { message: t('modals.createGroup.categoryRequired') }),
+  });
+
   const categories = [
-    { value: "academic", label: "Academic" },
-    { value: "creative", label: "Creative" },
-    { value: "sport", label: "Sport" },
-    { value: "tech", label: "Technology" },
-    { value: "business", label: "Business" },
-    { value: "lifestyle", label: "Lifestyle" },
-    { value: "gaming", label: "Gaming" },
-    { value: "other", label: "Other" }
+    { value: "academic", label: t('modals.createGroup.categories.academic') },
+    { value: "creative", label: t('modals.createGroup.categories.creative', { defaultValue: "Créatif" }) },
+    { value: "sport", label: t('modals.createGroup.categories.sport', { defaultValue: "Sport" }) },
+    { value: "tech", label: t('modals.createGroup.categories.tech', { defaultValue: "Technologie" }) },
+    { value: "business", label: t('modals.createGroup.categories.business', { defaultValue: "Business" }) },
+    { value: "lifestyle", label: t('modals.createGroup.categories.lifestyle', { defaultValue: "Lifestyle" }) },
+    { value: "gaming", label: t('modals.createGroup.categories.gaming', { defaultValue: "Gaming" }) },
+    { value: "other", label: t('modals.createGroup.categories.other', { defaultValue: "Autre" }) }
   ];
 
   const handleSubmit = () => {
@@ -52,16 +54,15 @@ export function CreateGroupModal({ children }: CreateGroupModalProps) {
     if (!validation.success) {
       toast({
         variant: "destructive",
-        title: "Validation failed",
+        title: t('modals.createGroup.validationFailed', { defaultValue: "Validation échouée" }),
         description: validation.error.errors[0].message,
       });
       return;
     }
 
-    // Would integrate with backend
     toast({
-      title: "Group created",
-      description: "Your group has been created successfully",
+      title: t('modals.createGroup.toast.created'),
+      description: t('modals.createGroup.toast.createdDesc'),
     });
     
     // Reset form
@@ -82,16 +83,16 @@ export function CreateGroupModal({ children }: CreateGroupModalProps) {
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Users className="h-5 w-5" />
-            Create New Group
+            {t('modals.createGroup.title')}
           </DialogTitle>
         </DialogHeader>
         
         <div className="space-y-4">
           <div>
-            <Label htmlFor="groupName">Group Name</Label>
+            <Label htmlFor="groupName">{t('modals.createGroup.name')}</Label>
             <Input
               id="groupName"
-              placeholder="E.g., Web Development 2024"
+              placeholder={t('modals.createGroup.namePlaceholder', { defaultValue: "Ex : Développement Web 2024" })}
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="mt-2"
@@ -100,10 +101,10 @@ export function CreateGroupModal({ children }: CreateGroupModalProps) {
           </div>
 
           <div>
-            <Label htmlFor="groupDescription">Description</Label>
+            <Label htmlFor="groupDescription">{t('modals.createGroup.description')}</Label>
             <Textarea
               id="groupDescription"
-              placeholder="Describe your group's purpose and activities..."
+              placeholder={t('modals.createGroup.descPlaceholder', { defaultValue: "Décrivez le but et les activités de votre groupe..." })}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               className="min-h-[100px] mt-2"
@@ -112,10 +113,10 @@ export function CreateGroupModal({ children }: CreateGroupModalProps) {
           </div>
 
           <div>
-            <Label htmlFor="groupCategory">Category</Label>
+            <Label htmlFor="groupCategory">{t('modals.createGroup.category')}</Label>
             <Select value={category} onValueChange={setCategory}>
               <SelectTrigger className="mt-2 bg-popover">
-                <SelectValue placeholder="Select a category" />
+                <SelectValue placeholder={t('modals.createGroup.selectCategory', { defaultValue: "Sélectionnez une catégorie" })} />
               </SelectTrigger>
               <SelectContent className="bg-popover z-50">
                 {categories.map((cat) => (
@@ -132,10 +133,10 @@ export function CreateGroupModal({ children }: CreateGroupModalProps) {
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
                   {isPrivate ? <Lock className="h-4 w-4" /> : <Globe className="h-4 w-4" />}
-                  <Label htmlFor="private">Private Group</Label>
+                  <Label htmlFor="private">{t('modals.createGroup.privateGroup')}</Label>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Private groups are not visible in search
+                  {t('modals.createGroup.privateDesc', { defaultValue: "Les groupes privés ne sont pas visibles dans la recherche" })}
                 </p>
               </div>
               <Switch
@@ -147,9 +148,9 @@ export function CreateGroupModal({ children }: CreateGroupModalProps) {
 
             <div className="flex items-center justify-between">
               <div className="space-y-1">
-                <Label htmlFor="approval">Require Approval</Label>
+                <Label htmlFor="approval">{t('modals.createGroup.requireApproval')}</Label>
                 <p className="text-sm text-muted-foreground">
-                  New join requests must be approved by an admin
+                  {t('modals.createGroup.approvalDesc', { defaultValue: "Les nouvelles demandes doivent être approuvées par un admin" })}
                 </p>
               </div>
               <Switch
@@ -162,14 +163,14 @@ export function CreateGroupModal({ children }: CreateGroupModalProps) {
 
           <div className="flex justify-end gap-2 pt-4 border-t">
             <Button variant="outline" onClick={() => setIsOpen(false)}>
-              Cancel
+              {t('modals.createGroup.cancel')}
             </Button>
             <Button 
               onClick={handleSubmit}
               disabled={!name.trim() || !description.trim() || !category}
               className="campus-gradient text-white hover:opacity-90"
             >
-              Create Group
+              {t('modals.createGroup.create')}
             </Button>
           </div>
         </div>

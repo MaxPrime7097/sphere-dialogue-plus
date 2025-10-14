@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Dialog,
   DialogContent,
@@ -11,13 +12,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Heart, Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
-
-const commentSchema = z.object({
-  content: z.string()
-    .trim()
-    .min(1, { message: "Comment cannot be empty" })
-    .max(500, { message: "Comment must be less than 500 characters" })
-});
 
 interface Comment {
   id: string;
@@ -38,8 +32,16 @@ interface CommentsModalProps {
 }
 
 export function CommentsModal({ open, onOpenChange, postId }: CommentsModalProps) {
+  const { t } = useTranslation();
   const [newComment, setNewComment] = useState("");
   const { toast } = useToast();
+  
+  const commentSchema = z.object({
+    content: z.string()
+      .trim()
+      .min(1, { message: t('modals.comments.validation.tooShort') })
+      .max(500, { message: t('modals.comments.validation.tooLong') })
+  });
   
   // Mock comments
   const comments: Comment[] = [
@@ -50,7 +52,7 @@ export function CommentsModal({ open, onOpenChange, postId }: CommentsModalProps
         avatar: "/placeholder-avatar.jpg",
         username: "sophie_m"
       },
-      content: "Really interesting! Thanks for sharing 👍",
+      content: t('modals.comments.sample1', { defaultValue: "Vraiment intéressant ! Merci du partage 👍" }),
       timestamp: "1h ago",
       likes: 3
     },
@@ -61,7 +63,7 @@ export function CommentsModal({ open, onOpenChange, postId }: CommentsModalProps
         avatar: "/placeholder-avatar.jpg",
         username: "lucas_d"
       },
-      content: "I totally agree with you!",
+      content: t('modals.comments.sample2', { defaultValue: "Je suis complètement d'accord avec toi !" }),
       timestamp: "2h ago",
       likes: 1
     }
@@ -73,16 +75,14 @@ export function CommentsModal({ open, onOpenChange, postId }: CommentsModalProps
     if (!validation.success) {
       toast({
         variant: "destructive",
-        title: "Invalid comment",
+        title: t('modals.comments.invalidTitle', { defaultValue: "Commentaire invalide" }),
         description: validation.error.errors[0].message,
       });
       return;
     }
 
-    // Would integrate with backend
     toast({
-      title: "Comment posted",
-      description: "Your comment has been added",
+      title: t('modals.comments.validation.posted'),
     });
     setNewComment("");
   };
@@ -91,7 +91,7 @@ export function CommentsModal({ open, onOpenChange, postId }: CommentsModalProps
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl max-h-[80vh] flex flex-col p-0 bg-popover">
         <DialogHeader className="px-6 py-4 border-b">
-          <DialogTitle>Comments</DialogTitle>
+          <DialogTitle>{t('modals.comments.title')}</DialogTitle>
         </DialogHeader>
         
         <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4">
@@ -120,7 +120,7 @@ export function CommentsModal({ open, onOpenChange, postId }: CommentsModalProps
                     <Heart className="h-3 w-3" />
                     {comment.likes}
                   </button>
-                  <button className="hover:text-primary">Reply</button>
+                  <button className="hover:text-primary">{t('modals.comments.reply')}</button>
                 </div>
               </div>
             </div>
@@ -134,7 +134,7 @@ export function CommentsModal({ open, onOpenChange, postId }: CommentsModalProps
             </Avatar>
             <div className="flex-1 flex gap-2">
               <Textarea
-                placeholder="Write a comment..."
+                placeholder={t('modals.comments.placeholder')}
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && (e.preventDefault(), handleSubmit())}
