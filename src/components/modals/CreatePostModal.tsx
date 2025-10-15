@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
-import { Plus, Image, MapPin, Users, X, Lock, Globe, Video, FileText, Smile } from "lucide-react";
+import { Plus, Image, MapPin, Users, X, Lock, Globe, Video, FileText, Smile, AtSign } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 interface CreatePostModalProps {
   children: React.ReactNode;
@@ -23,6 +25,11 @@ export function CreatePostModal({ children }: CreatePostModalProps) {
   const [visibility, setVisibility] = useState("public");
   const [allowComments, setAllowComments] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
+  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [showMentions, setShowMentions] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const { toast } = useToast();
 
   const addTag = () => {
     if (newTag.trim() && !tags.includes(newTag.trim())) {
@@ -35,15 +42,67 @@ export function CreatePostModal({ children }: CreatePostModalProps) {
     setTags(tags.filter(tag => tag !== tagToRemove));
   };
 
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files) {
+      const newFiles = Array.from(files);
+      const totalSize = [...uploadedFiles, ...newFiles].reduce((acc, file) => acc + file.size, 0);
+      
+      if (totalSize > 50 * 1024 * 1024) { // 50MB limit
+        toast({
+          title: "Fichier trop volumineux",
+          description: "La taille totale des fichiers ne peut pas dépasser 50MB",
+          variant: "destructive"
+        });
+        return;
+      }
+      
+      setUploadedFiles([...uploadedFiles, ...newFiles]);
+      toast({
+        title: "Fichier ajouté",
+        description: `${newFiles.length} fichier(s) ajouté(s)`
+      });
+    }
+  };
+
+  const removeFile = (index: number) => {
+    setUploadedFiles(uploadedFiles.filter((_, i) => i !== index));
+  };
+
+  const insertEmoji = (emoji: string) => {
+    setContent(content + emoji);
+    setShowEmojiPicker(false);
+  };
+
+  const insertMention = (username: string) => {
+    setContent(content + `@${username} `);
+    setShowMentions(false);
+  };
+
   const handleSubmit = () => {
     if (content.trim()) {
-      console.log("Creating post:", { content, location, tags, category, visibility, allowComments });
+      console.log("Creating post:", { 
+        content, 
+        location, 
+        tags, 
+        category, 
+        visibility, 
+        allowComments,
+        files: uploadedFiles 
+      });
+      
+      toast({
+        title: "Post publié !",
+        description: "Votre post a été partagé avec succès."
+      });
+
       setContent("");
       setLocation("");
       setTags([]);
       setCategory("general");
       setVisibility("public");
       setAllowComments(true);
+      setUploadedFiles([]);
       setIsOpen(false);
     }
   };
@@ -185,28 +244,109 @@ export function CreatePostModal({ children }: CreatePostModalProps) {
           {/* Médias et Options */}
           <div>
             <Label className="mb-3 block">Ajouter des médias</Label>
+            <input
+              ref={fileInputRef}
+              type="file"
+              multiple
+              accept="image/*,video/*,.pdf,.doc,.docx"
+              onChange={handleFileUpload}
+              className="hidden"
+            />
             <div className="flex flex-wrap gap-2">
-              <Button variant="outline" className="gap-2">
+              <Button 
+                variant="outline" 
+                className="gap-2"
+                onClick={() => fileInputRef.current?.click()}
+              >
                 <Image className="h-4 w-4" />
-                Photos
+                Photos/Vidéos
               </Button>
-              <Button variant="outline" className="gap-2">
-                <Video className="h-4 w-4" />
-                Vidéo
-              </Button>
-              <Button variant="outline" className="gap-2">
+              <Button 
+                variant="outline" 
+                className="gap-2"
+                onClick={() => fileInputRef.current?.click()}
+              >
                 <FileText className="h-4 w-4" />
                 Document
               </Button>
-              <Button variant="outline" className="gap-2">
+              <Button 
+                variant="outline" 
+                className="gap-2"
+                onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+              >
                 <Smile className="h-4 w-4" />
-                GIF/Emoji
+                Emoji
               </Button>
-              <Button variant="outline" className="gap-2">
-                <Users className="h-4 w-4" />
+              <Button 
+                variant="outline" 
+                className="gap-2"
+                onClick={() => setShowMentions(!showMentions)}
+              >
+                <AtSign className="h-4 w-4" />
                 Mentionner
               </Button>
             </div>
+
+            {/* Emoji Picker */}
+            {showEmojiPicker && (
+              <Card className="mt-2 p-3">
+                <div className="grid grid-cols-8 gap-2">
+                  {['😀', '😂', '🥰', '😎', '🤔', '👍', '🎉', '🔥', '💯', '✨', '🚀', '❤️', '👏', '🙌', '💪', '🎯'].map((emoji) => (
+                    <Button
+                      key={emoji}
+                      variant="ghost"
+                      className="text-2xl p-2 h-auto"
+                      onClick={() => insertEmoji(emoji)}
+                    >
+                      {emoji}
+                    </Button>
+                  ))}
+                </div>
+              </Card>
+            )}
+
+            {/* Mentions */}
+            {showMentions && (
+              <Card className="mt-2 p-3">
+                <div className="space-y-2">
+                  {['alex_dubois', 'sophie_m', 'lucas_dev', 'emma_b'].map((username) => (
+                    <Button
+                      key={username}
+                      variant="ghost"
+                      className="w-full justify-start"
+                      onClick={() => insertMention(username)}
+                    >
+                      @{username}
+                    </Button>
+                  ))}
+                </div>
+              </Card>
+            )}
+
+            {/* Uploaded Files */}
+            {uploadedFiles.length > 0 && (
+              <div className="mt-3 space-y-2">
+                <Label>Fichiers joints ({uploadedFiles.length})</Label>
+                {uploadedFiles.map((file, index) => (
+                  <div key={index} className="flex items-center justify-between p-2 border rounded-lg">
+                    <div className="flex items-center gap-2">
+                      <FileText className="h-4 w-4 text-muted-foreground" />
+                      <span className="text-sm">{file.name}</span>
+                      <span className="text-xs text-muted-foreground">
+                        ({(file.size / 1024).toFixed(1)} KB)
+                      </span>
+                    </div>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={() => removeFile(index)}
+                    >
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Options supplémentaires */}

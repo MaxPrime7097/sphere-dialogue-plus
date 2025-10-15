@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { MapPin, Calendar, Link, Users, BookOpen, Award, Settings, FileText, Briefcase, GraduationCap } from "lucide-react";
+import { MapPin, Calendar, Link, Users, BookOpen, Award, Settings, FileText, Briefcase, GraduationCap, Camera, Smile } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -12,6 +12,7 @@ import { PostCard } from "@/components/feed/PostCard";
 export function Profile() {
   const navigate = useNavigate();
   const [isFollowing, setIsFollowing] = useState(false);
+  const [currentMood, setCurrentMood] = useState("🚀 En pleine révision !");
 
   const isOwnProfile = true; // TODO: Check if viewing own profile
 
@@ -26,6 +27,7 @@ export function Profile() {
     phoneNumber: "+33 6 12 34 56 78",
     dateOfBirth: "15/03/2001",
     avatar: "/placeholder-avatar.jpg",
+    banner: "/placeholder-gaming.jpg",
     bio: "Étudiant en informatique passionné par l'IA et le développement web. Toujours prêt à aider et à apprendre !",
     town: "Paris",
     language: "Français",
@@ -146,17 +148,47 @@ export function Profile() {
     <div className="min-h-screen bg-gradient-to-br from-background to-accent/20">
       <div className="container max-w-4xl mx-auto py-6 px-4">
         {/* Profile Header */}
-        <Card className="campus-card campus-animate-fade-in">
-          <CardContent className="p-6">
+        <Card className="campus-card campus-animate-fade-in overflow-hidden p-0">
+          {/* Banner */}
+          <div className="relative h-48 bg-gradient-to-r from-primary/20 via-primary/10 to-accent/20">
+            <img 
+              src={user.banner} 
+              alt="Profile banner" 
+              className="w-full h-full object-cover"
+            />
+            {isOwnProfile && (
+              <Button
+                size="sm"
+                variant="secondary"
+                className="absolute top-4 right-4 gap-2"
+              >
+                <Camera className="h-4 w-4" />
+                Modifier la bannière
+              </Button>
+            )}
+          </div>
+
+          <CardContent className="p-6 -mt-16 relative">
             <div className="flex flex-col md:flex-row gap-6">
               {/* Avatar */}
               <div className="flex flex-col items-center space-y-4">
-                <Avatar className="h-32 w-32 ring-4 ring-primary/20">
-                  <AvatarImage src={user.avatar} />
-                  <AvatarFallback className="campus-gradient text-white font-bold text-2xl">
-                    AD
-                  </AvatarFallback>
-                </Avatar>
+                <div className="relative">
+                  <Avatar className="h-32 w-32 ring-4 ring-background">
+                    <AvatarImage src={user.avatar} />
+                    <AvatarFallback className="campus-gradient text-white font-bold text-2xl">
+                      AD
+                    </AvatarFallback>
+                  </Avatar>
+                  {isOwnProfile && (
+                    <Button
+                      size="icon"
+                      variant="secondary"
+                      className="absolute bottom-0 right-0 h-8 w-8 rounded-full"
+                    >
+                      <Camera className="h-4 w-4" />
+                    </Button>
+                  )}
+                </div>
                 <div className="flex gap-2">
                   {!isOwnProfile && (
                     <Button 
@@ -186,6 +218,25 @@ export function Profile() {
                 <div>
                   <h1 className="text-2xl font-bold">{user.name}</h1>
                   <p className="text-muted-foreground">@{user.username}</p>
+                </div>
+
+                {/* Mood du moment */}
+                <div className="flex items-center gap-2 p-3 bg-accent/50 rounded-lg">
+                  <Smile className="h-4 w-4 text-primary" />
+                  <span className="text-sm font-medium">{currentMood}</span>
+                  {isOwnProfile && (
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      className="ml-auto h-7 text-xs"
+                      onClick={() => {
+                        const newMood = prompt("Quel est votre mood du moment ?", currentMood);
+                        if (newMood) setCurrentMood(newMood);
+                      }}
+                    >
+                      Modifier
+                    </Button>
+                  )}
                 </div>
 
                 <p className="text-foreground leading-relaxed">{user.bio}</p>

@@ -25,6 +25,8 @@ import { EventDetail } from "./pages/EventDetail";
 import { GroupDetail } from "./pages/GroupDetail";
 import { Resources } from "./pages/Resources";
 import { ResourceDetail } from "./pages/ResourceDetail";
+import { Spheres } from "./pages/Spheres";
+import { SphereDetail } from "./pages/SphereDetail";
 import { AdminDashboard } from "./pages/admin/AdminDashboard";
 import { About } from "./pages/About";
 import { Contact } from "./pages/Contact";
@@ -137,6 +139,16 @@ const App = () => (
           <Route path="/resources/:id" element={
             <AppLayout>
               <ResourceDetail />
+            </AppLayout>
+          } />
+          <Route path="/spheres" element={
+            <AppLayout>
+              <Spheres />
+            </AppLayout>
+          } />
+          <Route path="/spheres/:id" element={
+            <AppLayout>
+              <SphereDetail />
             </AppLayout>
           } />
           <Route path="/cs-inc/admin" element={

@@ -1,5 +1,6 @@
 import { CreatePost } from "@/components/feed/CreatePost";
 import { PostCard } from "@/components/feed/PostCard";
+import { FriendSuggestions } from "@/components/feed/FriendSuggestions";
 
 // Mock data pour les posts
 const mockPosts = [
@@ -66,9 +67,14 @@ export function Home() {
       <div className="w-full max-w-2xl mx-auto py-4 md:py-6 px-3 md:px-4 space-y-4 md:space-y-6">
 
         {/* Create Post */}
-        <div className="campus-animate-slide-up">
-          <CreatePost />
-        </div>
+      <div className="campus-animate-slide-up">
+        <CreatePost />
+      </div>
+
+      {/* Friend Suggestions */}
+      <div className="campus-animate-slide-up">
+        <FriendSuggestions />
+      </div>
 
         {/* Posts Feed */}
         <div className="space-y-4">
