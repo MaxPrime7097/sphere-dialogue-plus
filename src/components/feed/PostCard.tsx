@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Heart, MessageCircle, Share, Bookmark, MoreVertical } from "lucide-react";
+import { Heart, MessageCircle, Share, Bookmark, MoreVertical, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { CommentsModal } from "@/components/modals/CommentsModal";
 import { useNavigate } from "react-router-dom";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { cn } from "@/lib/utils";
 
 interface PostCardProps {
   post: {
@@ -21,6 +23,7 @@ interface PostCardProps {
       avatar?: string;
       username: string;
       isVerified?: boolean;
+      impactScore?: number;
     };
     content: string;
     image?: string;
@@ -28,15 +31,19 @@ interface PostCardProps {
     likes: number;
     comments: number;
     category?: string;
+    impactScore?: number;
   };
 }
 
 export function PostCard({ post }: PostCardProps) {
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
   const [isLiked, setIsLiked] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [likesCount, setLikesCount] = useState(post.likes);
   const [commentsOpen, setCommentsOpen] = useState(false);
+  const [impactRating, setImpactRating] = useState<number | null>(null);
+  const [impactScore, setImpactScore] = useState(post.impactScore || 0);
 
   const handleLike = () => {
     setIsLiked(!isLiked);
@@ -47,9 +54,21 @@ export function PostCard({ post }: PostCardProps) {
     setIsSaved(!isSaved);
   };
 
+  const handleImpactRate = (rating: number) => {
+    setImpactRating(rating);
+    setImpactScore((prev) => prev + rating);
+  };
+
+  const cardClasses = cn(
+    "transition-all duration-300",
+    isMobile 
+      ? "rounded-none border-x-0 border-t-0 shadow-none bg-card" 
+      : "campus-card hover:campus-glow"
+  );
+
   return (
     <>
-      <Card className="campus-card hover:campus-glow transition-all duration-300">
+      <Card className={cardClasses}>
         <CardHeader className="pb-3">
           <div className="flex items-start justify-between">
             <div 
@@ -114,6 +133,34 @@ export function PostCard({ post }: PostCardProps) {
             </div>
           )}
           
+          {/* Impact Score Rating */}
+          <div className="flex items-center justify-between pt-2 pb-2">
+            <div className="flex items-center gap-2">
+              <Zap className="h-4 w-4 text-primary" />
+              <span className="text-sm font-semibold text-primary">{impactScore}</span>
+              <span className="text-xs text-muted-foreground">Impact Score</span>
+            </div>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm" className="gap-2">
+                  <Zap className="h-4 w-4" />
+                  Noter l'impact
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={() => handleImpactRate(10)}>
+                  ⚡⚡⚡ Impact élevé (+10)
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleImpactRate(5)}>
+                  ⚡⚡ Impact moyen (+5)
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleImpactRate(1)}>
+                  ⚡ Impact faible (+1)
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+
           <div className="flex items-center justify-between pt-2 border-t">
             <div className="flex items-center gap-4">
               <Button

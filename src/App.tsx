@@ -34,6 +34,11 @@ import { FAQ } from "./pages/FAQ";
 import { ForgotPassword } from "./pages/ForgotPassword";
 import { Privacy } from "./pages/Privacy";
 import { Terms } from "./pages/Terms";
+import { CookiePolicy } from "./pages/CookiePolicy";
+import { CommunityGuidelines } from "./pages/CommunityGuidelines";
+import { Copyright } from "./pages/Copyright";
+import { DataDeletion } from "./pages/DataDeletion";
+import { Connections } from "./pages/Connections";
 
 const queryClient = new QueryClient();
 
@@ -116,6 +121,11 @@ const App = () => (
               <EditProfile />
             </AppLayout>
           } />
+          <Route path="/connections" element={
+            <AppLayout>
+              <Connections />
+            </AppLayout>
+          } />
           <Route path="/saved" element={
             <AppLayout>
               <SavedItems />
@@ -163,6 +173,10 @@ const App = () => (
           <Route path="/cs-inc/faq" element={<FAQ />} />
           <Route path="/cs-inc/policies/privacy" element={<Privacy />} />
           <Route path="/cs-inc/policies/terms" element={<Terms />} />
+          <Route path="/cs-inc/policies/cookies" element={<CookiePolicy />} />
+          <Route path="/cs-inc/policies/community-guidelines" element={<CommunityGuidelines />} />
+          <Route path="/cs-inc/policies/copyright" element={<Copyright />} />
+          <Route path="/cs-inc/policies/data-deletion" element={<DataDeletion />} />
           
           {/* 404 */}
           <Route path="*" element={<NotFound />} />
