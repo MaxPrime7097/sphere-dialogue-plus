@@ -42,7 +42,7 @@ export function PostCard({ post }: PostCardProps) {
   const [isSaved, setIsSaved] = useState(false);
   const [likesCount, setLikesCount] = useState(post.likes);
   const [commentsOpen, setCommentsOpen] = useState(false);
-  const [impactRating, setImpactRating] = useState<number | null>(null);
+  const [hasRated, setHasRated] = useState(false);
   const [impactScore, setImpactScore] = useState(post.impactScore || 0);
 
   const handleLike = () => {
@@ -55,7 +55,8 @@ export function PostCard({ post }: PostCardProps) {
   };
 
   const handleImpactRate = (rating: number) => {
-    setImpactRating(rating);
+    if (hasRated) return;
+    setHasRated(true);
     setImpactScore((prev) => prev + rating);
   };
 
@@ -142,9 +143,14 @@ export function PostCard({ post }: PostCardProps) {
             </div>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm" className="gap-2">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="gap-2"
+                  disabled={hasRated}
+                >
                   <Zap className="h-4 w-4" />
-                  Noter l'impact
+                  {hasRated ? "Déjà noté" : "Noter l'impact"}
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">

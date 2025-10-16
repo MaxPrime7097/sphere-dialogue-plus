@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { MapPin, Calendar, Link, Users, BookOpen, Award, Settings, FileText, Briefcase, GraduationCap, Camera, Smile } from "lucide-react";
+import { MapPin, Calendar, Link, Users, BookOpen, Award, Settings, FileText, Briefcase, GraduationCap, Camera, Smile, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -82,7 +82,8 @@ export function Profile() {
     stats: {
       posts: 42,
       followers: 234,
-      following: 189
+      following: 189,
+      impactScore: 892
     },
     badges: ["Contributeur actif", "Mentor", "Top étudiant"]
   };
@@ -270,6 +271,11 @@ export function Profile() {
                   <div>
                     <span className="font-semibold">{user.stats.following}</span>
                     <span className="text-muted-foreground ml-1">Following</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Zap className="h-4 w-4 text-primary" />
+                    <span className="font-semibold text-primary">{user.stats.impactScore}</span>
+                    <span className="text-muted-foreground ml-1">Impact Score</span>
                   </div>
                 </div>
 
