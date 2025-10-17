@@ -16,6 +16,9 @@ import { Library } from "./pages/Library";
 import { Wellness } from "./pages/Wellness";
 import { Messages } from "./pages/Messages";
 import { Settings } from "./pages/Settings";
+import { PersonalInfo } from "./pages/account/PersonalInfo";
+import { ChangePassword } from "./pages/account/ChangePassword";
+import { EmailAuth } from "./pages/account/EmailAuth";
 import NotFound from "./pages/NotFound";
 import { Notifications } from "./pages/Notifications";
 import { SearchResults } from "./pages/SearchResults";
@@ -104,6 +107,21 @@ const App = () => (
           <Route path="/settings" element={
             <AppLayout>
               <Settings />
+            </AppLayout>
+          } />
+          <Route path="/settings/personal-info" element={
+            <AppLayout>
+              <PersonalInfo />
+            </AppLayout>
+          } />
+          <Route path="/settings/change-password" element={
+            <AppLayout>
+              <ChangePassword />
+            </AppLayout>
+          } />
+          <Route path="/settings/email-auth" element={
+            <AppLayout>
+              <EmailAuth />
             </AppLayout>
           } />
           <Route path="/notifications" element={

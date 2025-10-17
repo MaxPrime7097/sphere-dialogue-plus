@@ -217,7 +217,7 @@ export function Library() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-accent/20">
-      <div className="w-full max-w-7xl mx-auto py-4 md:py-6 px-3 md:px-4">
+      <div className="container max-w-7xl mx-auto py-4 md:py-6 px-3 md:px-4 overflow-x-hidden">
         {/* Header */}
         <div className="mb-6 campus-animate-fade-in">
           <h1 className="text-3xl font-bold campus-gradient bg-clip-text text-transparent mb-2">

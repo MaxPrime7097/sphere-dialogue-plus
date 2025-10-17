@@ -39,7 +39,7 @@ export function EditProfile() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-accent/20">
-      <div className="container max-w-3xl mx-auto py-6 px-4">
+      <div className="container max-w-3xl mx-auto py-4 md:py-6 px-3 md:px-4 overflow-x-hidden">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-3xl font-bold campus-gradient bg-clip-text text-transparent">
             Modifier le profil

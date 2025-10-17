@@ -98,7 +98,7 @@ export function Wellness() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-accent/20">
-      <div className="container max-w-6xl mx-auto py-6 px-4">
+      <div className="container max-w-6xl mx-auto py-4 md:py-6 px-3 md:px-4 overflow-x-hidden">
         {/* Header */}
         <div className="text-center mb-8 campus-animate-fade-in">
           <h1 className="text-3xl font-bold campus-gradient bg-clip-text text-transparent mb-2">

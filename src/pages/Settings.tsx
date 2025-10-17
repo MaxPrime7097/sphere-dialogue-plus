@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { User, Bell, Shield, Globe, Moon, Sun, ChevronRight, Lock, Mail, Trash2, Eye, FileText, UserX } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -21,6 +22,7 @@ import {
 } from "@/components/ui/alert-dialog";
 
 export function Settings() {
+  const navigate = useNavigate();
   const { t, i18n } = useTranslation();
   const [darkMode, setDarkMode] = useState(false);
   const [timezone, setTimezone] = useState("america-new-york");
@@ -74,17 +76,17 @@ export function Settings() {
         { 
           label: t('settings.account.personalInfo'),
           icon: User,
-          action: () => toast({ title: t('settings.toast.comingSoon'), description: t('settings.account.personalInfo') })
+          action: () => navigate('/settings/personal-info')
         },
         { 
           label: t('settings.account.password'),
           icon: Lock,
-          action: () => toast({ title: t('settings.toast.comingSoon'), description: t('settings.account.password') })
+          action: () => navigate('/settings/change-password')
         },
         { 
           label: t('settings.account.emailAuth'),
           icon: Mail,
-          action: () => toast({ title: t('settings.toast.comingSoon'), description: t('settings.account.emailAuth') })
+          action: () => navigate('/settings/email-auth')
         },
         { 
           label: t('settings.account.deleteAccount'),
