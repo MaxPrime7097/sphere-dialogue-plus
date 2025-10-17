@@ -9,6 +9,7 @@ import { CreatePostModal } from "@/components/modals/CreatePostModal";
 import { MobileNavigation } from "./MobileNavigation";
 import { MobileTopBar } from "./MobileTopBar";
 import { NotificationDropdown } from "./NotificationDropdown";
+import { UserMenu } from "./UserMenu";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 
@@ -91,6 +92,8 @@ export function AppLayout({ children }: AppLayoutProps) {
                   <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
                   <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
                 </Button>
+
+                <UserMenu />
               </div>
             </div>
           </header>

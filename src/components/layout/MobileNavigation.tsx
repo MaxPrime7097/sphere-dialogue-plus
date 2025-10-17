@@ -1,4 +1,4 @@
-import { Home, Users, Calendar, MessageSquare, User, FolderOpen, ShoppingBag, LibraryBig } from "lucide-react";
+import { Home, Users, Calendar, MessageSquare, User, Waves, Heart } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -8,30 +8,25 @@ const navigationItems = [
     url: "/", 
     icon: Home 
   },
-  {
-    title: "Ressources",
-    url: "/resources",
-    icon: FolderOpen
-  },
   { 
     title: "Groupes", 
     url: "/groups", 
     icon: Users 
   },
   { 
+    title: "Sphères", 
+    url: "/spheres", 
+    icon: Waves 
+  },
+  { 
     title: "Événements", 
     url: "/events", 
     icon: Calendar 
   },
-  {
-    title: "Marketplace",
-    url: "/marketplace",
-    icon: ShoppingBag
-  },
-  {
-    title: "Bibliothèque",
-    url: "/library",
-    icon: LibraryBig
+  { 
+    title: "Bien-être", 
+    url: "/wellness", 
+    icon: Heart 
   },
   { 
     title: "Messages", 

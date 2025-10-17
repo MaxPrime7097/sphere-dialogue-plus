@@ -12,7 +12,9 @@ import {
   Info,
   LifeBuoy,
   BookLock,
-  ScrollText
+  ScrollText,
+  Waves,
+  Heart
 } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 
@@ -34,9 +36,11 @@ const navigationItems = [
   { title: "Profil", url: "/profile", icon: User },
   { title: "Ressources", url: "/resources", icon: FolderOpen },
   { title: "Groupes", url: "/groups", icon: Users },
+  { title: "Sphères", url: "/spheres", icon: Waves },
   { title: "Événements", url: "/events", icon: Calendar },
   { title: "Marketplace", url: "/marketplace", icon: ShoppingBag },
   { title: "Bibliothèque", url: "/library", icon: LibraryBig },
+  { title: "Bien-être", url: "/wellness", icon: Heart },
 ];
 
 const quickActions = [
